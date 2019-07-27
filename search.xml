@@ -1,9 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[SQL数字型注入-POST]]></title>
+    <url>%2F2019%2F07%2F28%2FSQL%E6%95%B0%E5%AD%97%E5%9E%8B%E6%B3%A8%E5%85%A5-POST%2F</url>
+    <content type="text"><![CDATA[一、实训环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar） 漏洞平台地址为：http://192.168.31.193/pika]]></content>
+      <categories>
+        <category>WEB安全</category>
+        <category>PHP</category>
+      </categories>
+      <tags>
+        <tag>SQL注入</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[SQL字符型注入 （GET）]]></title>
+    <url>%2F2019%2F07%2F27%2FSQL%E5%AD%97%E7%AC%A6%E5%9E%8B%E6%B3%A8%E5%85%A5-GET%2F</url>
+    <content type="text"><![CDATA[一、实训环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar） 漏洞平台地址为：http://192.168.31.193/pika 二、SQL注入原理数据库注入漏洞，主要是开发人员在构建代码时，没有对输入边界进行安全考虑，导致攻击可以通过合法的输入点提交一些精心构造的语句，从而欺骗后台数据库进行执行，导致数据库信息泄露的一种漏洞。 三、实验步骤 观察注入点尝试在表单中提交数据 kobe 观察URL：http://192.168.31.193/pika/vul/sqli/sqli_str.php?name=kobe&amp;submit=查询， 与网页中的表单，如图1-1所示： 检测注入点尝试在name=kobe参数后面加上 ‘ (URL编码为：%27）然后观察页面变化，URL:http://192.168.31.193/pika/vul/sqli/sqli_str.php?name=kobe&#39;submit=查询可以看到加上之后页面内容报错，出现这种现象大多数情况下时存在注入点，如图1-2所示: 查询显示的字段数尝试使用order by语句判断该网页表单能够显示的字段数，URL:http://192.168.31.193/pika/vul/sqli/sqli_str.php?name=1%27order+by+3+--+&amp;submit=查询， 出现“Unknown column ‘3’ in ‘order clause’” ，3表示已经超出表单的显示数量，所以该表单的字段的显示数量为2个字段，如图1-3所示： 获取当前数据库及运行数据库的用户名使用联合查询语句union select 获取当前的数据库及运行Mysql服务的用户URL:http://192.168.31.193/pika/vul/sqli/sqli_str.php?name=1%27union+select+database(),user()+--+&amp;submit=查询 ，效果如图1-4所示： 通过SQL注入漏洞读取WEB服务器本地的文件内容使用load_file()语句读取本地C盘中的flag.txt文件内容URL：http://192.168.31.193/pika/vul/sqli/sqli_str.php?name=1%27%20union%20select%20null,load_file(%22C:\\flag.txt%22)+--+&amp;submit=查询 ，效果如图1-5所示：flag.txt文件内容： 四、代码理解与防范方法 源代码 12345678910111213141516171819$link=connect();$html=&apos;&apos;;if(isset($_GET[&apos;submit&apos;]) &amp;&amp; $_GET[&apos;name&apos;]!=null)&#123; //这里没有做任何处理，直接拼到select里面去了 $name=$_GET[&apos;name&apos;]; //这里的变量是字符型，需要考虑闭合 $query=&quot;select id,email from member where username=&apos;$name&apos;&quot;; $result=execute($link, $query) ; if(mysqli_num_rows($result)&gt;=1)&#123; while($data=mysqli_fetch_assoc($result))&#123; $id=$data[&apos;id&apos;]; $email=$data[&apos;email&apos;]; $html.=&quot;&lt;p class=&apos;notice&apos;&gt;your uid:&#123;$id&#125; &lt;br /&gt;your email is: &#123;$email&#125;&lt;/p&gt;&quot;; &#125; &#125;else&#123; $html.=&quot;&lt;p class=&apos;notice&apos;&gt;您输入的username不存在，请重新输入！&lt;/p&gt;&quot;; &#125;&#125; 通过函数转义的方式对源代码进行加固 123456789101112131415161718192021$link=connect();$html=&apos;&apos;;if(isset($_GET[&apos;submit&apos;]) &amp;&amp; $_GET[&apos;name&apos;]!=null)&#123; //这里没有做任何处理，直接拼到select里面去了 $name=$_GET[&apos;name&apos;]; //addslashes()若$name所传入的字符串中带有特殊字符，则该函数会在特殊符号前添加“/”，表示将其转义 //$name = addslashes($name); //这里的变量是字符型，需要考虑闭合 $query=&quot;select id,email from member where username=&apos;$name&apos;&quot;; $result=execute($link, $query) ; if(mysqli_num_rows($result)&gt;=1)&#123; while($data=mysqli_fetch_assoc($result))&#123; $id=$data[&apos;id&apos;]; $email=$data[&apos;email&apos;]; $html.=&quot;&lt;p class=&apos;notice&apos;&gt;your uid:&#123;$id&#125; &lt;br /&gt;your email is: &#123;$email&#125;&lt;/p&gt;&quot;; &#125; &#125;else&#123; $html.=&quot;&lt;p class=&apos;notice&apos;&gt;您输入的username不存在，请重新输入！&lt;/p&gt;&quot;; &#125;&#125; 测试防护效果]]></content>
+      <categories>
+        <category>WEB安全</category>
+        <category>PHP</category>
+      </categories>
+      <tags>
+        <tag>SQL注入</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[SQL注入]]></title>
     <url>%2F2019%2F07%2F27%2FSQL%E6%B3%A8%E5%85%A5%2F</url>
-    <content type="text"><![CDATA[标题1标题2 无序列表 无序列表 1.有序列表12.有序列表2 内嵌代码 1service 引用]]></content>
+    <content type="text"><![CDATA[标题1标题2 无序列表 无序列表 1.有序列表12.有序列表2 内嵌代码 1service]]></content>
       <categories>
         <category>WEB安全</category>
         <category>PHP</category>

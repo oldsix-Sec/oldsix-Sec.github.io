@@ -341,7 +341,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/27/SQL注入/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/28/SQL数字型注入-POST/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shu Shen">
@@ -361,7 +361,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/07/27/SQL注入/" class="post-title-link" itemprop="url">SQL注入</a>
+                <a href="/2019/07/28/SQL数字型注入-POST/" class="post-title-link" itemprop="url">SQL数字型注入-POST</a>
               
             
           </h1>
@@ -386,7 +386,7 @@
                 
               
 
-              <time title="创建时间：2019-07-27 17:30:43 / 修改时间：18:04:29" itemprop="dateCreated datePublished" datetime="2019-07-27T17:30:43+08:00">2019-07-27</time>
+              <time title="创建时间：2019-07-28 00:17:58 / 修改时间：00:19:03" itemprop="dateCreated datePublished" datetime="2019-07-28T00:17:58+08:00">2019-07-28</time>
             </span>
           
 
@@ -449,19 +449,391 @@
       
         
           
-            <h1 id="标题1"><a href="#标题1" class="headerlink" title="标题1"></a>标题1</h1><h2 id="标题2"><a href="#标题2" class="headerlink" title="标题2"></a>标题2</h2><ul>
+            <h2 id="一、实训环境"><a href="#一、实训环境" class="headerlink" title="一、实训环境"></a>一、实训环境</h2><ol>
+<li>Pikachu漏洞联系平台 （Windows+Phpstudy环境）</li>
+<li>火狐浏览器（附带插件HackBar）</li>
+<li>漏洞平台地址为：<a href="http://192.168.31.193/pika" target="_blank" rel="noopener">http://192.168.31.193/pika</a></li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/27/SQL字符型注入-GET/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu Shen">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/timg.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OldSix-Sec">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/07/27/SQL字符型注入-GET/" class="post-title-link" itemprop="url">SQL字符型注入 （GET）</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-27 22:34:31" itemprop="dateCreated datePublished" datetime="2019-07-27T22:34:31+08:00">2019-07-27</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-07-28 00:14:23" itemprop="dateModified" datetime="2019-07-28T00:14:23+08:00">2019-07-28</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB安全/" itemprop="url" rel="index"><span itemprop="name">WEB安全</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB安全/PHP/" itemprop="url" rel="index"><span itemprop="name">PHP</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <a id="more"></a>
+<h2 id="一、实训环境"><a href="#一、实训环境" class="headerlink" title="一、实训环境"></a>一、实训环境</h2><ol>
+<li>Pikachu漏洞联系平台 （Windows+Phpstudy环境）</li>
+<li>火狐浏览器（附带插件HackBar）</li>
+<li>漏洞平台地址为：<a href="http://192.168.31.193/pika" target="_blank" rel="noopener">http://192.168.31.193/pika</a></li>
+</ol>
+<h2 id="二、SQL注入原理"><a href="#二、SQL注入原理" class="headerlink" title="二、SQL注入原理"></a>二、SQL注入原理</h2><p>数据库注入漏洞，主要是开发人员在构建代码时，没有对输入边界进行安全考虑，导致攻击可以通过<strong>合法的输入点提交一些精心构造的语句，从而欺骗后台数据库进行执行</strong>，导致数据库信息泄露的一种漏洞。</p>
+<h2 id="三、实验步骤"><a href="#三、实验步骤" class="headerlink" title="三、实验步骤"></a>三、实验步骤</h2><ol>
+<li><p>观察注入点<br>尝试在表单中提交数据 kobe 观察URL：<a href="http://192.168.31.193/pika/vul/sqli/sqli_str.php?name=kobe&amp;submit=查询，" target="_blank" rel="noopener">http://192.168.31.193/pika/vul/sqli/sqli_str.php?name=kobe&amp;submit=查询，</a> 与网页中的表单，如图1-1所示：<br><img src="/images/SQL-Inject/1-1.png" alt="图1-1"></p>
+</li>
+<li><p>检测注入点<br>尝试在name=kobe参数后面加上 ‘ (URL编码为：%27）<br>然后观察页面变化，URL:<a href="http://192.168.31.193/pika/vul/sqli/sqli_str.php?name=kobe&#39;submit=查询" target="_blank" rel="noopener">http://192.168.31.193/pika/vul/sqli/sqli_str.php?name=kobe&#39;submit=查询</a><br>可以看到加上之后页面内容报错，出现这种现象大多数情况下时存在注入点，如图1-2所示:<br><img src="/images/SQL-Inject/1-2.png" alt="图1-2"></p>
+</li>
+<li><p>查询显示的字段数<br>尝试使用order by语句判断该网页表单能够显示的字段数，URL:<a href="http://192.168.31.193/pika/vul/sqli/sqli_str.php?name=1%27order+by+3+--+&amp;submit=查询，" target="_blank" rel="noopener">http://192.168.31.193/pika/vul/sqli/sqli_str.php?name=1%27order+by+3+--+&amp;submit=查询，</a> 出现“Unknown column ‘3’ in ‘order clause’”  ，3表示已经超出表单的显示数量，所以该表单的字段的显示数量为2个字段，如图1-3所示：<br><img src="/images/SQL-Inject/1-3.png" alt="图1-3"></p>
+</li>
+<li><p>获取当前数据库及运行数据库的用户名<br>使用联合查询语句union select 获取当前的数据库及运行Mysql服务的用户<br>URL:<a href="http://192.168.31.193/pika/vul/sqli/sqli_str.php?name=1%27union+select+database(),user()+--+&amp;submit=查询" target="_blank" rel="noopener">http://192.168.31.193/pika/vul/sqli/sqli_str.php?name=1%27union+select+database(),user()+--+&amp;submit=查询</a> ，效果如图1-4所示：<br><img src="/images/SQL-Inject/1-4.png" alt="图1-4"></p>
+</li>
+<li><p>通过SQL注入漏洞读取WEB服务器本地的文件内容<br>使用load_file()语句读取本地C盘中的flag.txt文件内容URL：<a href="http://192.168.31.193/pika/vul/sqli/sqli_str.php?name=1%27%20union%20select%20null,load_file(%22C:\\flag.txt%22)+--+&amp;submit=查询" target="_blank" rel="noopener">http://192.168.31.193/pika/vul/sqli/sqli_str.php?name=1%27%20union%20select%20null,load_file(%22C:\\flag.txt%22)+--+&amp;submit=查询</a> ，效果如图1-5所示：<br><img src="/images/SQL-Inject/1-5.png" alt="图1-5"><br>flag.txt文件内容：<br><img src="/images/SQL-Inject/flag.png" alt="flag"></p>
+</li>
+</ol>
+<h2 id="四、代码理解与防范方法"><a href="#四、代码理解与防范方法" class="headerlink" title="四、代码理解与防范方法"></a>四、代码理解与防范方法</h2><ol>
+<li><p>源代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$link=connect();</span><br><span class="line">$html=&apos;&apos;;</span><br><span class="line">if(isset($_GET[&apos;submit&apos;]) &amp;&amp; $_GET[&apos;name&apos;]!=null)&#123;</span><br><span class="line">    //这里没有做任何处理，直接拼到select里面去了</span><br><span class="line">    $name=$_GET[&apos;name&apos;];</span><br><span class="line">    //这里的变量是字符型，需要考虑闭合</span><br><span class="line">    $query=&quot;select id,email from member where username=&apos;$name&apos;&quot;;</span><br><span class="line">    $result=execute($link, $query) ;</span><br><span class="line">    if(mysqli_num_rows($result)&gt;=1)&#123;</span><br><span class="line">        while($data=mysqli_fetch_assoc($result))&#123;</span><br><span class="line">            $id=$data[&apos;id&apos;];</span><br><span class="line">            $email=$data[&apos;email&apos;];</span><br><span class="line">            $html.=&quot;&lt;p class=&apos;notice&apos;&gt;your uid:&#123;$id&#125; &lt;br /&gt;your email is: &#123;$email&#125;&lt;/p&gt;&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line"></span><br><span class="line">        $html.=&quot;&lt;p class=&apos;notice&apos;&gt;您输入的username不存在，请重新输入！&lt;/p&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过函数转义的方式对源代码进行加固</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">$link=connect();</span><br><span class="line">$html=&apos;&apos;;</span><br><span class="line">if(isset($_GET[&apos;submit&apos;]) &amp;&amp; $_GET[&apos;name&apos;]!=null)&#123;</span><br><span class="line">    //这里没有做任何处理，直接拼到select里面去了</span><br><span class="line">    $name=$_GET[&apos;name&apos;];</span><br><span class="line">    //addslashes()若$name所传入的字符串中带有特殊字符，则该函数会在特殊符号前添加“/”，表示将其转义</span><br><span class="line">    //$name = addslashes($name);</span><br><span class="line">    //这里的变量是字符型，需要考虑闭合</span><br><span class="line">    $query=&quot;select id,email from member where username=&apos;$name&apos;&quot;;</span><br><span class="line">    $result=execute($link, $query) ;</span><br><span class="line">    if(mysqli_num_rows($result)&gt;=1)&#123;</span><br><span class="line">        while($data=mysqli_fetch_assoc($result))&#123;</span><br><span class="line">            $id=$data[&apos;id&apos;];</span><br><span class="line">            $email=$data[&apos;email&apos;];</span><br><span class="line">            $html.=&quot;&lt;p class=&apos;notice&apos;&gt;your uid:&#123;$id&#125; &lt;br /&gt;your email is: &#123;$email&#125;&lt;/p&gt;&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line"></span><br><span class="line">        $html.=&quot;&lt;p class=&apos;notice&apos;&gt;您输入的username不存在，请重新输入！&lt;/p&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试防护效果<br><img src="/images/SQL-Inject/1-6.png" alt="1-6"></p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+        
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/27/SQL注入/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu Shen">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/timg.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OldSix-Sec">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/07/27/SQL注入/" class="post-title-link" itemprop="url">SQL注入</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-07-27 17:30:43 / 修改时间：18:27:34" itemprop="dateCreated datePublished" datetime="2019-07-27T17:30:43+08:00">2019-07-27</time>
+            </span>
+          
+
+          
+            
+
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB安全/" itemprop="url" rel="index"><span itemprop="name">WEB安全</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB安全/PHP/" itemprop="url" rel="index"><span itemprop="name">PHP</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="标题1"><a href="#标题1" class="headerlink" title="标题1"></a>标题1</h1><h2 id="标题2"><a href="#标题2" class="headerlink" title="标题2"></a>标题2</h2><ul>
 <li>无序列表</li>
 <li>无序列表</li>
 </ul>
 <p>1.有序列表1<br>2.有序列表2</p>
 <p><code>内嵌代码</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>引用</p>
-</blockquote>
-
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/07/27/SQL注入/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -547,7 +919,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
