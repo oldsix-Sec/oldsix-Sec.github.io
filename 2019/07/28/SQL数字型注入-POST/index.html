@@ -99,18 +99,25 @@
   };
 </script>
 
-  <meta name="description" content="一、实训环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar） 漏洞平台地址为：http://192.168.31.193/pika">
+  <meta name="description" content="一、实验环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar与FoxyProxy） BurpSuite_Pro v1.7.26 破解版 漏洞平台地址为：http://192.168.31.193/pika  二、实验步骤 观察注入点尝试在表单的下拉菜单中提交任意数据，观察URL与网页URL：http://192.168.31.193/pik">
 <meta name="keywords" content="SQL注入">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SQL数字型注入-POST">
 <meta property="og:url" content="http://yoursite.com/2019/07/28/SQL数字型注入-POST/index.html">
 <meta property="og:site_name" content="OldSix-Sec">
-<meta property="og:description" content="一、实训环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar） 漏洞平台地址为：http://192.168.31.193/pika">
+<meta property="og:description" content="一、实验环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar与FoxyProxy） BurpSuite_Pro v1.7.26 破解版 漏洞平台地址为：http://192.168.31.193/pika  二、实验步骤 观察注入点尝试在表单的下拉菜单中提交任意数据，观察URL与网页URL：http://192.168.31.193/pik">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-27T16:19:03.989Z">
+<meta property="og:image" content="http://yoursite.com/images/SQL-Inject/2-1.png">
+<meta property="og:image" content="http://yoursite.com/images/SQL-Inject/2-2.png">
+<meta property="og:image" content="http://yoursite.com/images/SQL-Inject/2-3.png">
+<meta property="og:image" content="http://yoursite.com/images/SQL-Inject/2-4.png">
+<meta property="og:image" content="http://yoursite.com/images/SQL-Inject/2-5.png">
+<meta property="og:image" content="http://yoursite.com/images/SQL-Inject/2-6.png">
+<meta property="og:updated_time" content="2019-07-28T09:27:19.162Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQL数字型注入-POST">
-<meta name="twitter:description" content="一、实训环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar） 漏洞平台地址为：http://192.168.31.193/pika">
+<meta name="twitter:description" content="一、实验环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar与FoxyProxy） BurpSuite_Pro v1.7.26 破解版 漏洞平台地址为：http://192.168.31.193/pika  二、实验步骤 观察注入点尝试在表单的下拉菜单中提交任意数据，观察URL与网页URL：http://192.168.31.193/pik">
+<meta name="twitter:image" content="http://yoursite.com/images/SQL-Inject/2-1.png">
 
 
 
@@ -388,7 +395,7 @@
                 
               
 
-              <time title="创建时间：2019-07-28 00:17:58 / 修改时间：00:19:03" itemprop="dateCreated datePublished" datetime="2019-07-28T00:17:58+08:00">2019-07-28</time>
+              <time title="创建时间：2019-07-28 00:17:58 / 修改时间：17:27:19" itemprop="dateCreated datePublished" datetime="2019-07-28T00:17:58+08:00">2019-07-28</time>
             </span>
           
 
@@ -449,10 +456,28 @@
       
 
       
-        <h2 id="一、实训环境"><a href="#一、实训环境" class="headerlink" title="一、实训环境"></a>一、实训环境</h2><ol>
+        <h2 id="一、实验环境"><a href="#一、实验环境" class="headerlink" title="一、实验环境"></a>一、实验环境</h2><ul>
 <li>Pikachu漏洞联系平台 （Windows+Phpstudy环境）</li>
-<li>火狐浏览器（附带插件HackBar）</li>
+<li>火狐浏览器（附带插件HackBar与FoxyProxy）</li>
+<li>BurpSuite_Pro v1.7.26 破解版</li>
 <li>漏洞平台地址为：<a href="http://192.168.31.193/pika" target="_blank" rel="noopener">http://192.168.31.193/pika</a></li>
+</ul>
+<h2 id="二、实验步骤"><a href="#二、实验步骤" class="headerlink" title="二、实验步骤"></a>二、实验步骤</h2><ol>
+<li><p>观察注入点<br>尝试在表单的下拉菜单中提交任意数据，观察URL与网页<br>URL：<a href="http://192.168.31.193/pika/vul/sqli/sqli_id.php" target="_blank" rel="noopener">http://192.168.31.193/pika/vul/sqli/sqli_id.php</a> ，如图2-1所示：<br><img src="/images/SQL-Inject/2-1.png" alt="图2-1"><br>可以看到页面回显正常，但URL部分没有传值参数，判断该网页请求方式为POST</p>
+</li>
+<li><p>检测注入点<br>该网页请求方式为POST所以我们需要用到Hackbar或者BurpSuite，这里使用Burp<br>设置好代理后重新提交参数，并用Burp截断HTTP的报文，如图2-2所示：<br><img src="/images/SQL-Inject/2-2.png" alt="图2-2"><br>将该报文发送至Repeater即可开始进行注入测试，如图2-3所示：<br><img src="/images/SQL-Inject/2-3.png" alt="图2-3"><br>尝试在id=1参数修改为id=1 or 1=1,然后发送报文，查看Response，如图2-4所示：<br><img src="/images/SQL-Inject/2-4.png" alt="图2-4"><br>可以看到我们拼接的逻辑运算语句正常运行，并把数据表中的所有数据都显示出来</p>
+</li>
+<li><p>查询显示的字段数<br>尝试使用order by语句判断该网页表单能够显示的字段数，如图2-5所示：<br><img src="/images/SQL-Inject/2-5.png" alt="图2-5"></p>
+</li>
+<li><p>获取当前数据库及运行数据库的用户名<br>使用union select拼接SQL语句查看用户及数据库，如图2-6所示：<br><img src="/images/SQL-Inject/2-6.png" alt="图2-6"></p>
+</li>
+</ol>
+<h2 id="三、代码理解与防范"><a href="#三、代码理解与防范" class="headerlink" title="三、代码理解与防范"></a>三、代码理解与防范</h2><ol>
+<li><p>源代码(pika\vul\sqli\sqli_id.php)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$link=connect();</span><br><span class="line">$html=&apos;&apos;;</span><br><span class="line"></span><br><span class="line">if(isset($_POST[&apos;submit&apos;]) &amp;&amp; $_POST[&apos;id&apos;]!=null)&#123;</span><br><span class="line">    //这里没有做任何处理，直接拼到select里面去了,形成Sql注入</span><br><span class="line">    $id=$_POST[&apos;id&apos;];</span><br><span class="line">    $query=&quot;select username,email from member where id=$id&quot;; </span><br><span class="line">    $result=execute($link, $query);</span><br><span class="line">    //这里如果用==1,会严格一点</span><br><span class="line">    if(mysqli_num_rows($result)&gt;=1)&#123;</span><br><span class="line">        while($data=mysqli_fetch_assoc($result))&#123;</span><br><span class="line">            $username=$data[&apos;username&apos;];</span><br><span class="line">            $email=$data[&apos;email&apos;];</span><br><span class="line">            $html.=&quot;&lt;p class=&apos;notice&apos;&gt;hello,&#123;$username&#125; &lt;br /&gt;your email is: &#123;$email&#125;&lt;/p&gt;&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        $html.=&quot;&lt;p class=&apos;notice&apos;&gt;您输入的user id不存在，请重新输入！&lt;/p&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过判断参数类型对网页起到防护作用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$link=connect();</span><br><span class="line">$html=&apos;&apos;;</span><br><span class="line">//&amp;&amp; id_numeric($_POST[&apos;id&apos;])判断从网页传入的值是否为数字，如果带有其他字符将不运行后面的代码</span><br><span class="line">if(isset($_POST[&apos;submit&apos;]) &amp;&amp; $_POST[&apos;id&apos;]!=null &amp;&amp; id_numeric($_POST[&apos;id&apos;]))&#123;</span><br><span class="line">    //这里没有做任何处理，直接拼到select里面去了,形成Sql注入</span><br><span class="line">    $id=$_POST[&apos;id&apos;];</span><br><span class="line">    //数字型注入与字符型注入不同的地方是因为id=$id并没有使用符号进行闭合</span><br><span class="line">    $query=&quot;select username,email from member where id=$id&quot;; </span><br><span class="line">    $result=execute($link, $query);</span><br><span class="line">    //这里如果用==1,会严格一点</span><br><span class="line">    if(mysqli_num_rows($result)&gt;=1)&#123;</span><br><span class="line">        while($data=mysqli_fetch_assoc($result))&#123;</span><br><span class="line">            $username=$data[&apos;username&apos;];</span><br><span class="line">            $email=$data[&apos;email&apos;];</span><br><span class="line">            $html.=&quot;&lt;p class=&apos;notice&apos;&gt;hello,&#123;$username&#125; &lt;br /&gt;your email is: &#123;$email&#125;&lt;/p&gt;&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        $html.=&quot;&lt;p class=&apos;notice&apos;&gt;您输入的user id不存在，请重新输入！&lt;/p&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ol>
 
       
@@ -506,6 +531,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/28/pikachu环境搭建/" rel="prev" title="pikachu环境搭建">
+                pikachu环境搭建 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -575,7 +604,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -650,7 +679,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、实训环境"><span class="nav-number">1.</span> <span class="nav-text">一、实训环境</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、实验环境"><span class="nav-number">1.</span> <span class="nav-text">一、实验环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、实验步骤"><span class="nav-number">2.</span> <span class="nav-text">二、实验步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、代码理解与防范"><span class="nav-number">3.</span> <span class="nav-text">三、代码理解与防范</span></a></li></ol></div>
             
 
           </div>
