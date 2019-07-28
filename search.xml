@@ -3,7 +3,14 @@
   <entry>
     <title><![CDATA[pikachu环境搭建]]></title>
     <url>%2F2019%2F07%2F28%2Fpikachu%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%2F</url>
-    <content type="text"></content>
+    <content type="text"><![CDATA[一、需求环境 Win7 64位 phpstudy 2018 pikachu-master(pikachu漏洞练习平台) 二、安装步骤 在Win7系统中安装phpStudy(官方版为一键解压包)启动phpstudy（Mysql默认用户：root，默认密码：root） 搭建pikachu漏洞练习平台将pikachu-master解压至C:\phpStudy\PHPTutorial\WWW（用于存放网页文件的目录）初始化pikachu平台访问http://127.0.0.1/pikachu-master/install.php 搭建完成，可以开始实验]]></content>
+      <categories>
+        <category>WEB安全</category>
+        <category>PHP</category>
+      </categories>
+      <tags>
+        <tag>Windows</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[SQL数字型注入-POST]]></title>
