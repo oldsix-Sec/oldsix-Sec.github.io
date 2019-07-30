@@ -58,6 +58,10 @@
 <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
 
 
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
 
 
 
@@ -99,13 +103,13 @@
   };
 </script>
 
-  <meta name="description" content="一、实验环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar与FoxyProxy） BurpSuite_Pro v1.7.26 破解版 漏洞平台地址为：http://192.168.31.193/pika  二、漏洞概述在实际环境中，程序员很少会写一点防护都没有的代码，宽字节注入源于程序员设置MySQL连接时错误配置为“set charac">
+  <meta name="description" content="一、实验环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar与FoxyProxy） BurpSuite_Pro v1.7.26 破解版 漏洞平台地址为：http://192.168.31.193/pika  二、漏洞概述在实际环境中，程序员很少会写一点防护都没有的代码，宽字节注入源于程序员设置MySQL连接时错误配置为“set chara">
 <meta name="keywords" content="SQL注入">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SQL宽字节注入">
 <meta property="og:url" content="http://yoursite.com/2019/07/28/SQL宽字节注入/index.html">
 <meta property="og:site_name" content="OldSix-Sec">
-<meta property="og:description" content="一、实验环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar与FoxyProxy） BurpSuite_Pro v1.7.26 破解版 漏洞平台地址为：http://192.168.31.193/pika  二、漏洞概述在实际环境中，程序员很少会写一点防护都没有的代码，宽字节注入源于程序员设置MySQL连接时错误配置为“set charac">
+<meta property="og:description" content="一、实验环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar与FoxyProxy） BurpSuite_Pro v1.7.26 破解版 漏洞平台地址为：http://192.168.31.193/pika  二、漏洞概述在实际环境中，程序员很少会写一点防护都没有的代码，宽字节注入源于程序员设置MySQL连接时错误配置为“set chara">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/SQL-Inject/4-1.png">
 <meta property="og:image" content="http://yoursite.com/images/SQL-Inject/4-2.png">
@@ -113,10 +117,10 @@
 <meta property="og:image" content="http://yoursite.com/images/SQL-Inject/4-4.png">
 <meta property="og:image" content="http://yoursite.com/images/SQL-Inject/4-5.png">
 <meta property="og:image" content="http://yoursite.com/images/SQL-Inject/4-6.png">
-<meta property="og:updated_time" content="2019-07-30T08:08:31.781Z">
+<meta property="og:updated_time" content="2019-07-30T08:28:35.910Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQL宽字节注入">
-<meta name="twitter:description" content="一、实验环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar与FoxyProxy） BurpSuite_Pro v1.7.26 破解版 漏洞平台地址为：http://192.168.31.193/pika  二、漏洞概述在实际环境中，程序员很少会写一点防护都没有的代码，宽字节注入源于程序员设置MySQL连接时错误配置为“set charac">
+<meta name="twitter:description" content="一、实验环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar与FoxyProxy） BurpSuite_Pro v1.7.26 破解版 漏洞平台地址为：http://192.168.31.193/pika  二、漏洞概述在实际环境中，程序员很少会写一点防护都没有的代码，宽字节注入源于程序员设置MySQL连接时错误配置为“set chara">
 <meta name="twitter:image" content="http://yoursite.com/images/SQL-Inject/4-1.png">
 
 
@@ -410,7 +414,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-07-30 16:08:31" itemprop="dateModified" datetime="2019-07-30T16:08:31+08:00">2019-07-30</time>
+                <time title="修改时间：2019-07-30 16:28:35" itemprop="dateModified" datetime="2019-07-30T16:28:35+08:00">2019-07-30</time>
               </span>
             
           
@@ -466,7 +470,8 @@
       
 
       
-        <h2 id="一、实验环境"><a href="#一、实验环境" class="headerlink" title="一、实验环境"></a>一、实验环境</h2><ul>
+        <a id="more"></a>
+<h2 id="一、实验环境"><a href="#一、实验环境" class="headerlink" title="一、实验环境"></a>一、实验环境</h2><ul>
 <li>Pikachu漏洞联系平台 （Windows+Phpstudy环境）</li>
 <li>火狐浏览器（附带插件HackBar与FoxyProxy）</li>
 <li>BurpSuite_Pro v1.7.26 破解版</li>
@@ -766,8 +771,34 @@
     
 
     
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
 
     
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+  <script>
+    
+    
+      flOptions = {};
+      
+        flOptions.iconStyle = "box";
+      
+        flOptions.boxForm = "horizontal";
+      
+        flOptions.position = "middleRight";
+      
+        flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
 
     
 

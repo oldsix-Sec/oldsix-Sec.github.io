@@ -58,6 +58,10 @@
 <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
 
 
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
 
 
 
@@ -401,7 +405,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-07-30 16:08:31" itemprop="dateModified" datetime="2019-07-30T16:08:31+08:00">2019-07-30</time>
+                <time title="修改时间：2019-07-30 16:28:35" itemprop="dateModified" datetime="2019-07-30T16:28:35+08:00">2019-07-30</time>
               </span>
             
           
@@ -459,43 +463,26 @@
       
         
           
-            <h2 id="一、实验环境"><a href="#一、实验环境" class="headerlink" title="一、实验环境"></a>一、实验环境</h2><ul>
-<li>Pikachu漏洞联系平台 （Windows+Phpstudy环境）</li>
-<li>火狐浏览器（附带插件HackBar与FoxyProxy）</li>
-<li>BurpSuite_Pro v1.7.26 破解版</li>
-<li>漏洞平台地址为：<a href="http://192.168.31.193/pika" target="_blank" rel="noopener">http://192.168.31.193/pika</a></li>
-</ul>
-<h2 id="二、漏洞概述"><a href="#二、漏洞概述" class="headerlink" title="二、漏洞概述"></a>二、漏洞概述</h2><p>在实际环境中，程序员很少会写一点防护都没有的代码，宽字节注入源于程序员设置MySQL连接时错误配置为“set character_set_client=gbk”，这样配置会引发编码转换从而导致注入漏洞，</p>
-<ol>
-<li>正常情况下，当GPC开启或使用addslashes函数过滤GET或POST提交的参数时，攻击者使用的“&#39;”就会被转义为“\‘”。</li>
-<li>但如果存在宽字节注入%df%27时，首先经过单引号转义成%df%5c%27（%5c是反斜杠\，%27是单引号’），之后在数据库查询前使用了GBK多字节编码，即在汉字编码范围内两个字节会被编码为有个汉字。</li>
-<li>然后MySQL服务器会对查询语句进行GBK编码，即%df%5c转换成汉字“運”，而单引号逃逸了出来从而照成注入漏洞。</li>
-</ol>
-<h2 id="三、实验准备"><a href="#三、实验准备" class="headerlink" title="三、实验准备"></a>三、实验准备</h2><p>在我们使用的PIKACHU漏洞练习平台中，宽字节注入实验默认关闭了MySQL的错误描述显示，为方便学习理解，需要开启MySQL的错误描述：<br>修改\pika\vul\sqli\sqli_widebyte.php文件,将<code>$result=mysqli_query($link, $query);</code>修改为<code>$result=execute($link, $query);</code></p>
-<h2 id="四、实验演示"><a href="#四、实验演示" class="headerlink" title="四、实验演示"></a>四、实验演示</h2><ol>
-<li><p>检测注入点<br>使用Burp截断转发功能修改报文<br><img src="/images/SQL-Inject/4-1.png" alt="图4-1"><br>将修改完毕后的报文发送给WEB服务器，观察网页回显<br><img src="/images/SQL-Inject/4-2.png" alt="图4-2"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1%df&apos;==1運 </span><br><span class="line">&apos;=\&apos; </span><br><span class="line">\==%5c  </span><br><span class="line">%df%5c%27==運&apos;</span><br></pre></td></tr></table></figure>
+            <p>
+              
+一、实验环境
+Pikachu漏洞联系平台 （Windows+Phpstudy环境）
+火狐浏览器（附带插件HackBar与FoxyProxy）
+BurpSuite_Pro v1.7.26 破解版
+漏洞平台地址为：http://192.168.31.193/pika
 
-<p>猜测该网页SQL的查询语句为：<code>select id,email from *** where ***=&#39;$name&#39;</code></p>
-</li>
-<li><p>构造SQL注入语句<br>构造查看数据库与用户的SQL语句<br><img src="/images/SQL-Inject/4-3.png" alt="图4-3"><br>注入结果<br><img src="/images/SQL-Inject/4-4.png" alt="图4-4"></p>
-</li>
-</ol>
-<h2 id="五、理解代码原理与代码加固"><a href="#五、理解代码原理与代码加固" class="headerlink" title="五、理解代码原理与代码加固"></a>五、理解代码原理与代码加固</h2><ol>
-<li><p>代码理解与分析</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">$link=connect();</span><br><span class="line"></span><br><span class="line">$html=&apos;&apos;;</span><br><span class="line"></span><br><span class="line">if(isset($_POST[&apos;submit&apos;]) &amp;&amp; $_POST[&apos;name&apos;]!=null)&#123;</span><br><span class="line">    //escape在这的功能类似$name = addslashes($name)</span><br><span class="line">    $name = escape($link,$_POST[&apos;name&apos;]);</span><br><span class="line">    $query=&quot;select id,email from member where username=&apos;$name&apos;&quot;;//这里的变量是字符型，需要考虑闭合</span><br><span class="line">    //设置mysql客户端来源编码是gbk,这个设置导致出现宽字节注入问题</span><br><span class="line">    $set = &quot;set character_set_client=gbk&quot;;</span><br><span class="line">    execute($link,$set);</span><br><span class="line"></span><br><span class="line">    //mysqi_query不打印错误描述</span><br><span class="line">    //$result=mysqli_query($link, $query);</span><br><span class="line">    $result=execute($link, $query);</span><br><span class="line">    if(mysqli_num_rows($result) &gt;= 1)&#123;</span><br><span class="line">        while ($data=mysqli_fetch_assoc($result))&#123;</span><br><span class="line">            $id=$data[&apos;id&apos;];</span><br><span class="line">            $email=$data[&apos;email&apos;];</span><br><span class="line">            $html.=&quot;&lt;p class=&apos;notice&apos;&gt;your uid:&#123;$id&#125; &lt;br /&gt;your email is: &#123;$email&#125;&lt;/p&gt;&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        $html.=&quot;&lt;p class=&apos;notice&apos;&gt;您输入的username不存在，请重新输入！&lt;/p&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>set character_set_client=gbk 是导致该漏洞的主要原因，其他代码会导致该漏洞，具体如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">set character_set_connection=gbk;</span><br><span class="line">set character_set_results=gbk;</span><br><span class="line">mysql_query(&quot;SET NAMES &apos;gbk&apos;&quot;);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>代码加固与防护<br>为了防止宽字节编码出现的参数问题，现在开发者基本上都会选择将MySQL连接配置为<code>set character_set_client=binary</code>来避免宽字节编码的问题发生。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">$link=connect();</span><br><span class="line"></span><br><span class="line">$html=&apos;&apos;;</span><br><span class="line"></span><br><span class="line">if(isset($_POST[&apos;submit&apos;]) &amp;&amp; $_POST[&apos;name&apos;]!=null)&#123;</span><br><span class="line"></span><br><span class="line">    $name = escape($link,$_POST[&apos;name&apos;]);</span><br><span class="line">    $query=&quot;select id,email from member where username=&apos;$name&apos;&quot;;//这里的变量是字符型，需要考虑闭合</span><br><span class="line">    //设置mysql客户端来源编码是gbk,这个设置导致出现宽字节注入问题</span><br><span class="line">    //$set = &quot;set character_set_client=gbk&quot;;</span><br><span class="line">    //将MySQL连接配置为binary</span><br><span class="line">    $set = &quot;set character_set_client=binary&quot;;</span><br><span class="line">    execute($link,$set);</span><br><span class="line"></span><br><span class="line">    //mysqi_query不打印错误描述</span><br><span class="line">    //$result=mysqli_query($link, $query);</span><br><span class="line">    $result=execute($link, $query);</span><br><span class="line">    if(mysqli_num_rows($result) &gt;= 1)&#123;</span><br><span class="line">        while ($data=mysqli_fetch_assoc($result))&#123;</span><br><span class="line">            $id=$data[&apos;id&apos;];</span><br><span class="line">            $email=$data[&apos;email&apos;];</span><br><span class="line">            $html.=&quot;&lt;p class=&apos;notice&apos;&gt;your uid:&#123;$id&#125; &lt;br /&gt;your email is: &#123;$email&#125;&lt;/p&gt;&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        $html.=&quot;&lt;p class=&apos;notice&apos;&gt;您输入的username不存在，请重新输入！&lt;/p&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>测试防护效果<br><img src="/images/SQL-Inject/4-5.png" alt="图4-5"><br><img src="/images/SQL-Inject/4-6.png" alt="图4-6"></p>
-</li>
-</ol>
-
+二、漏洞概述在实际环境中，程序员
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/07/28/SQL宽字节注入/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -594,13 +581,23 @@
                 
               
 
-              <time title="创建时间：2019-07-28 17:37:48 / 修改时间：17:58:51" itemprop="dateCreated datePublished" datetime="2019-07-28T17:37:48+08:00">2019-07-28</time>
+              <time title="创建时间：2019-07-28 17:37:48" itemprop="dateCreated datePublished" datetime="2019-07-28T17:37:48+08:00">2019-07-28</time>
             </span>
           
 
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-07-30 16:29:40" itemprop="dateModified" datetime="2019-07-30T16:29:40+08:00">2019-07-30</time>
+              </span>
             
           
 
@@ -657,21 +654,28 @@
       
         
           
-            <h2 id="一、需求环境"><a href="#一、需求环境" class="headerlink" title="一、需求环境"></a>一、需求环境</h2><ul>
-<li>Win7 64位</li>
-<li>phpstudy 2018</li>
-<li>pikachu-master(pikachu漏洞练习平台)</li>
-</ul>
-<h2 id="二、安装步骤"><a href="#二、安装步骤" class="headerlink" title="二、安装步骤"></a>二、安装步骤</h2><ol>
-<li><p>在Win7系统中安装phpStudy(官方版为一键解压包)<br><img src="/images/SQL-Inject/3-1.png" alt><br>启动phpstudy（Mysql默认用户：root，默认密码：root）<br><img src="/images/SQL-Inject/3-2.png" alt></p>
-</li>
-<li><p>搭建pikachu漏洞练习平台<br>将pikachu-master解压至C:\phpStudy\PHPTutorial\WWW（用于存放网页文件的目录）<br><img src="/images/SQL-Inject/3-3.png" alt><br>初始化pikachu平台<br>访问<a href="http://127.0.0.1/pikachu-master/install.php" target="_blank" rel="noopener">http://127.0.0.1/pikachu-master/install.php</a><br><img src="/images/SQL-Inject/3-4.png" alt></p>
-</li>
-<li><p>搭建完成，可以开始实验<br><img src="/images/SQL-Inject/3-5.png" alt></p>
-</li>
-</ol>
+            <p>
+              
+一、需求环境
+Win7 64位
+phpstudy 2018
+pikachu-master(pikachu漏洞练习平台)
 
+二、安装步骤
+在Win7系统中安装phpStudy(官方版为一键解压包)启动phpstudy（Mysql默认用户：root，默认密码：root）
+
+搭建pikachu漏洞练习平
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/07/28/pikachu环境搭建/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -770,13 +774,23 @@
                 
               
 
-              <time title="创建时间：2019-07-28 00:17:58 / 修改时间：17:27:19" itemprop="dateCreated datePublished" datetime="2019-07-28T00:17:58+08:00">2019-07-28</time>
+              <time title="创建时间：2019-07-28 00:17:58" itemprop="dateCreated datePublished" datetime="2019-07-28T00:17:58+08:00">2019-07-28</time>
             </span>
           
 
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-07-30 16:29:52" itemprop="dateModified" datetime="2019-07-30T16:29:52+08:00">2019-07-30</time>
+              </span>
             
           
 
@@ -833,31 +847,27 @@
       
         
           
-            <h2 id="一、实验环境"><a href="#一、实验环境" class="headerlink" title="一、实验环境"></a>一、实验环境</h2><ul>
-<li>Pikachu漏洞联系平台 （Windows+Phpstudy环境）</li>
-<li>火狐浏览器（附带插件HackBar与FoxyProxy）</li>
-<li>BurpSuite_Pro v1.7.26 破解版</li>
-<li>漏洞平台地址为：<a href="http://192.168.31.193/pika" target="_blank" rel="noopener">http://192.168.31.193/pika</a></li>
-</ul>
-<h2 id="二、实验步骤"><a href="#二、实验步骤" class="headerlink" title="二、实验步骤"></a>二、实验步骤</h2><ol>
-<li><p>观察注入点<br>尝试在表单的下拉菜单中提交任意数据，观察URL与网页<br>URL：<a href="http://192.168.31.193/pika/vul/sqli/sqli_id.php" target="_blank" rel="noopener">http://192.168.31.193/pika/vul/sqli/sqli_id.php</a> ，如图2-1所示：<br><img src="/images/SQL-Inject/2-1.png" alt="图2-1"><br>可以看到页面回显正常，但URL部分没有传值参数，判断该网页请求方式为POST</p>
-</li>
-<li><p>检测注入点<br>该网页请求方式为POST所以我们需要用到Hackbar或者BurpSuite，这里使用Burp<br>设置好代理后重新提交参数，并用Burp截断HTTP的报文，如图2-2所示：<br><img src="/images/SQL-Inject/2-2.png" alt="图2-2"><br>将该报文发送至Repeater即可开始进行注入测试，如图2-3所示：<br><img src="/images/SQL-Inject/2-3.png" alt="图2-3"><br>尝试在id=1参数修改为id=1 or 1=1,然后发送报文，查看Response，如图2-4所示：<br><img src="/images/SQL-Inject/2-4.png" alt="图2-4"><br>可以看到我们拼接的逻辑运算语句正常运行，并把数据表中的所有数据都显示出来</p>
-</li>
-<li><p>查询显示的字段数<br>尝试使用order by语句判断该网页表单能够显示的字段数，如图2-5所示：<br><img src="/images/SQL-Inject/2-5.png" alt="图2-5"></p>
-</li>
-<li><p>获取当前数据库及运行数据库的用户名<br>使用union select拼接SQL语句查看用户及数据库，如图2-6所示：<br><img src="/images/SQL-Inject/2-6.png" alt="图2-6"></p>
-</li>
-</ol>
-<h2 id="三、代码理解与防范"><a href="#三、代码理解与防范" class="headerlink" title="三、代码理解与防范"></a>三、代码理解与防范</h2><ol>
-<li><p>源代码(pika\vul\sqli\sqli_id.php)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$link=connect();</span><br><span class="line">$html=&apos;&apos;;</span><br><span class="line"></span><br><span class="line">if(isset($_POST[&apos;submit&apos;]) &amp;&amp; $_POST[&apos;id&apos;]!=null)&#123;</span><br><span class="line">    //这里没有做任何处理，直接拼到select里面去了,形成Sql注入</span><br><span class="line">    $id=$_POST[&apos;id&apos;];</span><br><span class="line">    $query=&quot;select username,email from member where id=$id&quot;; </span><br><span class="line">    $result=execute($link, $query);</span><br><span class="line">    //这里如果用==1,会严格一点</span><br><span class="line">    if(mysqli_num_rows($result)&gt;=1)&#123;</span><br><span class="line">        while($data=mysqli_fetch_assoc($result))&#123;</span><br><span class="line">            $username=$data[&apos;username&apos;];</span><br><span class="line">            $email=$data[&apos;email&apos;];</span><br><span class="line">            $html.=&quot;&lt;p class=&apos;notice&apos;&gt;hello,&#123;$username&#125; &lt;br /&gt;your email is: &#123;$email&#125;&lt;/p&gt;&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        $html.=&quot;&lt;p class=&apos;notice&apos;&gt;您输入的user id不存在，请重新输入！&lt;/p&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>通过判断参数类型对网页起到防护作用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$link=connect();</span><br><span class="line">$html=&apos;&apos;;</span><br><span class="line">//&amp;&amp; id_numeric($_POST[&apos;id&apos;])判断从网页传入的值是否为数字，如果带有其他字符将不运行后面的代码</span><br><span class="line">if(isset($_POST[&apos;submit&apos;]) &amp;&amp; $_POST[&apos;id&apos;]!=null &amp;&amp; id_numeric($_POST[&apos;id&apos;]))&#123;</span><br><span class="line">    //这里没有做任何处理，直接拼到select里面去了,形成Sql注入</span><br><span class="line">    $id=$_POST[&apos;id&apos;];</span><br><span class="line">    //数字型注入与字符型注入不同的地方是因为id=$id并没有使用符号进行闭合</span><br><span class="line">    $query=&quot;select username,email from member where id=$id&quot;; </span><br><span class="line">    $result=execute($link, $query);</span><br><span class="line">    //这里如果用==1,会严格一点</span><br><span class="line">    if(mysqli_num_rows($result)&gt;=1)&#123;</span><br><span class="line">        while($data=mysqli_fetch_assoc($result))&#123;</span><br><span class="line">            $username=$data[&apos;username&apos;];</span><br><span class="line">            $email=$data[&apos;email&apos;];</span><br><span class="line">            $html.=&quot;&lt;p class=&apos;notice&apos;&gt;hello,&#123;$username&#125; &lt;br /&gt;your email is: &#123;$email&#125;&lt;/p&gt;&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        $html.=&quot;&lt;p class=&apos;notice&apos;&gt;您输入的user id不存在，请重新输入！&lt;/p&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ol>
+            <p>
+              
+一、实验环境
+Pikachu漏洞联系平台 （Windows+Phpstudy环境）
+火狐浏览器（附带插件HackBar与FoxyProxy）
+BurpSuite_Pro v1.7.26 破解版
+漏洞平台地址为：http://192.168.31.193/pika
 
+二、实验步骤
+观察注入点尝试在表
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/07/28/SQL数字型注入-POST/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -971,7 +981,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-07-28 17:27:23" itemprop="dateModified" datetime="2019-07-28T17:27:23+08:00">2019-07-28</time>
+                <time title="修改时间：2019-07-30 16:28:25" itemprop="dateModified" datetime="2019-07-30T16:28:25+08:00">2019-07-30</time>
               </span>
             
           
@@ -1029,36 +1039,25 @@
       
         
           
-            <h2 id="一、实验环境"><a href="#一、实验环境" class="headerlink" title="一、实验环境"></a>一、实验环境</h2><ul>
-<li>Pikachu漏洞联系平台 （Windows+Phpstudy环境）</li>
-<li>火狐浏览器（附带插件HackBar）</li>
-<li>漏洞平台地址为：<a href="http://192.168.31.193/pika" target="_blank" rel="noopener">http://192.168.31.193/pika</a></li>
-</ul>
-<h2 id="二、SQL注入原理"><a href="#二、SQL注入原理" class="headerlink" title="二、SQL注入原理"></a>二、SQL注入原理</h2><p>数据库注入漏洞，主要是开发人员在构建代码时，没有对输入边界进行安全考虑，导致攻击可以通过<strong>合法的输入点提交一些精心构造的语句，从而欺骗后台数据库进行执行</strong>，导致数据库信息泄露的一种漏洞。</p>
-<h2 id="三、实验步骤"><a href="#三、实验步骤" class="headerlink" title="三、实验步骤"></a>三、实验步骤</h2><ol>
-<li><p>观察注入点<br>尝试在表单中提交数据 kobe 观察URL：<a href="http://192.168.31.193/pika/vul/sqli/sqli_str.php?name=kobe&amp;submit=查询，" target="_blank" rel="noopener">http://192.168.31.193/pika/vul/sqli/sqli_str.php?name=kobe&amp;submit=查询，</a> 与网页中的表单，如图1-1所示：<br><img src="/images/SQL-Inject/1-1.png" alt="图1-1"></p>
-</li>
-<li><p>检测注入点<br>尝试在name=kobe参数后面加上 ‘ (URL编码为：%27）<br>然后观察页面变化，URL:<a href="http://192.168.31.193/pika/vul/sqli/sqli_str.php?name=kobe&#39;submit=查询" target="_blank" rel="noopener">http://192.168.31.193/pika/vul/sqli/sqli_str.php?name=kobe&#39;submit=查询</a><br>可以看到加上之后页面内容报错，出现这种现象大多数情况下时存在注入点，如图1-2所示:<br><img src="/images/SQL-Inject/1-2.png" alt="图1-2"></p>
-</li>
-<li><p>查询显示的字段数<br>尝试使用order by语句判断该网页表单能够显示的字段数，URL:<a href="http://192.168.31.193/pika/vul/sqli/sqli_str.php?name=1%27order+by+3+--+&amp;submit=查询，" target="_blank" rel="noopener">http://192.168.31.193/pika/vul/sqli/sqli_str.php?name=1%27order+by+3+--+&amp;submit=查询，</a> 出现“Unknown column ‘3’ in ‘order clause’”  ，3表示已经超出表单的显示数量，所以该表单的字段的显示数量为2个字段，如图1-3所示：<br><img src="/images/SQL-Inject/1-3.png" alt="图1-3"></p>
-</li>
-<li><p>获取当前数据库及运行数据库的用户名<br>使用联合查询语句union select 获取当前的数据库及运行Mysql服务的用户<br>URL:<a href="http://192.168.31.193/pika/vul/sqli/sqli_str.php?name=1%27union+select+database(),user()+--+&amp;submit=查询" target="_blank" rel="noopener">http://192.168.31.193/pika/vul/sqli/sqli_str.php?name=1%27union+select+database(),user()+--+&amp;submit=查询</a> ，效果如图1-4所示：<br><img src="/images/SQL-Inject/1-4.png" alt="图1-4"></p>
-</li>
-<li><p>通过SQL注入漏洞读取WEB服务器本地的文件内容<br>使用load_file()语句读取本地C盘中的flag.txt文件内容URL：<a href="http://192.168.31.193/pika/vul/sqli/sqli_str.php?name=1%27%20union%20select%20null,load_file(%22C:\\flag.txt%22)+--+&amp;submit=查询" target="_blank" rel="noopener">http://192.168.31.193/pika/vul/sqli/sqli_str.php?name=1%27%20union%20select%20null,load_file(%22C:\\flag.txt%22)+--+&amp;submit=查询</a> ，效果如图1-5所示：<br><img src="/images/SQL-Inject/1-5.png" alt="图1-5"><br>flag.txt文件内容：<br><img src="/images/SQL-Inject/flag.png" alt="flag"></p>
-</li>
-</ol>
-<h2 id="四、代码理解与防范"><a href="#四、代码理解与防范" class="headerlink" title="四、代码理解与防范"></a>四、代码理解与防范</h2><ol>
-<li><p>源代码(pika\vul\sqli\sqli_str.php)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$link=connect();</span><br><span class="line">$html=&apos;&apos;;</span><br><span class="line">if(isset($_GET[&apos;submit&apos;]) &amp;&amp; $_GET[&apos;name&apos;]!=null)&#123;</span><br><span class="line">    //这里没有做任何处理，直接拼到select里面去了</span><br><span class="line">    $name=$_GET[&apos;name&apos;];</span><br><span class="line">    //这里的变量是字符型，需要考虑闭合</span><br><span class="line">    $query=&quot;select id,email from member where username=&apos;$name&apos;&quot;;</span><br><span class="line">    $result=execute($link, $query) ;</span><br><span class="line">    if(mysqli_num_rows($result)&gt;=1)&#123;</span><br><span class="line">        while($data=mysqli_fetch_assoc($result))&#123;</span><br><span class="line">            $id=$data[&apos;id&apos;];</span><br><span class="line">            $email=$data[&apos;email&apos;];</span><br><span class="line">            $html.=&quot;&lt;p class=&apos;notice&apos;&gt;your uid:&#123;$id&#125; &lt;br /&gt;your email is: &#123;$email&#125;&lt;/p&gt;&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line"></span><br><span class="line">        $html.=&quot;&lt;p class=&apos;notice&apos;&gt;您输入的username不存在，请重新输入！&lt;/p&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>通过函数转义的方式对源代码进行加固</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">$link=connect();</span><br><span class="line">$html=&apos;&apos;;</span><br><span class="line">if(isset($_GET[&apos;submit&apos;]) &amp;&amp; $_GET[&apos;name&apos;]!=null)&#123;</span><br><span class="line">    //这里没有做任何处理，直接拼到select里面去了</span><br><span class="line">    $name=$_GET[&apos;name&apos;];</span><br><span class="line">    //addslashes()若$name所传入的字符串中带有特殊字符，则该函数会在特殊符号前添加“/”，表示将其转义</span><br><span class="line">    //$name = addslashes($name);</span><br><span class="line">    //这里的变量是字符型，需要考虑闭合</span><br><span class="line">    $query=&quot;select id,email from member where username=&apos;$name&apos;&quot;;</span><br><span class="line">    $result=execute($link, $query) ;</span><br><span class="line">    if(mysqli_num_rows($result)&gt;=1)&#123;</span><br><span class="line">        while($data=mysqli_fetch_assoc($result))&#123;</span><br><span class="line">            $id=$data[&apos;id&apos;];</span><br><span class="line">            $email=$data[&apos;email&apos;];</span><br><span class="line">            $html.=&quot;&lt;p class=&apos;notice&apos;&gt;your uid:&#123;$id&#125; &lt;br /&gt;your email is: &#123;$email&#125;&lt;/p&gt;&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line"></span><br><span class="line">        $html.=&quot;&lt;p class=&apos;notice&apos;&gt;您输入的username不存在，请重新输入！&lt;/p&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>测试防护效果<br><img src="/images/SQL-Inject/1-6.png" alt="1-6"></p>
-</li>
-</ol>
+            <p>
+              
+一、实验环境
+Pikachu漏洞联系平台 （Windows+Phpstudy环境）
+火狐浏览器（附带插件HackBar）
+漏洞平台地址为：http://192.168.31.193/pika
 
+二、SQL注入原理数据库注入漏洞，主要是开发人员在构建代码时，没有对输入边界进行安全考虑，导致攻击可以通
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/07/27/SQL字符型注入-GET/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1447,8 +1446,34 @@
     
 
     
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
 
     
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+  <script>
+    
+    
+      flOptions = {};
+      
+        flOptions.iconStyle = "box";
+      
+        flOptions.boxForm = "horizontal";
+      
+        flOptions.position = "middleRight";
+      
+        flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
 
     
 

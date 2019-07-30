@@ -58,6 +58,10 @@
 <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
 
 
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
 
 
 
@@ -99,23 +103,23 @@
   };
 </script>
 
-  <meta name="description" content="一、需求环境 Win7 64位 phpstudy 2018 pikachu-master(pikachu漏洞练习平台)  二、安装步骤 在Win7系统中安装phpStudy(官方版为一键解压包)启动phpstudy（Mysql默认用户：root，默认密码：root）  搭建pikachu漏洞练习平台将pikachu-master解压至C:\phpStudy\PHPTutorial\WWW（用于存放">
+  <meta name="description" content="一、需求环境 Win7 64位 phpstudy 2018 pikachu-master(pikachu漏洞练习平台)  二、安装步骤 在Win7系统中安装phpStudy(官方版为一键解压包)启动phpstudy（Mysql默认用户：root，默认密码：root）  搭建pikachu漏洞练习平台将pikachu-master解压至C:\phpStudy\PHPTutorial\WWW（用于存">
 <meta name="keywords" content="Windows">
 <meta property="og:type" content="article">
 <meta property="og:title" content="pikachu环境搭建">
 <meta property="og:url" content="http://yoursite.com/2019/07/28/pikachu环境搭建/index.html">
 <meta property="og:site_name" content="OldSix-Sec">
-<meta property="og:description" content="一、需求环境 Win7 64位 phpstudy 2018 pikachu-master(pikachu漏洞练习平台)  二、安装步骤 在Win7系统中安装phpStudy(官方版为一键解压包)启动phpstudy（Mysql默认用户：root，默认密码：root）  搭建pikachu漏洞练习平台将pikachu-master解压至C:\phpStudy\PHPTutorial\WWW（用于存放">
+<meta property="og:description" content="一、需求环境 Win7 64位 phpstudy 2018 pikachu-master(pikachu漏洞练习平台)  二、安装步骤 在Win7系统中安装phpStudy(官方版为一键解压包)启动phpstudy（Mysql默认用户：root，默认密码：root）  搭建pikachu漏洞练习平台将pikachu-master解压至C:\phpStudy\PHPTutorial\WWW（用于存">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/SQL-Inject/3-1.png">
 <meta property="og:image" content="http://yoursite.com/images/SQL-Inject/3-2.png">
 <meta property="og:image" content="http://yoursite.com/images/SQL-Inject/3-3.png">
 <meta property="og:image" content="http://yoursite.com/images/SQL-Inject/3-4.png">
 <meta property="og:image" content="http://yoursite.com/images/SQL-Inject/3-5.png">
-<meta property="og:updated_time" content="2019-07-28T09:58:51.565Z">
+<meta property="og:updated_time" content="2019-07-30T08:29:40.542Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="pikachu环境搭建">
-<meta name="twitter:description" content="一、需求环境 Win7 64位 phpstudy 2018 pikachu-master(pikachu漏洞练习平台)  二、安装步骤 在Win7系统中安装phpStudy(官方版为一键解压包)启动phpstudy（Mysql默认用户：root，默认密码：root）  搭建pikachu漏洞练习平台将pikachu-master解压至C:\phpStudy\PHPTutorial\WWW（用于存放">
+<meta name="twitter:description" content="一、需求环境 Win7 64位 phpstudy 2018 pikachu-master(pikachu漏洞练习平台)  二、安装步骤 在Win7系统中安装phpStudy(官方版为一键解压包)启动phpstudy（Mysql默认用户：root，默认密码：root）  搭建pikachu漏洞练习平台将pikachu-master解压至C:\phpStudy\PHPTutorial\WWW（用于存">
 <meta name="twitter:image" content="http://yoursite.com/images/SQL-Inject/3-1.png">
 
 
@@ -394,13 +398,23 @@
                 
               
 
-              <time title="创建时间：2019-07-28 17:37:48 / 修改时间：17:58:51" itemprop="dateCreated datePublished" datetime="2019-07-28T17:37:48+08:00">2019-07-28</time>
+              <time title="创建时间：2019-07-28 17:37:48" itemprop="dateCreated datePublished" datetime="2019-07-28T17:37:48+08:00">2019-07-28</time>
             </span>
           
 
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-07-30 16:29:40" itemprop="dateModified" datetime="2019-07-30T16:29:40+08:00">2019-07-30</time>
+              </span>
             
           
 
@@ -455,7 +469,8 @@
       
 
       
-        <h2 id="一、需求环境"><a href="#一、需求环境" class="headerlink" title="一、需求环境"></a>一、需求环境</h2><ul>
+        <a id="more"></a>
+<h2 id="一、需求环境"><a href="#一、需求环境" class="headerlink" title="一、需求环境"></a>一、需求环境</h2><ul>
 <li>Win7 64位</li>
 <li>phpstudy 2018</li>
 <li>pikachu-master(pikachu漏洞练习平台)</li>
@@ -737,8 +752,34 @@
     
 
     
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
 
     
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+  <script>
+    
+    
+      flOptions = {};
+      
+        flOptions.iconStyle = "box";
+      
+        flOptions.boxForm = "horizontal";
+      
+        flOptions.position = "middleRight";
+      
+        flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
 
     
 

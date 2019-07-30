@@ -58,6 +58,10 @@
 <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
 
 
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
 
 
 
@@ -99,13 +103,13 @@
   };
 </script>
 
-  <meta name="description" content="一、实验环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar与FoxyProxy） BurpSuite_Pro v1.7.26 破解版 漏洞平台地址为：http://192.168.31.193/pika  二、实验步骤 观察注入点尝试在表单的下拉菜单中提交任意数据，观察URL与网页URL：http://192.168.31.193/pik">
+  <meta name="description" content="一、实验环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar与FoxyProxy） BurpSuite_Pro v1.7.26 破解版 漏洞平台地址为：http://192.168.31.193/pika  二、实验步骤 观察注入点尝试在表单的下拉菜单中提交任意数据，观察URL与网页URL：http://192.168.31.193/pi">
 <meta name="keywords" content="SQL注入">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SQL数字型注入-POST">
 <meta property="og:url" content="http://yoursite.com/2019/07/28/SQL数字型注入-POST/index.html">
 <meta property="og:site_name" content="OldSix-Sec">
-<meta property="og:description" content="一、实验环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar与FoxyProxy） BurpSuite_Pro v1.7.26 破解版 漏洞平台地址为：http://192.168.31.193/pika  二、实验步骤 观察注入点尝试在表单的下拉菜单中提交任意数据，观察URL与网页URL：http://192.168.31.193/pik">
+<meta property="og:description" content="一、实验环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar与FoxyProxy） BurpSuite_Pro v1.7.26 破解版 漏洞平台地址为：http://192.168.31.193/pika  二、实验步骤 观察注入点尝试在表单的下拉菜单中提交任意数据，观察URL与网页URL：http://192.168.31.193/pi">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/SQL-Inject/2-1.png">
 <meta property="og:image" content="http://yoursite.com/images/SQL-Inject/2-2.png">
@@ -113,10 +117,10 @@
 <meta property="og:image" content="http://yoursite.com/images/SQL-Inject/2-4.png">
 <meta property="og:image" content="http://yoursite.com/images/SQL-Inject/2-5.png">
 <meta property="og:image" content="http://yoursite.com/images/SQL-Inject/2-6.png">
-<meta property="og:updated_time" content="2019-07-28T09:27:19.162Z">
+<meta property="og:updated_time" content="2019-07-30T08:29:52.655Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQL数字型注入-POST">
-<meta name="twitter:description" content="一、实验环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar与FoxyProxy） BurpSuite_Pro v1.7.26 破解版 漏洞平台地址为：http://192.168.31.193/pika  二、实验步骤 观察注入点尝试在表单的下拉菜单中提交任意数据，观察URL与网页URL：http://192.168.31.193/pik">
+<meta name="twitter:description" content="一、实验环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar与FoxyProxy） BurpSuite_Pro v1.7.26 破解版 漏洞平台地址为：http://192.168.31.193/pika  二、实验步骤 观察注入点尝试在表单的下拉菜单中提交任意数据，观察URL与网页URL：http://192.168.31.193/pi">
 <meta name="twitter:image" content="http://yoursite.com/images/SQL-Inject/2-1.png">
 
 
@@ -395,13 +399,23 @@
                 
               
 
-              <time title="创建时间：2019-07-28 00:17:58 / 修改时间：17:27:19" itemprop="dateCreated datePublished" datetime="2019-07-28T00:17:58+08:00">2019-07-28</time>
+              <time title="创建时间：2019-07-28 00:17:58" itemprop="dateCreated datePublished" datetime="2019-07-28T00:17:58+08:00">2019-07-28</time>
             </span>
           
 
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-07-30 16:29:52" itemprop="dateModified" datetime="2019-07-30T16:29:52+08:00">2019-07-30</time>
+              </span>
             
           
 
@@ -456,7 +470,8 @@
       
 
       
-        <h2 id="一、实验环境"><a href="#一、实验环境" class="headerlink" title="一、实验环境"></a>一、实验环境</h2><ul>
+        <a id="more"></a>
+<h2 id="一、实验环境"><a href="#一、实验环境" class="headerlink" title="一、实验环境"></a>一、实验环境</h2><ul>
 <li>Pikachu漏洞联系平台 （Windows+Phpstudy环境）</li>
 <li>火狐浏览器（附带插件HackBar与FoxyProxy）</li>
 <li>BurpSuite_Pro v1.7.26 破解版</li>
@@ -748,8 +763,34 @@
     
 
     
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
 
     
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+  <script>
+    
+    
+      flOptions = {};
+      
+        flOptions.iconStyle = "box";
+      
+        flOptions.boxForm = "horizontal";
+      
+        flOptions.position = "middleRight";
+      
+        flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
 
     
 
