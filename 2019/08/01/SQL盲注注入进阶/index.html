@@ -103,13 +103,23 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="OldSix-Sec">
-<meta property="og:url" content="http://yoursite.com/archives/2019/index.html">
+  <meta name="description" content="一、实验环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar与FoxyProxy） BurpSuite_Pro v1.7.26 破解版 漏洞平台地址为：http://192.168.31.193/pika  二、Burpsuite——Intruder模块简介Burp Intruder是一个强大的工具，用于自动对Web应用程序自定义的攻击，">
+<meta name="keywords" content="SQL注入">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQL盲注进阶——BurpSuite">
+<meta property="og:url" content="http://yoursite.com/2019/08/01/SQL盲注注入进阶/index.html">
 <meta property="og:site_name" content="OldSix-Sec">
+<meta property="og:description" content="一、实验环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar与FoxyProxy） BurpSuite_Pro v1.7.26 破解版 漏洞平台地址为：http://192.168.31.193/pika  二、Burpsuite——Intruder模块简介Burp Intruder是一个强大的工具，用于自动对Web应用程序自定义的攻击，">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/images/SQL-Inject/6-1.png">
+<meta property="og:image" content="http://yoursite.com/images/SQL-Inject/6-2.png">
+<meta property="og:image" content="http://yoursite.com/images/SQL-Inject/6-3.png">
+<meta property="og:image" content="http://yoursite.com/images/SQL-Inject/6-4.png">
+<meta property="og:updated_time" content="2019-08-04T14:01:29.086Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="OldSix-Sec">
+<meta name="twitter:title" content="SQL盲注进阶——BurpSuite">
+<meta name="twitter:description" content="一、实验环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar与FoxyProxy） BurpSuite_Pro v1.7.26 破解版 漏洞平台地址为：http://192.168.31.193/pika  二、Burpsuite——Intruder模块简介Burp Intruder是一个强大的工具，用于自动对Web应用程序自定义的攻击，">
+<meta name="twitter:image" content="http://yoursite.com/images/SQL-Inject/6-1.png">
 
 
 
@@ -117,7 +127,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/archives/2019/">
+  <link rel="canonical" href="http://yoursite.com/2019/08/01/SQL盲注注入进阶/">
 
 
 
@@ -128,7 +138,7 @@
 </script>
 
   
-  <title>归档 | OldSix-Sec</title>
+  <title>SQL盲注进阶——BurpSuite | OldSix-Sec</title>
   
 
 
@@ -176,7 +186,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -262,7 +272,7 @@
         
         
           
-          <li class="menu-item menu-item-archives menu-item-active">
+          <li class="menu-item menu-item-archives">
 
     
     
@@ -288,25 +298,6 @@
 
   
     
-
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
 
   
 
@@ -349,253 +340,227 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
-
+  <div id="posts" class="posts-expand">
       
-      <span class="archive-page-counter">
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/01/SQL盲注注入进阶/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu Shen">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/timg.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OldSix-Sec">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">SQL盲注进阶——BurpSuite
+
+              
+            
+          </h1>
         
+
+        <div class="post-meta">
+
           
-        
-        嗯..! 目前共计 7 篇日志。 继续努力。
-      </span>
-      
-
-      
-
-        
-        
-        
-
-        
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
-          </div>
-        
-        
+          
 
-        
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+              
+                
+              
 
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/08/01/SQL盲注注入进阶/" itemprop="url">
+              <time title="创建时间：2019-08-01 15:57:33" itemprop="dateCreated datePublished" datetime="2019-08-01T15:57:33+08:00">2019-08-01</time>
+            </span>
+          
+
+          
             
-              <span itemprop="name">SQL盲注进阶——BurpSuite</span>
+
             
-          </a>
-        
-      </h2>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-08-04 22:01:29" itemprop="dateModified" datetime="2019-08-04T22:01:29+08:00">2019-08-04</time>
+              </span>
+            
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-08-01T15:57:33+08:00" content="2019-08-01">
-          08-01
-        </time>
-      </div>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB安全/" itemprop="url" rel="index"><span itemprop="name">WEB安全</span></a></span>
 
-    </header>
-  </article>
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB安全/PHP/" itemprop="url" rel="index"><span itemprop="name">PHP</span></a></span>
 
+                
+                
+              
+            </span>
+          
 
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/07/30/SQL注入-盲注/" itemprop="url">
-            
-              <span itemprop="name">SQL盲注注入</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-07-30T17:49:53+08:00" content="2019-07-30">
-          07-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/07/28/SQL宽字节注入/" itemprop="url">
-            
-              <span itemprop="name">SQL宽字节注入</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-07-28T21:29:52+08:00" content="2019-07-28">
-          07-28
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <a id="more"></a>
+<h2 id="一、实验环境"><a href="#一、实验环境" class="headerlink" title="一、实验环境"></a>一、实验环境</h2><ul>
+<li>Pikachu漏洞联系平台 （Windows+Phpstudy环境）</li>
+<li>火狐浏览器（附带插件HackBar与FoxyProxy）</li>
+<li>BurpSuite_Pro v1.7.26 破解版</li>
+<li>漏洞平台地址为：<a href="http://192.168.31.193/pika" target="_blank" rel="noopener">http://192.168.31.193/pika</a></li>
+</ul>
+<h2 id="二、Burpsuite——Intruder模块简介"><a href="#二、Burpsuite——Intruder模块简介" class="headerlink" title="二、Burpsuite——Intruder模块简介"></a>二、Burpsuite——Intruder模块简介</h2><p>Burp Intruder是一个强大的工具，用于自动对Web应用程序自定义的攻击，Burp Intruder 是高度可配置的，并被用来在广范围内进行自动化攻击。你可以使用 Burp Intruder 方便地执行许多任务，包括枚举标识符，获取有用数据，漏洞模糊测试。合适的攻击类型取决于应用程序的情况，可能包括：缺陷测试：SQL 注入，跨站点脚本，缓冲区溢出，路径遍历；暴力攻击认证系统；枚举；操纵参数；拖出隐藏的内容和功能；会话令牌测序和会话劫持；数据挖掘；并发攻击；应用层的拒绝服务式攻击。</p>
+<h2 id="三、Intruder模块说明"><a href="#三、Intruder模块说明" class="headerlink" title="三、Intruder模块说明"></a>三、Intruder模块说明</h2><p>Burp Intruder主要有四个模块组成:<br>1：Target 用于配置目标服务器进行攻击的详细信息。<br>2：Positions  设置Payloads的插入点以及攻击类型（攻击模式）。<br>3：Payloads  设置payload，配置字典<br>4：Opetions   此选项卡包含了request headers，request engine，attack results ，grep match，grep_extrack，grep payloads和redirections。你可以发动攻击之前，在主要Intruder的UI上编辑这些选项，大部分设置也可以在攻击时对已在运行的窗口进行修改。</p>
+<h2 id="四、搭配Intruder自动爆破数据库"><a href="#四、搭配Intruder自动爆破数据库" class="headerlink" title="四、搭配Intruder自动爆破数据库"></a>四、搭配Intruder自动爆破数据库</h2><ol>
+<li>将截断的数据包发送至Intruder<br><img src="/images/SQL-Inject/6-1.png" alt="图6-1"></li>
+<li>设置Pyloads的插入点<br><img src="/images/SQL-Inject/6-2.png" alt="图6-2"></li>
+<li>设置Pyload，导入字典<br><img src="/images/SQL-Inject/6-3.png" alt="图6-3"></li>
+<li>启动自动攻击<br>观察攻击运行至什么pyload时，会停留延时<br><img src="/images/SQL-Inject/6-4.png" alt="图6-4"></li>
+</ol>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/07/28/pikachu环境搭建/" itemprop="url">
-            
-              <span itemprop="name">pikachu环境搭建</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-07-28T17:37:48+08:00" content="2019-07-28">
-          07-28
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/07/28/SQL数字型注入-POST/" itemprop="url">
-            
-              <span itemprop="name">SQL数字型注入-POST</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-07-28T00:17:58+08:00" content="2019-07-28">
-          07-28
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/07/27/SQL字符型注入-GET/" itemprop="url">
-            
-              <span itemprop="name">SQL字符型注入 （GET）</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-07-27T22:34:31+08:00" content="2019-07-27">
-          07-27
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+
+    
+
+    
+      
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/SQL注入/" rel="tag"># SQL注入</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/30/SQL注入-盲注/" rel="next" title="SQL盲注注入">
+                <i class="fa fa-chevron-left"></i> SQL盲注注入
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/9102/01/01/top/" rel="prev" title="置顶">
+                置顶 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
-
+  </div>
 
 
           </div>
           
+  
+
+
 
         </div>
         
@@ -615,8 +580,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -700,6 +674,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、实验环境"><span class="nav-number">1.</span> <span class="nav-text">一、实验环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、Burpsuite——Intruder模块简介"><span class="nav-number">2.</span> <span class="nav-text">二、Burpsuite——Intruder模块简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、Intruder模块说明"><span class="nav-number">3.</span> <span class="nav-text">三、Intruder模块说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、搭配Intruder自动爆破数据库"><span class="nav-number">4.</span> <span class="nav-text">四、搭配Intruder自动爆破数据库</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -856,6 +847,10 @@
 
 
   
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
 
   <script src="/js/next-boot.js?v=7.2.0"></script>
 
