@@ -103,25 +103,22 @@
   };
 </script>
 
-  <meta name="description" content="一、实验环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar与FoxyProxy） BurpSuite_Pro v1.7.26 破解版 漏洞平台地址为：http://192.168.31.193/pika  二、漏洞概述在实际环境中，程序员很少会写一点防护都没有的代码，宽字节注入源于程序员设置MySQL连接时错误配置为“set chara">
-<meta name="keywords" content="SQL注入">
+  <meta name="description" content="实验环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar与FoxyProxy） BurpSuite_Pro v1.7.26 破解版 漏洞平台地址为：http://192.168.1.101/pika  漏洞概述 PHP代码执行漏洞则是可以把代码注入应用到网站后端代码中，如果漏洞没有特殊过滤，就相当于直接有一个Web后门存在，该漏洞主要由于动">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SQL宽字节注入">
-<meta property="og:url" content="http://yoursite.com/2019/07/28/SQL宽字节注入/index.html">
+<meta property="og:title" content="RCE代码注入与远程命令执行">
+<meta property="og:url" content="http://yoursite.com/2019/08/19/RCE远程代码执行/index.html">
 <meta property="og:site_name" content="OldSix-Sec">
-<meta property="og:description" content="一、实验环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar与FoxyProxy） BurpSuite_Pro v1.7.26 破解版 漏洞平台地址为：http://192.168.31.193/pika  二、漏洞概述在实际环境中，程序员很少会写一点防护都没有的代码，宽字节注入源于程序员设置MySQL连接时错误配置为“set chara">
+<meta property="og:description" content="实验环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar与FoxyProxy） BurpSuite_Pro v1.7.26 破解版 漏洞平台地址为：http://192.168.1.101/pika  漏洞概述 PHP代码执行漏洞则是可以把代码注入应用到网站后端代码中，如果漏洞没有特殊过滤，就相当于直接有一个Web后门存在，该漏洞主要由于动">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/images/SQL-Inject/4-1.png">
-<meta property="og:image" content="http://yoursite.com/images/SQL-Inject/4-2.png">
-<meta property="og:image" content="http://yoursite.com/images/SQL-Inject/4-3.png">
-<meta property="og:image" content="http://yoursite.com/images/SQL-Inject/4-4.png">
-<meta property="og:image" content="http://yoursite.com/images/SQL-Inject/4-5.png">
-<meta property="og:image" content="http://yoursite.com/images/SQL-Inject/4-6.png">
-<meta property="og:updated_time" content="2019-08-09T05:42:22.622Z">
+<meta property="og:image" content="http://yoursite.com/images/rce/1-1.png">
+<meta property="og:image" content="http://yoursite.com/images/rce/2-1.png">
+<meta property="og:image" content="http://yoursite.com/images/rce/2-2.png">
+<meta property="og:image" content="http://yoursite.com/images/rce/2-3.png">
+<meta property="og:updated_time" content="2019-08-20T08:08:26.547Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SQL宽字节注入">
-<meta name="twitter:description" content="一、实验环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar与FoxyProxy） BurpSuite_Pro v1.7.26 破解版 漏洞平台地址为：http://192.168.31.193/pika  二、漏洞概述在实际环境中，程序员很少会写一点防护都没有的代码，宽字节注入源于程序员设置MySQL连接时错误配置为“set chara">
-<meta name="twitter:image" content="http://yoursite.com/images/SQL-Inject/4-1.png">
+<meta name="twitter:title" content="RCE代码注入与远程命令执行">
+<meta name="twitter:description" content="实验环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar与FoxyProxy） BurpSuite_Pro v1.7.26 破解版 漏洞平台地址为：http://192.168.1.101/pika  漏洞概述 PHP代码执行漏洞则是可以把代码注入应用到网站后端代码中，如果漏洞没有特殊过滤，就相当于直接有一个Web后门存在，该漏洞主要由于动">
+<meta name="twitter:image" content="http://yoursite.com/images/rce/1-1.png">
 
 
 
@@ -129,7 +126,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/07/28/SQL宽字节注入/">
+  <link rel="canonical" href="http://yoursite.com/2019/08/19/RCE远程代码执行/">
 
 
 
@@ -140,7 +137,7 @@
 </script>
 
   
-  <title>SQL宽字节注入 | OldSix-Sec</title>
+  <title>RCE代码注入与远程命令执行 | OldSix-Sec</title>
   
 
 
@@ -356,7 +353,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/28/SQL宽字节注入/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/19/RCE远程代码执行/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shu Shen">
@@ -373,7 +370,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">SQL宽字节注入
+          <h1 class="post-title" itemprop="name headline">RCE代码注入与远程命令执行
 
               
             
@@ -399,7 +396,7 @@
                 
               
 
-              <time title="创建时间：2019-07-28 21:29:52" itemprop="dateCreated datePublished" datetime="2019-07-28T21:29:52+08:00">2019-07-28</time>
+              <time title="创建时间：2019-08-19 21:07:26" itemprop="dateCreated datePublished" datetime="2019-08-19T21:07:26+08:00">2019-08-19</time>
             </span>
           
 
@@ -414,7 +411,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-08-09 13:42:22" itemprop="dateModified" datetime="2019-08-09T13:42:22+08:00">2019-08-09</time>
+                <time title="修改时间：2019-08-20 16:08:26" itemprop="dateModified" datetime="2019-08-20T16:08:26+08:00">2019-08-20</time>
               </span>
             
           
@@ -436,13 +433,6 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB安全/PHP/" itemprop="url" rel="index"><span itemprop="name">PHP</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB安全/PHP/SQL注入/" itemprop="url" rel="index"><span itemprop="name">SQL注入</span></a></span>
 
                 
                 
@@ -477,42 +467,32 @@
       
 
       
-        <a id="more"></a>
-<h2 id="一、实验环境"><a href="#一、实验环境" class="headerlink" title="一、实验环境"></a>一、实验环境</h2><ul>
+        <h2 id="实验环境"><a href="#实验环境" class="headerlink" title="实验环境"></a>实验环境</h2><ul>
 <li>Pikachu漏洞联系平台 （Windows+Phpstudy环境）</li>
 <li>火狐浏览器（附带插件HackBar与FoxyProxy）</li>
 <li>BurpSuite_Pro v1.7.26 破解版</li>
-<li>漏洞平台地址为：<a href="http://192.168.31.193/pika" target="_blank" rel="noopener">http://192.168.31.193/pika</a></li>
+<li>漏洞平台地址为：<a href="http://192.168.1.101/pika" target="_blank" rel="noopener">http://192.168.1.101/pika</a></li>
 </ul>
-<h2 id="二、漏洞概述"><a href="#二、漏洞概述" class="headerlink" title="二、漏洞概述"></a>二、漏洞概述</h2><p>在实际环境中，程序员很少会写一点防护都没有的代码，宽字节注入源于程序员设置MySQL连接时错误配置为“set character_set_client=gbk”，这样配置会引发编码转换从而导致注入漏洞，</p>
-<ol>
-<li>正常情况下，当GPC开启或使用addslashes函数过滤GET或POST提交的参数时，攻击者使用的“&#39;”就会被转义为“\‘”。</li>
-<li>但如果存在宽字节注入%df%27时，首先经过单引号转义成%df%5c%27（%5c是反斜杠\，%27是单引号’），之后在数据库查询前使用了GBK多字节编码，即在汉字编码范围内两个字节会被编码为有个汉字。</li>
-<li>然后MySQL服务器会对查询语句进行GBK编码，即%df%5c转换成汉字“運”，而单引号逃逸了出来从而照成注入漏洞。</li>
+<h2 id="漏洞概述"><a href="#漏洞概述" class="headerlink" title="漏洞概述"></a>漏洞概述</h2><ol>
+<li><p>PHP代码执行漏洞则是可以把代码注入应用到网站后端代码中，如果漏洞没有特殊过滤，就相当于直接有一个Web后门存在，该漏洞主要由于动态代码执行函数的参数过滤不严谨导致。</p>
+</li>
+<li><p>在应用需要调用一些外部程序处理内容的情况下，就会用到一些执行系统命令函数，例如system、exec、shell_exec等，当用户可以控制命令执行函数中的参数时将会注入恶意系统命令到正常命令中，造成命令执行功绩</p>
+</li>
 </ol>
-<h2 id="三、实验准备"><a href="#三、实验准备" class="headerlink" title="三、实验准备"></a>三、实验准备</h2><p>在我们使用的PIKACHU漏洞练习平台中，宽字节注入实验默认关闭了MySQL的错误描述显示，为方便学习理解，需要开启MySQL的错误描述：<br>修改\pika\vul\sqli\sqli_widebyte.php文件,将<code>$result=mysqli_query($link, $query);</code>修改为<code>$result=execute($link, $query);</code></p>
-<h2 id="四、实验演示"><a href="#四、实验演示" class="headerlink" title="四、实验演示"></a>四、实验演示</h2><ol>
-<li><p>检测注入点<br>使用Burp截断转发功能修改报文<br><img src="/images/SQL-Inject/4-1.png" alt="图4-1"><br>将修改完毕后的报文发送给WEB服务器，观察网页回显<br><img src="/images/SQL-Inject/4-2.png" alt="图4-2"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1%df&apos;==1運 </span><br><span class="line">&apos;=\&apos; </span><br><span class="line">\==%5c  </span><br><span class="line">%df%5c%27==運&apos;</span><br></pre></td></tr></table></figure>
+<h2 id="常规eval代码注入"><a href="#常规eval代码注入" class="headerlink" title="常规eval代码注入"></a>常规eval代码注入</h2><p>eval函数可以把字符串按照php代码来执行，也就是说eval可以动态的执行php代码，代码示例如下：<code>http://192.168.1.101/pika/vul/rce/rce_eval.php</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if(isset($_POST[&apos;submit&apos;]) &amp;&amp; $_POST[&apos;txt&apos;] != null)&#123;</span><br><span class="line">    if(@！eval($_POST[&apos;txt&apos;]))&#123;</span><br><span class="line">        $html.=&quot;&lt;p&gt;你喜欢的字符还挺奇怪的!&lt;/p&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
 
-<p>猜测该网页SQL的查询语句为：<code>select id,email from *** where ***=&#39;$name&#39;</code></p>
-</li>
-<li><p>构造SQL注入语句<br>构造查看数据库与用户的SQL语句<br><img src="/images/SQL-Inject/4-3.png" alt="图4-3"><br>注入结果<br><img src="/images/SQL-Inject/4-4.png" alt="图4-4"></p>
-</li>
-</ol>
-<h2 id="五、理解代码原理与代码加固"><a href="#五、理解代码原理与代码加固" class="headerlink" title="五、理解代码原理与代码加固"></a>五、理解代码原理与代码加固</h2><ol>
-<li><p>代码理解与分析</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">$link=connect();</span><br><span class="line"></span><br><span class="line">$html=&apos;&apos;;</span><br><span class="line"></span><br><span class="line">if(isset($_POST[&apos;submit&apos;]) &amp;&amp; $_POST[&apos;name&apos;]!=null)&#123;</span><br><span class="line">    //escape在这的功能类似$name = addslashes($name)</span><br><span class="line">    $name = escape($link,$_POST[&apos;name&apos;]);</span><br><span class="line">    $query=&quot;select id,email from member where username=&apos;$name&apos;&quot;;//这里的变量是字符型，需要考虑闭合</span><br><span class="line">    //设置mysql客户端来源编码是gbk,这个设置导致出现宽字节注入问题</span><br><span class="line">    $set = &quot;set character_set_client=gbk&quot;;</span><br><span class="line">    execute($link,$set);</span><br><span class="line"></span><br><span class="line">    //mysqi_query不打印错误描述</span><br><span class="line">    //$result=mysqli_query($link, $query);</span><br><span class="line">    $result=execute($link, $query);</span><br><span class="line">    if(mysqli_num_rows($result) &gt;= 1)&#123;</span><br><span class="line">        while ($data=mysqli_fetch_assoc($result))&#123;</span><br><span class="line">            $id=$data[&apos;id&apos;];</span><br><span class="line">            $email=$data[&apos;email&apos;];</span><br><span class="line">            $html.=&quot;&lt;p class=&apos;notice&apos;&gt;your uid:&#123;$id&#125; &lt;br /&gt;your email is: &#123;$email&#125;&lt;/p&gt;&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        $html.=&quot;&lt;p class=&apos;notice&apos;&gt;您输入的username不存在，请重新输入！&lt;/p&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当代码被执行时，攻击者可以通过参数值来执行恶意代码，如下图所示，参数利用<code>;</code>分割php语句，执行phpinfo()函数。<br><img src="/images/rce/1-1.png" alt></p>
+<h2 id="远程命令执行"><a href="#远程命令执行" class="headerlink" title="远程命令执行"></a>远程命令执行</h2><p>一般出现这种漏洞，是因为应用系统从设计上需要给用户提供指定的远程命令操作的接口，比如我们常见的路由器、防火墙、入侵检测等设备的web管理界面上 ，一般会给用户提供一个ping操作的web界面，用户从web界面输入目标IP，提交后，后台会对该IP地址进行一次ping测试，并返回测试结果。 而，如果，设计者在完成该功能时，没有做严格的安全控制，则可能会导致攻击者通过该接口提交“意想不到”的命令，从而让后台进行执行，从而控制整个后台服务器。 </p>
+<h3 id="远程命令执行示例"><a href="#远程命令执行示例" class="headerlink" title="远程命令执行示例"></a>远程命令执行示例</h3><p>示例代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if(isset($_POST[&apos;submit&apos;]) &amp;&amp; $_POST[&apos;ipaddress&apos;]!=null)&#123;</span><br><span class="line">    $ip=$_POST[&apos;ipaddress&apos;];</span><br><span class="line">    if(stristr(php_uname(&apos;s&apos;), &apos;windows&apos;))&#123; //判断系统类型</span><br><span class="line">        $result.=shell_exec(&apos;ping &apos;.$ip);//直接将变量拼接进来，没做处理</span><br><span class="line">    &#125;else &#123;</span><br><span class="line">        $result.=shell_exec(&apos;ping -c 4 &apos;.$ip);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
 
-<p>set character_set_client=gbk 是导致该漏洞的主要原因，其他代码会导致该漏洞，具体如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">set character_set_connection=gbk;</span><br><span class="line">set character_set_results=gbk;</span><br><span class="line">mysql_query(&quot;SET NAMES &apos;gbk&apos;&quot;);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>代码加固与防护<br>为了防止宽字节编码出现的参数问题，现在开发者基本上都会选择将MySQL连接配置为<code>set character_set_client=binary</code>来避免宽字节编码的问题发生。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">$link=connect();</span><br><span class="line"></span><br><span class="line">$html=&apos;&apos;;</span><br><span class="line"></span><br><span class="line">if(isset($_POST[&apos;submit&apos;]) &amp;&amp; $_POST[&apos;name&apos;]!=null)&#123;</span><br><span class="line"></span><br><span class="line">    $name = escape($link,$_POST[&apos;name&apos;]);</span><br><span class="line">    $query=&quot;select id,email from member where username=&apos;$name&apos;&quot;;//这里的变量是字符型，需要考虑闭合</span><br><span class="line">    //设置mysql客户端来源编码是gbk,这个设置导致出现宽字节注入问题</span><br><span class="line">    //$set = &quot;set character_set_client=gbk&quot;;</span><br><span class="line">    //将MySQL连接配置为binary</span><br><span class="line">    $set = &quot;set character_set_client=binary&quot;;</span><br><span class="line">    execute($link,$set);</span><br><span class="line"></span><br><span class="line">    //mysqi_query不打印错误描述</span><br><span class="line">    //$result=mysqli_query($link, $query);</span><br><span class="line">    $result=execute($link, $query);</span><br><span class="line">    if(mysqli_num_rows($result) &gt;= 1)&#123;</span><br><span class="line">        while ($data=mysqli_fetch_assoc($result))&#123;</span><br><span class="line">            $id=$data[&apos;id&apos;];</span><br><span class="line">            $email=$data[&apos;email&apos;];</span><br><span class="line">            $html.=&quot;&lt;p class=&apos;notice&apos;&gt;your uid:&#123;$id&#125; &lt;br /&gt;your email is: &#123;$email&#125;&lt;/p&gt;&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        $html.=&quot;&lt;p class=&apos;notice&apos;&gt;您输入的username不存在，请重新输入！&lt;/p&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>测试防护效果<br><img src="/images/SQL-Inject/4-5.png" alt="图4-5"><br><img src="/images/SQL-Inject/4-6.png" alt="图4-6"></p>
-</li>
-</ol>
+<p>当用户正常使用该命令接口时如下图所示：<br><img src="/images/rce/2-1.png" alt><br>使用特殊符号拼接命令，使其起到查看当前目录下文件的功能：<br><img src="/images/rce/2-2.png" alt><br>操作系统中的命令连接符：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&amp;   &amp;&amp;   |   ||</span><br><span class="line"></span><br><span class="line">&amp;&amp; 表示前一条命令执行成功时，才执行后一条命令</span><br><span class="line">&amp;  表示命令在后台执行</span><br><span class="line">|  将上一条命令的输出内容做为下一条命令的输入参数</span><br><span class="line">|| 表示上一条命令执行失败后，才执行下一条命令</span><br></pre></td></tr></table></figure>
+
+<h3 id="代码加固"><a href="#代码加固" class="headerlink" title="代码加固"></a>代码加固</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$result=&apos;&apos;;</span><br><span class="line">if(isset($_POST[&apos;submit&apos;]) &amp;&amp; $_POST[&apos;ipaddress&apos;]!=null)&#123;</span><br><span class="line">    $ip=$_POST[&apos;ipaddress&apos;];</span><br><span class="line">    $check=explode(&apos;.&apos;, $ip);</span><br><span class="line">    if ((is_numeric($check[0])) &amp;&amp; (is_numeric($check[1])) &amp;&amp; (is_numeric($check[2])) &amp;&amp; (is_numeric($check[3])) &amp;&amp; (sizeof($check) == 4)  ) &#123;</span><br><span class="line">    $ip = $check[0].&apos;.&apos;.$check[1].&apos;.&apos;.$check[2].&apos;.&apos;.$check[3]; </span><br><span class="line">    	if(stristr(php_uname(&apos;s&apos;), &apos;windows&apos;))&#123; //判断系统类型</span><br><span class="line">        	$result.=shell_exec(&apos;ping &apos;.$ip);//直接将变量拼接进来，没做处理</span><br><span class="line">    	&#125;else &#123;</span><br><span class="line">        	$result.=shell_exec(&apos;ping -c 4 &apos;.$ip);</span><br><span class="line">    	&#125;</span><br><span class="line">	&#125;else&#123;</span><br><span class="line">		print(&quot;请输入正确的IP地址&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>代码加固效果如下图：<br><img src="/images/rce/2-3.png" alt></p>
 
       
     </div>
@@ -538,15 +518,6 @@
 
     <footer class="post-footer">
       
-        
-          
-        
-        <div class="post-tags">
-          
-            <a href="/tags/SQL注入/" rel="tag"># SQL注入</a>
-          
-        </div>
-      
 
       
       
@@ -556,8 +527,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/28/pikachu环境搭建/" rel="next" title="pikachu环境搭建">
-                <i class="fa fa-chevron-left"></i> pikachu环境搭建
+              <a href="/2019/08/05/CVE-2019-12735（Vim远程代码执行）漏洞复现/" rel="next" title="CVE-2019-12735（Vim远程代码执行）漏洞复现">
+                <i class="fa fa-chevron-left"></i> CVE-2019-12735（Vim远程代码执行）漏洞复现
               </a>
             
           </div>
@@ -566,8 +537,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/07/30/SQL注入-盲注/" rel="prev" title="SQL盲注注入">
-                SQL盲注注入 <i class="fa fa-chevron-right"></i>
+              <a href="/9102/01/01/top/" rel="prev" title="置顶">
+                置顶 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -727,7 +698,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、实验环境"><span class="nav-number">1.</span> <span class="nav-text">一、实验环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、漏洞概述"><span class="nav-number">2.</span> <span class="nav-text">二、漏洞概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、实验准备"><span class="nav-number">3.</span> <span class="nav-text">三、实验准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、实验演示"><span class="nav-number">4.</span> <span class="nav-text">四、实验演示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、理解代码原理与代码加固"><span class="nav-number">5.</span> <span class="nav-text">五、理解代码原理与代码加固</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#实验环境"><span class="nav-number">1.</span> <span class="nav-text">实验环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#漏洞概述"><span class="nav-number">2.</span> <span class="nav-text">漏洞概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常规eval代码注入"><span class="nav-number">3.</span> <span class="nav-text">常规eval代码注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#远程命令执行"><span class="nav-number">4.</span> <span class="nav-text">远程命令执行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#远程命令执行示例"><span class="nav-number">4.1.</span> <span class="nav-text">远程命令执行示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码加固"><span class="nav-number">4.2.</span> <span class="nav-text">代码加固</span></a></li></ol></li></ol></div>
             
 
           </div>
