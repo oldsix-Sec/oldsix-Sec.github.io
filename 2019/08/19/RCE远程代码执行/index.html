@@ -114,7 +114,7 @@
 <meta property="og:image" content="http://yoursite.com/images/rce/2-1.png">
 <meta property="og:image" content="http://yoursite.com/images/rce/2-2.png">
 <meta property="og:image" content="http://yoursite.com/images/rce/2-3.png">
-<meta property="og:updated_time" content="2019-08-20T08:08:26.547Z">
+<meta property="og:updated_time" content="2019-08-23T03:02:13.925Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RCE代码注入与远程命令执行">
 <meta name="twitter:description" content="实验环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar与FoxyProxy） BurpSuite_Pro v1.7.26 破解版 漏洞平台地址为：http://192.168.1.101/pika  漏洞概述 PHP代码执行漏洞则是可以把代码注入应用到网站后端代码中，如果漏洞没有特殊过滤，就相当于直接有一个Web后门存在，该漏洞主要由于动">
@@ -411,7 +411,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-08-20 16:08:26" itemprop="dateModified" datetime="2019-08-20T16:08:26+08:00">2019-08-20</time>
+                <time title="修改时间：2019-08-23 11:02:13" itemprop="dateModified" datetime="2019-08-23T11:02:13+08:00">2019-08-23</time>
               </span>
             
           
@@ -480,17 +480,17 @@
 </li>
 </ol>
 <h2 id="常规eval代码注入"><a href="#常规eval代码注入" class="headerlink" title="常规eval代码注入"></a>常规eval代码注入</h2><p>eval函数可以把字符串按照php代码来执行，也就是说eval可以动态的执行php代码，代码示例如下：<code>http://192.168.1.101/pika/vul/rce/rce_eval.php</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if(isset($_POST[&apos;submit&apos;]) &amp;&amp; $_POST[&apos;txt&apos;] != null)&#123;</span><br><span class="line">    if(@！eval($_POST[&apos;txt&apos;]))&#123;</span><br><span class="line">        $html.=&quot;&lt;p&gt;你喜欢的字符还挺奇怪的!&lt;/p&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_POST[<span class="string">'submit'</span>]) &amp;&amp; $_POST[<span class="string">'txt'</span>] != <span class="keyword">null</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(@！<span class="keyword">eval</span>($_POST[<span class="string">'txt'</span>]))&#123;</span><br><span class="line">        $html.=<span class="string">"&lt;p&gt;你喜欢的字符还挺奇怪的!&lt;/p&gt;"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>当代码被执行时，攻击者可以通过参数值来执行恶意代码，如下图所示，参数利用<code>;</code>分割php语句，执行phpinfo()函数。<br><img src="/images/rce/1-1.png" alt></p>
 <h2 id="远程命令执行"><a href="#远程命令执行" class="headerlink" title="远程命令执行"></a>远程命令执行</h2><p>一般出现这种漏洞，是因为应用系统从设计上需要给用户提供指定的远程命令操作的接口，比如我们常见的路由器、防火墙、入侵检测等设备的web管理界面上 ，一般会给用户提供一个ping操作的web界面，用户从web界面输入目标IP，提交后，后台会对该IP地址进行一次ping测试，并返回测试结果。 而，如果，设计者在完成该功能时，没有做严格的安全控制，则可能会导致攻击者通过该接口提交“意想不到”的命令，从而让后台进行执行，从而控制整个后台服务器。 </p>
 <h3 id="远程命令执行示例"><a href="#远程命令执行示例" class="headerlink" title="远程命令执行示例"></a>远程命令执行示例</h3><p>示例代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if(isset($_POST[&apos;submit&apos;]) &amp;&amp; $_POST[&apos;ipaddress&apos;]!=null)&#123;</span><br><span class="line">    $ip=$_POST[&apos;ipaddress&apos;];</span><br><span class="line">    if(stristr(php_uname(&apos;s&apos;), &apos;windows&apos;))&#123; //判断系统类型</span><br><span class="line">        $result.=shell_exec(&apos;ping &apos;.$ip);//直接将变量拼接进来，没做处理</span><br><span class="line">    &#125;else &#123;</span><br><span class="line">        $result.=shell_exec(&apos;ping -c 4 &apos;.$ip);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_POST[<span class="string">'submit'</span>]) &amp;&amp; $_POST[<span class="string">'ipaddress'</span>]!=<span class="keyword">null</span>)&#123;</span><br><span class="line">    $ip=$_POST[<span class="string">'ipaddress'</span>];</span><br><span class="line">    <span class="keyword">if</span>(stristr(php_uname(<span class="string">'s'</span>), <span class="string">'windows'</span>))&#123; <span class="comment">//判断系统类型</span></span><br><span class="line">        $result.=shell_exec(<span class="string">'ping '</span>.$ip);<span class="comment">//直接将变量拼接进来，没做处理</span></span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        $result.=shell_exec(<span class="string">'ping -c 4 '</span>.$ip);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>当用户正常使用该命令接口时如下图所示：<br><img src="/images/rce/2-1.png" alt><br>使用特殊符号拼接命令，使其起到查看当前目录下文件的功能：<br><img src="/images/rce/2-2.png" alt><br>操作系统中的命令连接符：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&amp;   &amp;&amp;   |   ||</span><br><span class="line"></span><br><span class="line">&amp;&amp; 表示前一条命令执行成功时，才执行后一条命令</span><br><span class="line">&amp;  表示命令在后台执行</span><br><span class="line">|  将上一条命令的输出内容做为下一条命令的输入参数</span><br><span class="line">|| 表示上一条命令执行失败后，才执行下一条命令</span><br></pre></td></tr></table></figure>
 
-<h3 id="代码加固"><a href="#代码加固" class="headerlink" title="代码加固"></a>代码加固</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$result=&apos;&apos;;</span><br><span class="line">if(isset($_POST[&apos;submit&apos;]) &amp;&amp; $_POST[&apos;ipaddress&apos;]!=null)&#123;</span><br><span class="line">    $ip=$_POST[&apos;ipaddress&apos;];</span><br><span class="line">    $check=explode(&apos;.&apos;, $ip);</span><br><span class="line">    if ((is_numeric($check[0])) &amp;&amp; (is_numeric($check[1])) &amp;&amp; (is_numeric($check[2])) &amp;&amp; (is_numeric($check[3])) &amp;&amp; (sizeof($check) == 4)  ) &#123;</span><br><span class="line">    $ip = $check[0].&apos;.&apos;.$check[1].&apos;.&apos;.$check[2].&apos;.&apos;.$check[3]; </span><br><span class="line">    	if(stristr(php_uname(&apos;s&apos;), &apos;windows&apos;))&#123; //判断系统类型</span><br><span class="line">        	$result.=shell_exec(&apos;ping &apos;.$ip);//直接将变量拼接进来，没做处理</span><br><span class="line">    	&#125;else &#123;</span><br><span class="line">        	$result.=shell_exec(&apos;ping -c 4 &apos;.$ip);</span><br><span class="line">    	&#125;</span><br><span class="line">	&#125;else&#123;</span><br><span class="line">		print(&quot;请输入正确的IP地址&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="代码加固"><a href="#代码加固" class="headerlink" title="代码加固"></a>代码加固</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$result=<span class="string">''</span>;</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_POST[<span class="string">'submit'</span>]) &amp;&amp; $_POST[<span class="string">'ipaddress'</span>]!=<span class="keyword">null</span>)&#123;</span><br><span class="line">    $ip=$_POST[<span class="string">'ipaddress'</span>];</span><br><span class="line">    $check=explode(<span class="string">'.'</span>, $ip);   <span class="comment">//以.为分隔符，将IP分为4个字节</span></span><br><span class="line">    <span class="comment">//检查每个字节是否都是整数，是否为4个字节</span></span><br><span class="line">    <span class="keyword">if</span> ((is_numeric($check[<span class="number">0</span>])) &amp;&amp; (is_numeric($check[<span class="number">1</span>])) &amp;&amp; (is_numeric($check[<span class="number">2</span>])) &amp;&amp; (is_numeric($check[<span class="number">3</span>])) &amp;&amp; (sizeof($check) == <span class="number">4</span>)  ) &#123;</span><br><span class="line">    <span class="comment">// 重新拼接4个字节为IP地址</span></span><br><span class="line">    $ip = $check[<span class="number">0</span>].<span class="string">'.'</span>.$check[<span class="number">1</span>].<span class="string">'.'</span>.$check[<span class="number">2</span>].<span class="string">'.'</span>.$check[<span class="number">3</span>]; </span><br><span class="line">    	<span class="keyword">if</span>(stristr(php_uname(<span class="string">'s'</span>), <span class="string">'windows'</span>))&#123; <span class="comment">//判断系统类型</span></span><br><span class="line">        	$result.=shell_exec(<span class="string">'ping '</span>.$ip);<span class="comment">//直接将变量拼接进来，没做处理</span></span><br><span class="line">    	&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        	$result.=shell_exec(<span class="string">'ping -c 4 '</span>.$ip);</span><br><span class="line">    	&#125;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">print</span>(<span class="string">"请输入正确的IP地址"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>代码加固效果如下图：<br><img src="/images/rce/2-3.png" alt></p>
 
@@ -537,8 +537,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/9102/01/01/top/" rel="prev" title="置顶">
-                置顶 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/08/22/Centos7安装Mysql5-7/" rel="prev" title="Centos7安装Mysql5.7">
+                Centos7安装Mysql5.7 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -609,7 +609,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -638,7 +638,11 @@
         
           
         
-        <span class="site-state-item-count">6</span>
+          
+        
+          
+        
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -663,7 +667,9 @@
         
           
         
-        <span class="site-state-item-count">4</span>
+          
+        
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

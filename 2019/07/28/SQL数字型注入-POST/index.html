@@ -117,7 +117,7 @@
 <meta property="og:image" content="http://yoursite.com/images/SQL-Inject/2-4.png">
 <meta property="og:image" content="http://yoursite.com/images/SQL-Inject/2-5.png">
 <meta property="og:image" content="http://yoursite.com/images/SQL-Inject/2-6.png">
-<meta property="og:updated_time" content="2019-08-09T05:43:03.065Z">
+<meta property="og:updated_time" content="2019-08-23T02:49:18.520Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQL数字型注入 （POST）">
 <meta name="twitter:description" content="一、实验环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar与FoxyProxy） BurpSuite_Pro v1.7.26 破解版 漏洞平台地址为：http://192.168.31.193/pika  二、实验步骤 观察注入点尝试在表单的下拉菜单中提交任意数据，观察URL与网页URL：http://192.168.31.193/pi">
@@ -414,7 +414,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-08-09 13:43:03" itemprop="dateModified" datetime="2019-08-09T13:43:03+08:00">2019-08-09</time>
+                <time title="修改时间：2019-08-23 10:49:18" itemprop="dateModified" datetime="2019-08-23T10:49:18+08:00">2019-08-23</time>
               </span>
             
           
@@ -496,10 +496,10 @@
 </ol>
 <h2 id="三、代码理解与防范"><a href="#三、代码理解与防范" class="headerlink" title="三、代码理解与防范"></a>三、代码理解与防范</h2><ol>
 <li><p>源代码(pika\vul\sqli\sqli_id.php)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$link=connect();</span><br><span class="line">$html=&apos;&apos;;</span><br><span class="line"></span><br><span class="line">if(isset($_POST[&apos;submit&apos;]) &amp;&amp; $_POST[&apos;id&apos;]!=null)&#123;</span><br><span class="line">    //这里没有做任何处理，直接拼到select里面去了,形成Sql注入</span><br><span class="line">    $id=$_POST[&apos;id&apos;];</span><br><span class="line">    $query=&quot;select username,email from member where id=$id&quot;; </span><br><span class="line">    $result=execute($link, $query);</span><br><span class="line">    //这里如果用==1,会严格一点</span><br><span class="line">    if(mysqli_num_rows($result)&gt;=1)&#123;</span><br><span class="line">        while($data=mysqli_fetch_assoc($result))&#123;</span><br><span class="line">            $username=$data[&apos;username&apos;];</span><br><span class="line">            $email=$data[&apos;email&apos;];</span><br><span class="line">            $html.=&quot;&lt;p class=&apos;notice&apos;&gt;hello,&#123;$username&#125; &lt;br /&gt;your email is: &#123;$email&#125;&lt;/p&gt;&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        $html.=&quot;&lt;p class=&apos;notice&apos;&gt;您输入的user id不存在，请重新输入！&lt;/p&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$link=connect();</span><br><span class="line">$html=<span class="string">''</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_POST[<span class="string">'submit'</span>]) &amp;&amp; $_POST[<span class="string">'id'</span>]!=<span class="keyword">null</span>)&#123;</span><br><span class="line">    <span class="comment">//这里没有做任何处理，直接拼到select里面去了,形成Sql注入</span></span><br><span class="line">    $id=$_POST[<span class="string">'id'</span>];</span><br><span class="line">    $query=<span class="string">"select username,email from member where id=$id"</span>; </span><br><span class="line">    $result=execute($link, $query);</span><br><span class="line">    <span class="comment">//这里如果用==1,会严格一点</span></span><br><span class="line">    <span class="keyword">if</span>(mysqli_num_rows($result)&gt;=<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">while</span>($data=mysqli_fetch_assoc($result))&#123;</span><br><span class="line">            $username=$data[<span class="string">'username'</span>];</span><br><span class="line">            $email=$data[<span class="string">'email'</span>];</span><br><span class="line">            $html.=<span class="string">"&lt;p class='notice'&gt;hello,&#123;$username&#125; &lt;br /&gt;your email is: &#123;$email&#125;&lt;/p&gt;"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        $html.=<span class="string">"&lt;p class='notice'&gt;您输入的user id不存在，请重新输入！&lt;/p&gt;"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>通过判断参数类型对网页起到防护作用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">$link=connect();</span><br><span class="line">$html=&apos;&apos;;</span><br><span class="line">//&amp;&amp; id_numeric($_POST[&apos;id&apos;])判断从网页传入的值是否为数字，如果带有其他字符将不运行后面的代码</span><br><span class="line">if(isset($_POST[&apos;submit&apos;]) &amp;&amp; $_POST[&apos;id&apos;]!=null &amp;&amp; id_numeric($_POST[&apos;id&apos;]))&#123;</span><br><span class="line">    //这里没有做任何处理，直接拼到select里面去了,形成Sql注入</span><br><span class="line">    $id=$_POST[&apos;id&apos;];</span><br><span class="line">    //数字型注入与字符型注入不同的地方是因为id=$id并没有使用符号进行闭合</span><br><span class="line">    $query=&quot;select username,email from member where id=$id&quot;; </span><br><span class="line">    $result=execute($link, $query);</span><br><span class="line">    //这里如果用==1,会严格一点</span><br><span class="line">    if(mysqli_num_rows($result)&gt;=1)&#123;</span><br><span class="line">        while($data=mysqli_fetch_assoc($result))&#123;</span><br><span class="line">            $username=$data[&apos;username&apos;];</span><br><span class="line">            $email=$data[&apos;email&apos;];</span><br><span class="line">            $html.=&quot;&lt;p class=&apos;notice&apos;&gt;hello,&#123;$username&#125; &lt;br /&gt;your email is: &#123;$email&#125;&lt;/p&gt;&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        $html.=&quot;&lt;p class=&apos;notice&apos;&gt;您输入的user id不存在，请重新输入！&lt;/p&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$link=connect();</span><br><span class="line">$html=<span class="string">''</span>;</span><br><span class="line"><span class="comment">//&amp;&amp; id_numeric($_POST['id'])判断从网页传入的值是否为数字，如果带有其他字符将不运行后面的代码</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_POST[<span class="string">'submit'</span>]) &amp;&amp; $_POST[<span class="string">'id'</span>]!=<span class="keyword">null</span> &amp;&amp; id_numeric($_POST[<span class="string">'id'</span>]))&#123;</span><br><span class="line">    $id=$_POST[<span class="string">'id'</span>];</span><br><span class="line">    <span class="comment">//数字型注入与字符型注入不同的地方是因为id=$id并没有使用符号进行闭合</span></span><br><span class="line">    $query=<span class="string">"select username,email from member where id=$id"</span>; </span><br><span class="line">    $result=execute($link, $query);</span><br><span class="line">    <span class="keyword">if</span>(mysqli_num_rows($result)&gt;=<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">while</span>($data=mysqli_fetch_assoc($result))&#123;</span><br><span class="line">            $username=$data[<span class="string">'username'</span>];</span><br><span class="line">            $email=$data[<span class="string">'email'</span>];</span><br><span class="line">            $html.=<span class="string">"&lt;p class='notice'&gt;hello,&#123;$username&#125; &lt;br /&gt;your email is: &#123;$email&#125;&lt;/p&gt;"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        $html.=<span class="string">"&lt;p class='notice'&gt;您输入的user id不存在，请重新输入！&lt;/p&gt;"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></li>
 </ol>
 
       
@@ -626,7 +626,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -655,7 +655,11 @@
         
           
         
-        <span class="site-state-item-count">6</span>
+          
+        
+          
+        
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -680,7 +684,9 @@
         
           
         
-        <span class="site-state-item-count">4</span>
+          
+        
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>

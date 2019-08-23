@@ -118,7 +118,7 @@
 <meta property="og:image" content="http://yoursite.com/images/fileinclude/1-5.png">
 <meta property="og:image" content="http://yoursite.com/images/fileinclude/2-1.png">
 <meta property="og:image" content="http://yoursite.com/images/fileinclude/2-2.png">
-<meta property="og:updated_time" content="2019-08-11T16:20:41.027Z">
+<meta property="og:updated_time" content="2019-08-23T02:42:43.200Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="文件包含与目录遍历">
 <meta name="twitter:description" content="实验环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar与FoxyProxy） BurpSuite_Pro v1.7.26 破解版 漏洞平台地址为：http://192.168.31.193/pika漏洞概述   程序开发人员希望代码更加灵活，所以通常会把可重复使用的函数写入到单个文件中，在使用某些函数时，用来进行动态调用，而无需再次编写，">
@@ -415,7 +415,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-08-12 00:20:41" itemprop="dateModified" datetime="2019-08-12T00:20:41+08:00">2019-08-12</time>
+                <time title="修改时间：2019-08-23 10:42:43" itemprop="dateModified" datetime="2019-08-23T10:42:43+08:00">2019-08-23</time>
               </span>
             
           
@@ -503,11 +503,11 @@
 <p>#类UNIX系统<br>根目录：/<br>目录层级分隔符：/</p>
 <p>#windows系统<br>根目录：C:\，D:\，E:\ 等<br>目录层级分隔符：\或/</p>
 <p>示例代码:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    $filename  = $_GET[&apos;filename&apos;];</span><br><span class="line">    include($filename);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    $filename  = $_GET[<span class="string">'filename'</span>];</span><br><span class="line">    <span class="keyword">include</span>($filename);</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p><code>$_GET[&#39;filename&#39;]</code>参数开发者没有经过严格的过滤，直接带入了include的函数，攻击者可以通过修改<code>$_GET[&#39;filename&#39;]</code>的值，执行非预期的操作。</p>
 <h3 id="本地文件包含漏洞"><a href="#本地文件包含漏洞" class="headerlink" title="本地文件包含漏洞"></a>本地文件包含漏洞</h3><ol>
-<li>本地文件包含示例<br>代码示例：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if(isset($_GET[&apos;submit&apos;]) &amp;&amp; $_GET[&apos;filename&apos;]!=null)&#123;</span><br><span class="line">    $filename=$_GET[&apos;filename&apos;];</span><br><span class="line">    include &quot;include/$filename&quot;;//变量传进来直接包含,没做任何的安全限制</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<li>本地文件包含示例<br>代码示例：<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'submit'</span>]) &amp;&amp; $_GET[<span class="string">'filename'</span>]!=<span class="keyword">null</span>)&#123;</span><br><span class="line">    $filename=$_GET[<span class="string">'filename'</span>];</span><br><span class="line">    <span class="keyword">include</span> <span class="string">"include/$filename"</span>;<span class="comment">//变量传进来直接包含,没做任何的安全限制</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
 </li>
 </ol>
@@ -515,7 +515,7 @@
 <p><img src="/images/fileinclude/1-2.png" alt></p>
 <h3 id="远程文件包含漏洞"><a href="#远程文件包含漏洞" class="headerlink" title="远程文件包含漏洞"></a>远程文件包含漏洞</h3><p>PHP的配置文件(/etc/php5/cgi/php.ini )中的allow_url_include设置为ON，include/require等包含函数可以加载远程文件，如果远程文件没经过严格的过滤，导致了执行恶意文件的代码，这就是远程文件包含漏洞。</p>
 <ol>
-<li>远程文件包含示例<br>代码示例：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if(isset($_GET[&apos;submit&apos;]) &amp;&amp; $_GET[&apos;filename&apos;]!=null)&#123;</span><br><span class="line">    $filename=$_GET[&apos;filename&apos;];</span><br><span class="line">    include &quot;include/$filename&quot;;//变量传进来直接包含,没做任何的安全限制</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<li>远程文件包含示例<br>代码示例：<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'submit'</span>]) &amp;&amp; $_GET[<span class="string">'filename'</span>]!=<span class="keyword">null</span>)&#123;</span><br><span class="line">    $filename=$_GET[<span class="string">'filename'</span>];</span><br><span class="line">    <span class="keyword">include</span> <span class="string">"include/$filename"</span>;<span class="comment">//变量传进来直接包含,没做任何的安全限制</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
 </li>
 </ol>
@@ -524,7 +524,7 @@
 <h2 id="Directory-Traversal-目录遍历"><a href="#Directory-Traversal-目录遍历" class="headerlink" title="Directory Traversal 目录遍历"></a>Directory Traversal 目录遍历</h2><p>漏洞危害：本台机器操作系统上文件进行读取<br>使用者可以通过浏览器/URL地址或者参数变量内容，可以读取web根目录【默认为:/var/www/】之外的其他操作系统文件(如：/etc/passwd/)。<br>形成漏洞根源：目录权限限制不严格</p>
 <ol>
 <li><p>目录遍历漏洞示例<br>示例代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if(isset($_GET[&apos;title&apos;]))&#123;</span><br><span class="line">    $filename=$_GET[&apos;title&apos;];</span><br><span class="line">    //这里直接把传进来的内容进行了require(),造成问题</span><br><span class="line">    require &quot;soup/$filename&quot;;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>($_GET[<span class="string">'title'</span>]))&#123;</span><br><span class="line">    $filename=$_GET[<span class="string">'title'</span>];</span><br><span class="line">    <span class="comment">//这里直接把传进来的内容进行了require(),造成问题</span></span><br><span class="line">    <span class="keyword">require</span> <span class="string">"soup/$filename"</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p> URL:<code>http://192.168.31.193/pika/vul/dir/dir_list.php?title=jarheads.php</code><br> <img src="/images/fileinclude/2-1.png" alt><br> 修改url中title参数的值为<code>../../../../../../../../../../flag.txt</code><br> <img src="/images/fileinclude/2-2.png" alt></p>
 </li>
@@ -654,7 +654,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -683,7 +683,11 @@
         
           
         
-        <span class="site-state-item-count">6</span>
+          
+        
+          
+        
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
@@ -708,7 +712,9 @@
         
           
         
-        <span class="site-state-item-count">4</span>
+          
+        
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">标签</span>
         </a>
       </div>
