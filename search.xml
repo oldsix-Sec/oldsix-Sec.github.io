@@ -6,6 +6,30 @@
     <content type="text"><![CDATA[该博客用于本人日常记录学习、复习过程，学习范围有Windows，Linux，安全，网络，C++，Python等内容，不定期更新！暂不开放评论功能（玻璃心）！]]></content>
   </entry>
   <entry>
+    <title><![CDATA[Centos7.2安装nginx]]></title>
+    <url>%2F2019%2F08%2F26%2FCentos7-2%E5%AE%89%E8%A3%85nginx%2F</url>
+    <content type="text"><![CDATA[实验环境 Centos 7.2 nginx 1.14.2 配置安装环境 安装开发者工具： 1[root@bogon ~]# yum -y groupinstall &apos;Development Tools&apos; 安装nginx依赖软件 1[root@bogon ~]# yum -y intsall pcre pcre-devel zlib zlib-devel 源码安装nginx源码包下载地址:http://nginx.org/en/download.html 123456789[root@bogon ~]# tar -xf nginx-1.14.2[root@bogon ~]# cd nginx-1.14.2---------------配置安装信息--------------[root@bogon nginx-1.14.2]# ./configure ----------------编译安装-----------------[root@bogon nginx-1.14.2]# make [root@bogon nginx-1.14.2]# make install----------------启动服务-----------------[root@bogon ~]# /usr/local/nginx/sbin/nginx 访问网页: 后续工作查看nginx安装路径： 12[root@bogon ~]# whereis nginxnginx: /usr/sbin/nginx /usr/local/nginx 设置软链接： 1ln -sf /usr/local/nginx/sbin/nginx /usr/sbin 常用命令 nginx //启动nginx服务 ngixn -s stop //关闭nginx服务 nginx -s reload //重启nginx服务 nginx -t //检查配置文件]]></content>
+      <categories>
+        <category>LINUX</category>
+        <category>系统服务</category>
+      </categories>
+      <tags>
+        <tag>LANMP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Centos7.2安装PHP7.1]]></title>
+    <url>%2F2019%2F08%2F26%2FCentos7-2%E5%AE%89%E8%A3%85PHP7-1%2F</url>
+    <content type="text"><![CDATA[PHP-FPM（PHP FastCGI Process Manager的简称，意思是 “PHP FastCGI进程管理器” ）是用于管理PHP进程池的软件，用于接收和处理来自Web服务器（例如nginx）的请求。PHP-FPM软件会创建一个主进程（通常以操作系统中根用户的身份运行），控制何时以及如何把HTTP请求转发给一个或多个子进程处理。PHP-FPM主进程还控制着什么时候创建（处理Web应用更多的流量）和销毁（子进程运行时间太久或不再需要了）PHP子进程。PHP-FPM进程池中的每个进程存在的时间都比单个HTTP请求长，可以处理10，50，100，500或更多的HTTP请求。 实验环境 Centos 7.2 nginx 1.14.2 php 7.1 检查当前系统是否安装php1234567[root@localhost ~]# rpm -qa |grep phpphp-common-5.4.16-36.el7_1.x86_64php-cli-5.4.16-36.el7_1.x86_64php-5.4.16-36.el7_1.x86_64[root@localhost ~]# yum -y remove php-*[root@localhost ~]# rpm -qa |grep php[root@localhost ~]# 升级openssl检查默认安装的openssl 1234[root@localhost ~]# rpm -qa |grep opensslopenssl098e-0.9.8e-29.el7.centos.2.x86_64openssl-libs-1.0.1e-42.el7.9.x86_64openssl-1.0.1e-42.el7.9.x86_64 下载openssl-libs-1.0.2k-16.el7.x86_64.rpm包：下载地址:http://rpmfind.net/linux/rpm2html/search.php?query=libcrypto.so.10(OPENSSL_1.0.2)(64bit)&amp;submit=Search+…&amp;system=&amp;arch= 1wget http://rpmfind.net/linux/centos/7.6.1810/updates/x86_64/Packages/openssl-libs-1.0.2k-16.el7_6.1.x86_64.rpm 升级openssl 1rpm -ivh openssl-libs-1.0.2k-16.el7_6.1.x86_64.rpm --force 完成后即可安装php 配置php7.1 yum源12rpm -Uvh https://mirror.webtatic.com/yum/el7/epel-release.rpmrpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm 123456789101112[root@localhost ~]# rpm -Uvh https://mirror.webtatic.com/yum/el7/epel-release.rpm获取https://mirror.webtatic.com/yum/el7/epel-release.rpm警告：/var/tmp/rpm-tmp.YZHZBq: 头V4 RSA/SHA1 Signature, 密钥 ID 62e74ca5: NOKEY准备中... ################################# [100%]正在升级/安装... 1:epel-release-7-5 ################################# [100%][root@localhost ~]# rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm获取https://mirror.webtatic.com/yum/el7/webtatic-release.rpm警告：/var/tmp/rpm-tmp.OICsK8: 头V4 RSA/SHA1 Signature, 密钥 ID 62e74ca5: NOKEY准备中... ################################# [100%]正在升级/安装... 1:webtatic-release-7-3 ################################# [100%] 安装php及相关插件php-cli 与 php-fpm必须在openssl升级后才可安装 1yum install php71w.x86_64 php71w-cli.x86_64 php71w-common.x86_64 php71w-gd.x86_64 php71w-ldap.x86_64 php71w-mbstring.x86_64 php71w-mcrypt.x86_64 php71w-mysql.x86_64 php71w-pdo.x86_64 php71w-fpm.x86_64 检查php版本1234[root@localhost ~]# php -vPHP 7.1.31 (cli) (built: Aug 4 2019 09:25:59) ( NTS )Copyright (c) 1997-2018 The PHP GroupZend Engine v3.1.0, Copyright (c) 1998-2018 Zend Technologies 启动PHP-FPM1[root@localhost ~]# systemctl start php-fpm]]></content>
+      <categories>
+        <category>LINUX</category>
+        <category>系统服务</category>
+      </categories>
+      <tags>
+        <tag>LANMP</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[文件上传漏洞]]></title>
     <url>%2F2019%2F08%2F23%2F%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E%2F</url>
     <content type="text"><![CDATA[实验环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar与FoxyProxy） BurpSuite_Pro v1.7.26 破解版 漏洞平台地址为：http://127.0.0.1/pika 漏洞概述 在运营网站的过程中，不可避免地要对网站内容进行更新，比如用户需要上传头像、发帖需要上传附件、商品需要上传照片等，这是便需要使用网站的文件上传功能，如果不对被上传的文件进行限制，或者限制被攻击者绕过，该功能便有可能会被利用于上传可执行文件、脚本到服务器上、从而进一步导致服务器沦陷。 在该漏洞中攻击者可以上传一个可执行文件到服务器，然后通过某种方式执行。上传的文件可以使木马、病毒、恶意脚本、或者WebShell等。这些功绩方式带来的危害是最直接的，且文件上传漏洞的利用技术门槛也非常低，对于攻击者来说很容易实现。 常见的文件上传漏洞的防护方式： 验证文件类型、后缀名、大小; 验证文件的上传方式; 对文件进行一定复杂的重命名; 不要暴露文件上传后的路径; Client Check实验示例： 尝试上传图片 访问上传成功的文件路径 尝试上传一句话木马 1234一句话木马代码：&lt;?php@system($_GET['cmd']);?&gt; 禁止javaScript在地址栏中输入:about:config搜索:javascript.enabled 重新上传一句话木马利用一句话木马 MIME Type实验示例 尝试上传一句话木马 利用Burp Suite修改Content-Type类型为 image/jpeg 上传成功并利用webshell getimagesize实验示例 尝试上传一句话木马 1234一句话木马内容:&lt;?php@system('ipconfig');?&gt; 制作图片木马 1234C:\Users\Asche-Q\Desktop&gt;copy /b dd.png + cmd.php ccc3.pngdd.pngcmd.php已复制 1 个文件。 上传桌面的ccc3.png图片 访问上传路径，发现上传的图片木马只以图片方式打开，其中的php代码并未执行 使用本地文件包含利用图片木马(目录遍历同理)]]></content>
