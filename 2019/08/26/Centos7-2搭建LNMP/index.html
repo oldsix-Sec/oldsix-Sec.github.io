@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    search: {
+      root: '/',
+      path: 'search.xml'
+    },
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="系统版本 Centos 7.2.151112[root@localhost ~]# cat /etc/redhat-releaseCentOS Linux release 7.2.1511 (Core)  Nginx安装Nginx 版本 1.14.2具体安装步骤:https://oldsix-sec.github.io/2019/08/26/Centos7-2安装nginx/#more 配置防火墙">
+<meta name="keywords" content="LANMP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Centos7.2搭建LNMP">
+<meta property="og:url" content="http://yoursite.com/2019/08/26/Centos7-2搭建LNMP/index.html">
+<meta property="og:site_name" content="OldSix-Sec">
+<meta property="og:description" content="系统版本 Centos 7.2.151112[root@localhost ~]# cat /etc/redhat-releaseCentOS Linux release 7.2.1511 (Core)  Nginx安装Nginx 版本 1.14.2具体安装步骤:https://oldsix-sec.github.io/2019/08/26/Centos7-2安装nginx/#more 配置防火墙">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/images/lnmp/1-2.png">
+<meta property="og:image" content="http://yoursite.com/images/lnmp/1-3.png">
+<meta property="og:image" content="http://yoursite.com/images/lnmp/1-4.png">
+<meta property="og:image" content="http://yoursite.com/images/lnmp/1-5.png">
+<meta property="og:updated_time" content="2019-08-26T12:08:04.850Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Centos7.2搭建LNMP">
+<meta name="twitter:description" content="系统版本 Centos 7.2.151112[root@localhost ~]# cat /etc/redhat-releaseCentOS Linux release 7.2.1511 (Core)  Nginx安装Nginx 版本 1.14.2具体安装步骤:https://oldsix-sec.github.io/2019/08/26/Centos7-2安装nginx/#more 配置防火墙">
+<meta name="twitter:image" content="http://yoursite.com/images/lnmp/1-2.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/08/26/Centos7-2搭建LNMP/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  
+  <title>Centos7.2搭建LNMP | OldSix-Sec</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OldSix-Sec</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          <a href="javascript:;" class="popup-trigger">
+          
+            <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/26/Centos7-2搭建LNMP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu Shen">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/timg.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OldSix-Sec">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Centos7.2搭建LNMP
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-26 17:13:17 / 修改时间：20:08:04" itemprop="dateCreated datePublished" datetime="2019-08-26T17:13:17+08:00">2019-08-26</time>
+            </span>
+          
+
+          
+            
+
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/LINUX/" itemprop="url" rel="index"><span itemprop="name">LINUX</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/LINUX/系统服务/" itemprop="url" rel="index"><span itemprop="name">系统服务</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="系统版本-Centos-7-2-1511"><a href="#系统版本-Centos-7-2-1511" class="headerlink" title="系统版本 Centos 7.2.1511"></a>系统版本 Centos 7.2.1511</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# cat /etc/redhat-release</span><br><span class="line">CentOS Linux release 7.2.1511 (Core)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Nginx安装"><a href="#Nginx安装" class="headerlink" title="Nginx安装"></a>Nginx安装</h2><p>Nginx 版本 1.14.2<br>具体安装步骤:<a href="https://oldsix-sec.github.io/2019/08/26/Centos7-2安装nginx/#more" target="_blank" rel="noopener">https://oldsix-sec.github.io/2019/08/26/Centos7-2安装nginx/#more</a></p>
+<h3 id="配置防火墙"><a href="#配置防火墙" class="headerlink" title="配置防火墙"></a>配置防火墙</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">------------------------------------------------查看服务状态------------------------------------------------</span><br><span class="line">[root@localhost ~]# systemctl status firewalld</span><br><span class="line">● firewalld.service - firewalld - dynamic firewall daemon</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled; vendor preset: enabled)</span><br><span class="line">   Active: active (running) since 二 2019-08-27 00:24:53 CST; 2h 34min ago</span><br><span class="line"> Main PID: 1245 (firewalld)</span><br><span class="line">   CGroup: /system.slice/firewalld.service</span><br><span class="line">           └─1245 /usr/bin/python -Es /usr/sbin/firewalld --nofork --nopid</span><br><span class="line"></span><br><span class="line">8月 27 00:24:51 localhost.localdomain systemd[1]: Starting firewalld - dynamic firewall daemon...</span><br><span class="line">8月 27 00:24:53 localhost.localdomain systemd[1]: Started firewalld - dynamic firewall daemon.</span><br><span class="line">------------------------------------------------开启TCP80端口-----------------------------------------------</span><br><span class="line">[root@localhost ~]# firewall-cmd --add-port=80/tcp</span><br><span class="line">success</span><br><span class="line">------------------------------------------------查看防火墙信息----------------------------------------------</span><br><span class="line">[root@localhost ~]# firewall-cmd  --list-all</span><br><span class="line">public (default, active)</span><br><span class="line">  interfaces: eno16777736</span><br><span class="line">  sources: </span><br><span class="line">  services: dhcpv6-client ssh</span><br><span class="line">  ports: 80/tcp</span><br><span class="line">  masquerade: no</span><br><span class="line">  forward-ports: </span><br><span class="line">  icmp-blocks: </span><br><span class="line">  rich rules:</span><br></pre></td></tr></table></figure>
+
+<h3 id="访问Nginx网站"><a href="#访问Nginx网站" class="headerlink" title="访问Nginx网站"></a>访问Nginx网站</h3><p><img src="/images/lnmp/1-2.png" alt></p>
+<h2 id="MySQL安装"><a href="#MySQL安装" class="headerlink" title="MySQL安装"></a>MySQL安装</h2><p>MySQL版本：5.7.27<br>具体安装步骤:<a href="https://oldsix-sec.github.io/2019/08/22/Centos7%E5%AE%89%E8%A3%85Mysql5-7/" target="_blank" rel="noopener">https://oldsix-sec.github.io/2019/08/22/Centos7%E5%AE%89%E8%A3%85Mysql5-7/</a></p>
+<h3 id="重置MySQL数据库"><a href="#重置MySQL数据库" class="headerlink" title="重置MySQL数据库"></a>重置MySQL数据库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# cat /var/log/mysqld.log|grep &apos;A temporary password&apos;</span><br><span class="line">2019-08-26T16:25:05.771387Z 1 [Note] A temporary password is generated for root@localhost: :y8GldbVdIKR</span><br><span class="line">[root@localhost ~]# mysql -u root  -p:y8GldbVdIKR</span><br><span class="line">mysql: [Warning] Using a password on the command line interface can be insecure.</span><br><span class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</span><br><span class="line">Your MySQL connection id is 10</span><br><span class="line">Server version: 5.7.27</span><br><span class="line"></span><br><span class="line">Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.</span><br><span class="line"></span><br><span class="line">Oracle is a registered trademark of Oracle Corporation and/or its</span><br><span class="line">affiliates. Other names may be trademarks of their respective</span><br><span class="line">owners.</span><br><span class="line"></span><br><span class="line">Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the current input statement.</span><br><span class="line">------------------------------------------------重置密码----------------------------------------------</span><br><span class="line">mysql&gt; alter user root@localhost identified by &apos;:y8GldbVdIKR&apos;;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line">----------------------------------------------修改密码策略--------------------------------------------</span><br><span class="line">mysql&gt; set global validate_password_policy=0;</span><br><span class="line">Query OK, 0 rows affected (0.01 sec)</span><br><span class="line">mysql&gt; set global validate_password_length=0;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line">------------------------------------------------修改密码----------------------------------------------</span><br><span class="line">mysql&gt; alter user root@localhost identified by &apos;123456&apos;;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置防火墙-1"><a href="#配置防火墙-1" class="headerlink" title="配置防火墙"></a>配置防火墙</h3><p>开启3306/tcp端口(用于远程连接MySQL服务)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# firewall-cmd --add-port=3306/tcp</span><br><span class="line">success</span><br><span class="line">[root@localhost ~]# firewall-cmd --list-all</span><br><span class="line">public (default, active)</span><br><span class="line">  interfaces: eno16777736</span><br><span class="line">  sources: </span><br><span class="line">  services: dhcpv6-client ssh</span><br><span class="line">  ports: 3306/tcp 80/tcp</span><br><span class="line">  masquerade: no</span><br><span class="line">  forward-ports: </span><br><span class="line">  icmp-blocks: </span><br><span class="line">  rich rules:</span><br></pre></td></tr></table></figure>
+
+<h2 id="PHP安装"><a href="#PHP安装" class="headerlink" title="PHP安装"></a>PHP安装</h2><p>PHP版本：7.1.31<br>要让PHP以FastCGI的方式与nginx进行交互，需要有PHP-FPM模块的支持。</p>
+<p>检查是否安装php-fpm</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# rpm -qa |grep php71w-fpm</span><br><span class="line">php71w-fpm-7.1.31-1.w7.x86_64</span><br></pre></td></tr></table></figure>
+
+<p>具体安装步骤<a href="https://oldsix-sec.github.io/2019/08/26/Centos7-2%E5%AE%89%E8%A3%85PHP7-1/" target="_blank" rel="noopener">https://oldsix-sec.github.io/2019/08/26/Centos7-2%E5%AE%89%E8%A3%85PHP7-1/</a></p>
+<p>启动php-fpm</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# systemctl  start php-fpm </span><br><span class="line">[root@localhost ~]# systemctl  status php-fpm</span><br><span class="line">● php-fpm.service - The PHP FastCGI Process Manager</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/php-fpm.service; disabled; vendor preset: disabled)</span><br><span class="line">   Active: active (running) since 二 2019-08-27 00:59:18 CST; 2h 27min ago</span><br><span class="line"> Main PID: 3217 (php-fpm)</span><br><span class="line">   Status: &quot;Processes active: 0, idle: 5, Requests: 0, slow: 0, Traffic: 0req/sec&quot;</span><br><span class="line">   CGroup: /system.slice/php-fpm.service</span><br><span class="line">           ├─3217 php-fpm: master process (/etc/php-fpm.conf)</span><br><span class="line">           ├─3218 php-fpm: pool www</span><br><span class="line">           ├─3219 php-fpm: pool www</span><br><span class="line">           ├─3220 php-fpm: pool www</span><br><span class="line">           ├─3221 php-fpm: pool www</span><br><span class="line">           └─3222 php-fpm: pool www</span><br><span class="line"></span><br><span class="line">8月 27 00:59:18 localhost.localdomain systemd[1]: Starting The PHP FastCGI Process Manager...</span><br><span class="line">8月 27 00:59:18 localhost.localdomain systemd[1]: Started The PHP FastCGI Process Manager.</span><br><span class="line">8月 27 03:26:15 localhost.localdomain systemd[1]: Started The PHP FastCGI Process Manager.</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置Nginx支持PHP（FastCGI方式）"><a href="#配置Nginx支持PHP（FastCGI方式）" class="headerlink" title="配置Nginx支持PHP（FastCGI方式）"></a>配置Nginx支持PHP（FastCGI方式）</h2><p>编辑配置文件 /usr/local/nginx/conf/nginx.conf</p>
+<p>修改fastcgi_param一行中的/scripts为$document_root<br><img src="/images/lnmp/1-3.png" alt><br>重新加载配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# nginx -s reload</span><br></pre></td></tr></table></figure>
+
+<p>新建一个PHP主页测试php程序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# cat /usr/local/nginx/html/phpinfo.php </span><br><span class="line">&lt;?php </span><br><span class="line">phpinfo();</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>访问测试页面<br><img src="/images/lnmp/1-4.png" alt></p>
+<h2 id="测试PHP连接数据库"><a href="#测试PHP连接数据库" class="headerlink" title="测试PHP连接数据库"></a>测试PHP连接数据库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost html]# pwd</span><br><span class="line">/usr/local/nginx/html</span><br><span class="line">[root@localhost html]# vim sql_conn.php</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$servername = <span class="string">"192.168.200.130:3306"</span>;<span class="comment">//mysql服务器主机地址 </span></span><br><span class="line">$username = <span class="string">"root"</span>; <span class="comment">//mysql用户名 </span></span><br><span class="line">$password = <span class="string">"123456"</span>;<span class="comment">//mysql用户名密码 </span></span><br><span class="line"><span class="comment">// 创建连接 </span></span><br><span class="line">$conn = <span class="keyword">new</span> mysqli($servername, $username, $password);</span><br><span class="line"><span class="comment">// 检测连接 </span></span><br><span class="line"><span class="keyword">if</span> ($conn-&gt;connect_error) &#123;</span><br><span class="line">dir(<span class="string">"Connection Failed:"</span>.$conn-&gt;connect_error);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">echo</span> <span class="string">"Connection successfully"</span>;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>访问测试页面<br><img src="/images/lnmp/1-5.png" alt></p>
+
+      
+    </div>
+
+    
+
+    
+      
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/LANMP/" rel="tag"># LANMP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/26/Centos7-2安装nginx/" rel="next" title="Centos7.2安装nginx">
+                <i class="fa fa-chevron-left"></i> Centos7.2安装nginx
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/9102/01/01/top/" rel="prev" title="置顶">
+                置顶 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  
+    <img class="site-author-image" itemprop="image" src="/images/timg.jpg" alt="Shu Shen">
+  
+  <p class="site-author-name" itemprop="name">Shu Shen</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+
+
+  <nav class="site-state motion-element">
+    
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+          
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#系统版本-Centos-7-2-1511"><span class="nav-number">1.</span> <span class="nav-text">系统版本 Centos 7.2.1511</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx安装"><span class="nav-number">2.</span> <span class="nav-text">Nginx安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置防火墙"><span class="nav-number">2.1.</span> <span class="nav-text">配置防火墙</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#访问Nginx网站"><span class="nav-number">2.2.</span> <span class="nav-text">访问Nginx网站</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL安装"><span class="nav-number">3.</span> <span class="nav-text">MySQL安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重置MySQL数据库"><span class="nav-number">3.1.</span> <span class="nav-text">重置MySQL数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置防火墙-1"><span class="nav-number">3.2.</span> <span class="nav-text">配置防火墙</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PHP安装"><span class="nav-number">4.</span> <span class="nav-text">PHP安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置Nginx支持PHP（FastCGI方式）"><span class="nav-number">5.</span> <span class="nav-text">配置Nginx支持PHP（FastCGI方式）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试PHP连接数据库"><span class="nav-number">6.</span> <span class="nav-text">测试PHP连接数据库</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shu Shen</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+    
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+  <script>
+    
+    
+      flOptions = {};
+      
+        flOptions.iconStyle = "box";
+      
+        flOptions.boxForm = "horizontal";
+      
+        flOptions.position = "middleRight";
+      
+        flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+
+    
+
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.2.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+  
+
+  
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.2.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// GET RESPONSIVE HEIGHT PASSED FROM IFRAME
+
+window.addEventListener("message", function(e) {
+  var data = e.data;
+  if ((typeof data === 'string') && (data.indexOf('ciu_embed') > -1)) {
+    var featureID = data.split(':')[1];
+    var height = data.split(':')[2];
+    $(`iframe[data-feature=${featureID}]`).height(parseInt(height) + 30);
+  }
+}, false);
+</script>
+
+
+
+
+
+
+
+
+  
+
+</body>
+</html>

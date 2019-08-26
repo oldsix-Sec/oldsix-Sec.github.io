@@ -111,7 +111,7 @@
 <meta property="og:site_name" content="OldSix-Sec">
 <meta property="og:description" content="PHP-FPM（PHP FastCGI Process Manager的简称，意思是 “PHP FastCGI进程管理器” ）是用于管理PHP进程池的软件，用于接收和处理来自Web服务器（例如nginx）的请求。PHP-FPM软件会创建一个主进程（通常以操作系统中根用户的身份运行），控制何时以及如何把HTTP请求转发给一个或多个子进程处理。PHP-FPM主进程还控制着什么时候创建（处理Web应用更">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-26T09:06:26.907Z">
+<meta property="og:updated_time" content="2019-08-26T12:08:25.752Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Centos7.2安装PHP7.1">
 <meta name="twitter:description" content="PHP-FPM（PHP FastCGI Process Manager的简称，意思是 “PHP FastCGI进程管理器” ）是用于管理PHP进程池的软件，用于接收和处理来自Web服务器（例如nginx）的请求。PHP-FPM软件会创建一个主进程（通常以操作系统中根用户的身份运行），控制何时以及如何把HTTP请求转发给一个或多个子进程处理。PHP-FPM主进程还控制着什么时候创建（处理Web应用更">
@@ -392,7 +392,7 @@
                 
               
 
-              <time title="创建时间：2019-08-26 16:04:10 / 修改时间：17:06:26" itemprop="dateCreated datePublished" datetime="2019-08-26T16:04:10+08:00">2019-08-26</time>
+              <time title="创建时间：2019-08-26 16:04:10 / 修改时间：20:08:25" itemprop="dateCreated datePublished" datetime="2019-08-26T16:04:10+08:00">2019-08-26</time>
             </span>
           
 
@@ -454,11 +454,6 @@
 
       
         <p>PHP-FPM（PHP FastCGI Process Manager的简称，意思是 “PHP FastCGI进程管理器” ）是用于管理PHP进程池的软件，用于接收和处理来自Web服务器（例如nginx）的请求。PHP-FPM软件会创建一个主进程（通常以操作系统中根用户的身份运行），控制何时以及如何把HTTP请求转发给一个或多个子进程处理。PHP-FPM主进程还控制着什么时候创建（处理Web应用更多的流量）和销毁（子进程运行时间太久或不再需要了）PHP子进程。PHP-FPM进程池中的每个进程存在的时间都比单个HTTP请求长，可以处理10，50，100，500或更多的HTTP请求。</p>
-<h2 id="实验环境"><a href="#实验环境" class="headerlink" title="实验环境"></a>实验环境</h2><ul>
-<li>Centos 7.2</li>
-<li>nginx 1.14.2</li>
-<li>php 7.1</li>
-</ul>
 <h2 id="检查当前系统是否安装php"><a href="#检查当前系统是否安装php" class="headerlink" title="检查当前系统是否安装php"></a>检查当前系统是否安装php</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# rpm -qa |grep php</span><br><span class="line">php-common-5.4.16-36.el7_1.x86_64</span><br><span class="line">php-cli-5.4.16-36.el7_1.x86_64</span><br><span class="line">php-5.4.16-36.el7_1.x86_64</span><br><span class="line">[root@localhost ~]# yum -y remove php-*</span><br><span class="line">[root@localhost ~]# rpm -qa |grep php</span><br><span class="line">[root@localhost ~]#</span><br></pre></td></tr></table></figure>
 
 <h2 id="升级openssl"><a href="#升级openssl" class="headerlink" title="升级openssl"></a>升级openssl</h2><p>检查默认安装的openssl</p>
@@ -605,7 +600,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -700,7 +695,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#实验环境"><span class="nav-number">1.</span> <span class="nav-text">实验环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检查当前系统是否安装php"><span class="nav-number">2.</span> <span class="nav-text">检查当前系统是否安装php</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#升级openssl"><span class="nav-number">3.</span> <span class="nav-text">升级openssl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置php7-1-yum源"><span class="nav-number">4.</span> <span class="nav-text">配置php7.1 yum源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装php及相关插件"><span class="nav-number">5.</span> <span class="nav-text">安装php及相关插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检查php版本"><span class="nav-number">6.</span> <span class="nav-text">检查php版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动PHP-FPM"><span class="nav-number">7.</span> <span class="nav-text">启动PHP-FPM</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#检查当前系统是否安装php"><span class="nav-number">1.</span> <span class="nav-text">检查当前系统是否安装php</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#升级openssl"><span class="nav-number">2.</span> <span class="nav-text">升级openssl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置php7-1-yum源"><span class="nav-number">3.</span> <span class="nav-text">配置php7.1 yum源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装php及相关插件"><span class="nav-number">4.</span> <span class="nav-text">安装php及相关插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检查php版本"><span class="nav-number">5.</span> <span class="nav-text">检查php版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动PHP-FPM"><span class="nav-number">6.</span> <span class="nav-text">启动PHP-FPM</span></a></li></ol></div>
             
 
           </div>
