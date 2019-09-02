@@ -103,20 +103,22 @@
   };
 </script>
 
-  <meta name="description" content="系统版本 Centos 7.2.151112[root@localhost ~]# cat /etc/redhat-releaseCentOS Linux release 7.2.1511 (Core)  配置安装环境 安装开发者工具： 1[root@bogon ~]# yum -y groupinstall &amp;apos;Development Tools&amp;apos;  安装nginx依赖软件 1">
-<meta name="keywords" content="LANMP">
+  <meta name="description" content="CSRF(跨站请求伪造)概述Cross-site request forgery 简称为“CSRF”，在CSRF的攻击场景中攻击者会伪造一个请求（这个请求一般是一个链接），然后欺骗目标用户进行点击，用户一旦点击了这个请求，整个攻击就完成了。所以CSRF攻击也成为”one click”攻击。 很多人搞不清楚CSRF的概念，甚至有时候会将其和XSS混淆,更有甚者会将其和越权问题混为一谈,这都是对原理没">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Centos7.2安装nginx">
-<meta property="og:url" content="http://yoursite.com/2019/08/26/Centos7-2安装nginx/index.html">
+<meta property="og:title" content="CSRF跨站请求伪造">
+<meta property="og:url" content="http://yoursite.com/2019/08/29/CSRF跨站请求伪造/index.html">
 <meta property="og:site_name" content="OldSix-Sec">
-<meta property="og:description" content="系统版本 Centos 7.2.151112[root@localhost ~]# cat /etc/redhat-releaseCentOS Linux release 7.2.1511 (Core)  配置安装环境 安装开发者工具： 1[root@bogon ~]# yum -y groupinstall &amp;apos;Development Tools&amp;apos;  安装nginx依赖软件 1">
+<meta property="og:description" content="CSRF(跨站请求伪造)概述Cross-site request forgery 简称为“CSRF”，在CSRF的攻击场景中攻击者会伪造一个请求（这个请求一般是一个链接），然后欺骗目标用户进行点击，用户一旦点击了这个请求，整个攻击就完成了。所以CSRF攻击也成为”one click”攻击。 很多人搞不清楚CSRF的概念，甚至有时候会将其和XSS混淆,更有甚者会将其和越权问题混为一谈,这都是对原理没">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/images/lnmp/1-1.png">
-<meta property="og:updated_time" content="2019-08-26T12:08:54.872Z">
+<meta property="og:image" content="http://yoursite.com/images/CSRF/1-1.png">
+<meta property="og:image" content="http://yoursite.com/images/CSRF/1-2.png">
+<meta property="og:image" content="http://yoursite.com/images/CSRF/1-3.png">
+<meta property="og:image" content="http://yoursite.com/images/CSRF/1-4.png">
+<meta property="og:updated_time" content="2019-09-02T15:35:28.248Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Centos7.2安装nginx">
-<meta name="twitter:description" content="系统版本 Centos 7.2.151112[root@localhost ~]# cat /etc/redhat-releaseCentOS Linux release 7.2.1511 (Core)  配置安装环境 安装开发者工具： 1[root@bogon ~]# yum -y groupinstall &amp;apos;Development Tools&amp;apos;  安装nginx依赖软件 1">
-<meta name="twitter:image" content="http://yoursite.com/images/lnmp/1-1.png">
+<meta name="twitter:title" content="CSRF跨站请求伪造">
+<meta name="twitter:description" content="CSRF(跨站请求伪造)概述Cross-site request forgery 简称为“CSRF”，在CSRF的攻击场景中攻击者会伪造一个请求（这个请求一般是一个链接），然后欺骗目标用户进行点击，用户一旦点击了这个请求，整个攻击就完成了。所以CSRF攻击也成为”one click”攻击。 很多人搞不清楚CSRF的概念，甚至有时候会将其和XSS混淆,更有甚者会将其和越权问题混为一谈,这都是对原理没">
+<meta name="twitter:image" content="http://yoursite.com/images/CSRF/1-1.png">
 
 
 
@@ -124,7 +126,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/08/26/Centos7-2安装nginx/">
+  <link rel="canonical" href="http://yoursite.com/2019/08/29/CSRF跨站请求伪造/">
 
 
 
@@ -135,7 +137,7 @@
 </script>
 
   
-  <title>Centos7.2安装nginx | OldSix-Sec</title>
+  <title>CSRF跨站请求伪造 | OldSix-Sec</title>
   
 
 
@@ -351,7 +353,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/26/Centos7-2安装nginx/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/29/CSRF跨站请求伪造/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Shu Shen">
@@ -368,7 +370,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Centos7.2安装nginx
+          <h1 class="post-title" itemprop="name headline">CSRF跨站请求伪造
 
               
             
@@ -394,13 +396,23 @@
                 
               
 
-              <time title="创建时间：2019-08-26 16:05:36 / 修改时间：20:08:54" itemprop="dateCreated datePublished" datetime="2019-08-26T16:05:36+08:00">2019-08-26</time>
+              <time title="创建时间：2019-08-29 21:57:27" itemprop="dateCreated datePublished" datetime="2019-08-29T21:57:27+08:00">2019-08-29</time>
             </span>
           
 
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-09-02 23:35:28" itemprop="dateModified" datetime="2019-09-02T23:35:28+08:00">2019-09-02</time>
+              </span>
             
           
 
@@ -413,14 +425,21 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/LINUX/" itemprop="url" rel="index"><span itemprop="name">LINUX</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB安全/" itemprop="url" rel="index"><span itemprop="name">WEB安全</span></a></span>
 
                 
                 
                   ，
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/LINUX/系统服务/" itemprop="url" rel="index"><span itemprop="name">系统服务</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB安全/PHP/" itemprop="url" rel="index"><span itemprop="name">PHP</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/WEB安全/PHP/CSRF/" itemprop="url" rel="index"><span itemprop="name">CSRF</span></a></span>
 
                 
                 
@@ -455,34 +474,30 @@
       
 
       
-        <h2 id="系统版本-Centos-7-2-1511"><a href="#系统版本-Centos-7-2-1511" class="headerlink" title="系统版本 Centos 7.2.1511"></a>系统版本 Centos 7.2.1511</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# cat /etc/redhat-release</span><br><span class="line">CentOS Linux release 7.2.1511 (Core)</span><br></pre></td></tr></table></figure>
-
-<h2 id="配置安装环境"><a href="#配置安装环境" class="headerlink" title="配置安装环境"></a>配置安装环境</h2><ul>
-<li><p>安装开发者工具：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon ~]# yum -y groupinstall &apos;Development Tools&apos;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>安装nginx依赖软件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon ~]# yum -y intsall pcre pcre-devel zlib zlib-devel</span><br></pre></td></tr></table></figure>
-
-</li>
+        <h2 id="CSRF-跨站请求伪造-概述"><a href="#CSRF-跨站请求伪造-概述" class="headerlink" title="CSRF(跨站请求伪造)概述"></a>CSRF(跨站请求伪造)概述</h2><p>Cross-site request forgery 简称为“CSRF”，在CSRF的攻击场景中攻击者会伪造一个请求（这个请求一般是一个链接），然后欺骗目标用户进行点击，用户一旦点击了这个请求，整个攻击就完成了。所以CSRF攻击也成为”one click”攻击。 很多人搞不清楚CSRF的概念，甚至有时候会将其和XSS混淆,更有甚者会将其和越权问题混为一谈,这都是对原理没搞清楚导致的。</p>
+<h3 id="从用户的信任角度来区分XSS和CSRF："><a href="#从用户的信任角度来区分XSS和CSRF：" class="headerlink" title="从用户的信任角度来区分XSS和CSRF："></a>从用户的信任角度来区分XSS和CSRF：</h3><ul>
+<li>XSS：攻击者 利用用户对站点的信任，在站点中注入程序来修改网站来获取用户的cookie，或使用户浏览器网站重定向等。</li>
+<li>CSRF：攻击者 利用站点对已经过身份认证的用户的信任，伪造一个链接误导用户点击链接来使用用户的身份认证来访问服务器，在用户非自愿、不知情的情况下提交请求</li>
 </ul>
-<h2 id="源码安装nginx"><a href="#源码安装nginx" class="headerlink" title="源码安装nginx"></a>源码安装nginx</h2><p>源码包下载地址:<a href="http://nginx.org/en/download.html" target="_blank" rel="noopener">http://nginx.org/en/download.html</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon ~]# tar -xf nginx-1.14.2</span><br><span class="line">[root@bogon ~]# cd nginx-1.14.2</span><br><span class="line">---------------配置安装信息--------------</span><br><span class="line">[root@bogon nginx-1.14.2]# ./configure </span><br><span class="line">----------------编译安装-----------------</span><br><span class="line">[root@bogon nginx-1.14.2]# make </span><br><span class="line">[root@bogon nginx-1.14.2]# make install</span><br><span class="line">----------------启动服务-----------------</span><br><span class="line">[root@bogon ~]# /usr/local/nginx/sbin/nginx</span><br></pre></td></tr></table></figure>
+<h3 id="结合社工在身份认证会话过程中实现供给："><a href="#结合社工在身份认证会话过程中实现供给：" class="headerlink" title="结合社工在身份认证会话过程中实现供给："></a>结合社工在身份认证会话过程中实现供给：</h3><ul>
+<li>修改账号密码、个人信息（email、收货地址）</li>
+<li>发送伪造的业务请求（网银、购物、投票）</li>
+<li>关注他人社交账号、推送博文等</li>
+</ul>
+<h3 id="漏洞利用先遣条件"><a href="#漏洞利用先遣条件" class="headerlink" title="漏洞利用先遣条件"></a>漏洞利用先遣条件</h3><ul>
+<li>被害用户已经完成身份认证</li>
+<li>新请求的提交不需要重新身份认证或确认机制</li>
+<li>攻击者必须了解 Web APP 请求的参数构造</li>
+<li>诱使用户触发攻击的指令（社工）</li>
+</ul>
+<h2 id="CSRF实验示例-GET-："><a href="#CSRF实验示例-GET-：" class="headerlink" title="CSRF实验示例(GET)："></a>CSRF实验示例(GET)：</h2><p>用户密码点击提示获取<br><img src="/images/CSRF/1-1.png" alt><br>用户登陆后可修改个人信息<br><img src="/images/CSRF/1-2.png" alt><br>使用BurpSuite截断修改用户向服务器发送的个人信息修改请求报文<br><img src="/images/CSRF/1-3.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">GET /pika/vul/csrf/csrfget/csrf_get_edit.php?sex=boy&amp;phonenum=15988767673&amp;add=nba+lakes&amp;email=kobe%40pikachu.com&amp;submit=submit HTTP/1.1</span><br><span class="line">Host: 127.0.0.1</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2</span><br><span class="line">Referer: http://127.0.0.1/pika/vul/csrf/csrfget/csrf_get_edit.php</span><br><span class="line">Connection: close</span><br><span class="line">Cookie: UM_distinctid=16cd0f427f09-00c483a3070673-4c312272-1fa400-16cd0f427f14a9; CNZZDATA1254690350=674210068-1566873758-%7C1566873758; PHPSESSID=eg8t1vjk35vdi8bpg0n0s7ik87</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br></pre></td></tr></table></figure>
 
-<p>访问网页:<br><img src="/images/lnmp/1-1.png" alt></p>
-<h2 id="后续工作"><a href="#后续工作" class="headerlink" title="后续工作"></a>后续工作</h2><p>查看nginx安装路径：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@bogon ~]# whereis nginx</span><br><span class="line">nginx: /usr/sbin/nginx /usr/local/nginx</span><br></pre></td></tr></table></figure>
+<p>制定恶意变更手机信息链接:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1//pika/vul/csrf/csrfget/csrf_get_edit.php?sex=boy&amp;phonenum=12345678901&amp;add=nba+lakes&amp;email=kobe%40pikachu.com&amp;submit=submit</span><br></pre></td></tr></table></figure>
 
-<p>设置软链接：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ln -sf /usr/local/nginx/sbin/nginx /usr/sbin</span><br></pre></td></tr></table></figure>
-
-<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><ol>
-<li>nginx //启动nginx服务</li>
-<li>ngixn -s stop //关闭nginx服务</li>
-<li>nginx -s reload //重启nginx服务</li>
-<li>nginx -t //检查配置文件</li>
-</ol>
-
+<p>模拟用户访问钓鱼网站查看效果：<br><img src="/images/CSRF/1-4.png" alt></p>
+<h2 id="CSRF实验示例-POST-："><a href="#CSRF实验示例-POST-：" class="headerlink" title="CSRF实验示例(POST)："></a>CSRF实验示例(POST)：</h2>
       
     </div>
 
@@ -507,15 +522,6 @@
 
     <footer class="post-footer">
       
-        
-          
-        
-        <div class="post-tags">
-          
-            <a href="/tags/LANMP/" rel="tag"># LANMP</a>
-          
-        </div>
-      
 
       
       
@@ -525,8 +531,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/08/26/Centos7-2安装PHP7-1/" rel="next" title="Centos7.2安装PHP7.1">
-                <i class="fa fa-chevron-left"></i> Centos7.2安装PHP7.1
+              <a href="/2019/08/27/XSS跨站脚本/" rel="next" title="XSS 跨站脚本攻击">
+                <i class="fa fa-chevron-left"></i> XSS 跨站脚本攻击
               </a>
             
           </div>
@@ -535,8 +541,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/08/26/Centos7-2搭建LNMP/" rel="prev" title="Centos7.2搭建LNMP">
-                Centos7.2搭建LNMP <i class="fa fa-chevron-right"></i>
+              <a href="/9102/01/01/top/" rel="prev" title="置顶">
+                置顶 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -706,7 +712,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#系统版本-Centos-7-2-1511"><span class="nav-number">1.</span> <span class="nav-text">系统版本 Centos 7.2.1511</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置安装环境"><span class="nav-number">2.</span> <span class="nav-text">配置安装环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码安装nginx"><span class="nav-number">3.</span> <span class="nav-text">源码安装nginx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后续工作"><span class="nav-number">4.</span> <span class="nav-text">后续工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用命令"><span class="nav-number">5.</span> <span class="nav-text">常用命令</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#CSRF-跨站请求伪造-概述"><span class="nav-number">1.</span> <span class="nav-text">CSRF(跨站请求伪造)概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#从用户的信任角度来区分XSS和CSRF："><span class="nav-number">1.1.</span> <span class="nav-text">从用户的信任角度来区分XSS和CSRF：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结合社工在身份认证会话过程中实现供给："><span class="nav-number">1.2.</span> <span class="nav-text">结合社工在身份认证会话过程中实现供给：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#漏洞利用先遣条件"><span class="nav-number">1.3.</span> <span class="nav-text">漏洞利用先遣条件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSRF实验示例-GET-："><span class="nav-number">2.</span> <span class="nav-text">CSRF实验示例(GET)：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSRF实验示例-POST-："><span class="nav-number">3.</span> <span class="nav-text">CSRF实验示例(POST)：</span></a></li></ol></div>
             
 
           </div>
