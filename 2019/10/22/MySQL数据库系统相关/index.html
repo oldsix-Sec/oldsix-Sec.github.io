@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    search: {
+      root: '/',
+      path: 'search.xml'
+    },
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    }
+  };
+</script>
+
+  <meta name="description" content="MySQL读写文件了解MySQL版本特性MySQL中读写文件主要是load_file和into outfile 和 into dumpfile, mysql 的导入导出的功能从mysql 5版本起都受 系统变量@@secure_file_prev，该特性影响在&amp;lt;=5.7.5版本的mysql里面默认值为empty, 在大于5.7.6的版本中是是/var/lib/mysql-files(Wind">
+<meta name="keywords" content="SQL注入,LANMP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL数据库系统相关">
+<meta property="og:url" content="http://yoursite.com/2019/10/22/MySQL数据库系统相关/index.html">
+<meta property="og:site_name" content="OldSix-Sec">
+<meta property="og:description" content="MySQL读写文件了解MySQL版本特性MySQL中读写文件主要是load_file和into outfile 和 into dumpfile, mysql 的导入导出的功能从mysql 5版本起都受 系统变量@@secure_file_prev，该特性影响在&amp;lt;=5.7.5版本的mysql里面默认值为empty, 在大于5.7.6的版本中是是/var/lib/mysql-files(Wind">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/images/MYSQL/loadfile1.png">
+<meta property="og:image" content="http://yoursite.com/images/MYSQL/loaddata.png">
+<meta property="og:image" content="http://yoursite.com/images/MYSQL/syscat.png">
+<meta property="og:image" content="http://yoursite.com/images/MYSQL/info_table1.png">
+<meta property="og:image" content="http://yoursite.com/images/MYSQL/info_table2.png">
+<meta property="og:image" content="http://yoursite.com/images/MYSQL/info1.png">
+<meta property="og:image" content="http://yoursite.com/images/MYSQL/info2.png">
+<meta property="og:image" content="http://yoursite.com/images/MYSQL/info3.png">
+<meta property="og:image" content="http://yoursite.com/images/MYSQL/info4.png">
+<meta property="og:image" content="http://yoursite.com/images/MYSQL/info5.png">
+<meta property="og:image" content="http://yoursite.com/images/MYSQL/sys1.png">
+<meta property="og:image" content="http://yoursite.com/images/MYSQL/sys2.png">
+<meta property="og:image" content="http://yoursite.com/images/MYSQL/sys3.png">
+<meta property="og:image" content="http://yoursite.com/images/MYSQL/sys4.png">
+<meta property="og:image" content="http://yoursite.com/images/MYSQL/sys5.png">
+<meta property="og:updated_time" content="2019-10-24T02:54:32.794Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MySQL数据库系统相关">
+<meta name="twitter:description" content="MySQL读写文件了解MySQL版本特性MySQL中读写文件主要是load_file和into outfile 和 into dumpfile, mysql 的导入导出的功能从mysql 5版本起都受 系统变量@@secure_file_prev，该特性影响在&amp;lt;=5.7.5版本的mysql里面默认值为empty, 在大于5.7.6的版本中是是/var/lib/mysql-files(Wind">
+<meta name="twitter:image" content="http://yoursite.com/images/MYSQL/loadfile1.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/10/22/MySQL数据库系统相关/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  
+  <title>MySQL数据库系统相关 | OldSix-Sec</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OldSix-Sec</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          <a href="javascript:;" class="popup-trigger">
+          
+            <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/22/MySQL数据库系统相关/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Shu Shen">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/timg.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OldSix-Sec">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MySQL数据库系统相关
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-22 20:07:48" itemprop="dateCreated datePublished" datetime="2019-10-22T20:07:48+08:00">2019-10-22</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-10-24 10:54:32" itemprop="dateModified" datetime="2019-10-24T10:54:32+08:00">2019-10-24</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/LINUX/" itemprop="url" rel="index"><span itemprop="name">LINUX</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/LINUX/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="MySQL读写文件"><a href="#MySQL读写文件" class="headerlink" title="MySQL读写文件"></a>MySQL读写文件</h2><h3 id="了解MySQL版本特性"><a href="#了解MySQL版本特性" class="headerlink" title="了解MySQL版本特性"></a>了解MySQL版本特性</h3><p>MySQL中读写文件主要是load_file和into outfile 和 into dumpfile, mysql 的导入导出的功能从mysql 5版本起都受 系统变量@@secure_file_prev，该特性影响在&lt;=5.7.5版本的mysql里面默认值为empty, 在大于5.7.6的版本中是是/var/lib/mysql-files(Windows默认是platform sepcific)，表示读写仅能在该目录下进行。</p>
+<p>Secure_file_priv是一个全局变量，它是一个只读变量，你不能在服务运行时改变它。也就是说如果此种注入比较依赖版本。修改这个值的方法需要在配置文件中修改。</p>
+<p>查询<code>%secure_file_priv%</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show global variables like &apos;%secure%&apos;;</span><br><span class="line">+--------------------------+-----------------------+</span><br><span class="line">| Variable_name            | Value                 |</span><br><span class="line">+--------------------------+-----------------------+</span><br><span class="line">| require_secure_transport | OFF                   |</span><br><span class="line">| secure_auth              | ON                    |</span><br><span class="line">| secure_file_priv         | /var/lib/mysql-files/ |</span><br><span class="line">+--------------------------+-----------------------+</span><br><span class="line">3 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<p>windows下：修改my.ini<br>在[mysqld]内加入<code>secure_file_priv =</code></p>
+<p>linux下：修改my.cnf(/etc/my.cnf)<br>在[mysqld]内加入 <code>secure_file_priv =&#39;&#39;</code><br>    <code>&#39;&#39;</code>——运行在所有目录下进行读写文件操作;<br>    <code>/tmp</code>——仅允许在/tmp目录中进行读写文件操作;</p>
+<h3 id="文件读取示例"><a href="#文件读取示例" class="headerlink" title="文件读取示例:"></a>文件读取示例:</h3><h4 id="load-file"><a href="#load-file" class="headerlink" title="load_file()"></a>load_file()</h4><p><code>select load_file(&#39;/tmp/flag&#39;)</code><br><img src="/images/MYSQL/loadfile1.png" alt></p>
+<h4 id="load-data-infile"><a href="#load-data-infile" class="headerlink" title="load data infile"></a>load data infile</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;create table load1(data text not null);</span><br><span class="line">mysql&gt;load data infile &apos;/etc/passwd&apos; into table load1;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/MYSQL/loaddata.png" alt></p>
+<h4 id="system-cat"><a href="#system-cat" class="headerlink" title="system cat"></a>system cat</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;system cat /etc/passwd</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/MYSQL/syscat.png" alt></p>
+<p>此方法仅允许本地读取，远程连接mysql时无法使用system来调用系统命令</p>
+<h3 id="文件写入示例"><a href="#文件写入示例" class="headerlink" title="文件写入示例:"></a>文件写入示例:</h3><p>在渗透过程中拿下后端的数据库管理系统后,除了读取数据表中的数据以外，在权限足够的情况下还可以进行对文件进行读写。</p>
+<h4 id="into-oufile-与-into-dumpfile"><a href="#into-oufile-与-into-dumpfile" class="headerlink" title="into oufile 与 into dumpfile"></a>into oufile 与 into dumpfile</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">//into outfile</span><br><span class="line">mysql&gt; select &apos;&lt;?php phpinfo(); ?&gt; &apos;  into outfile &apos;/tmp/info.php&apos;;</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select load_file(&apos;/tmp/info.php&apos;);</span><br><span class="line">+----------------------------+</span><br><span class="line">| load_file(&apos;/tmp/info.php&apos;) |</span><br><span class="line">+----------------------------+</span><br><span class="line">| &lt;?php phpinfo(); ?&gt; </span><br><span class="line">      |</span><br><span class="line">+----------------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//into dumpfile</span><br><span class="line">mysql&gt; select &apos;&lt;?php phpinfo(); ?&gt; &apos;  into dumpfile &apos;/tmp/info2.php&apos;;</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; select load_file(&apos;/tmp/info2.php&apos;);</span><br><span class="line">+-----------------------------+</span><br><span class="line">| load_file(&apos;/tmp/info2.php&apos;) |</span><br><span class="line">+-----------------------------+</span><br><span class="line">| &lt;?php phpinfo(); ?&gt;         |</span><br><span class="line">+-----------------------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<h4 id="自动查询结果写入文件"><a href="#自动查询结果写入文件" class="headerlink" title="自动查询结果写入文件"></a>自动查询结果写入文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; pager cat &gt;&gt; /tmp/user.txt</span><br><span class="line">PAGER set to &apos;cat &gt;&gt; /tmp/user.txt&apos;</span><br><span class="line">mysql&gt; select user,host from  mysql.user;</span><br><span class="line">3 rows in set (0.00 sec)</span><br><span class="line"></span><br><span class="line">nopager    //返回标准输出</span><br><span class="line">-----------------------------------------</span><br><span class="line">[root@bogon tmp]# cat user.txt </span><br><span class="line">+---------------+-----------+</span><br><span class="line">| user          | host      |</span><br><span class="line">+---------------+-----------+</span><br><span class="line">| mysql.session | localhost |</span><br><span class="line">| mysql.sys     | localhost |</span><br><span class="line">| root          | localhost |</span><br><span class="line">+---------------+-----------+</span><br></pre></td></tr></table></figure>
+
+<h2 id="MySQL数据库系统表"><a href="#MySQL数据库系统表" class="headerlink" title="MySQL数据库系统表"></a>MySQL数据库系统表</h2><h3 id="mysql"><a href="#mysql" class="headerlink" title="mysql"></a>mysql</h3><p>mysql的核心数据库，类似于sql server中的master表，主要负责存储数据库的用户、权限设置、关键字等mysql自己需要使用的控制和管理信息。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show tables ;</span><br><span class="line">+---------------------------+</span><br><span class="line">| Tables_in_mysql           |</span><br><span class="line">+---------------------------+</span><br><span class="line">| columns_priv              |</span><br><span class="line">| db                        | *</span><br><span class="line">| engine_cost               |</span><br><span class="line">| event                     |</span><br><span class="line">| func                      |</span><br><span class="line">| general_log               |</span><br><span class="line">| gtid_executed             |</span><br><span class="line">| help_category             |</span><br><span class="line">| help_keyword              |</span><br><span class="line">| help_relation             |</span><br><span class="line">| help_topic                |</span><br><span class="line">| innodb_index_stats        |</span><br><span class="line">| innodb_table_stats        |</span><br><span class="line">| ndb_binlog_index          |</span><br><span class="line">| plugin                    |</span><br><span class="line">| proc                      |</span><br><span class="line">| procs_priv                |</span><br><span class="line">| proxies_priv              |</span><br><span class="line">| server_cost               |</span><br><span class="line">| servers                   |</span><br><span class="line">| slave_master_info         |</span><br><span class="line">| slave_relay_log_info      |</span><br><span class="line">| slave_worker_info         |</span><br><span class="line">| slow_log                  |</span><br><span class="line">| tables_priv               |</span><br><span class="line">| time_zone                 |</span><br><span class="line">| time_zone_leap_second     |</span><br><span class="line">| time_zone_name            |</span><br><span class="line">| time_zone_transition      |</span><br><span class="line">| time_zone_transition_type |</span><br><span class="line">| user                      | *</span><br><span class="line">+---------------------------+</span><br><span class="line">31 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<h3 id="information-schema简介"><a href="#information-schema简介" class="headerlink" title="information_schema简介"></a>information_schema简介</h3><p>在MySQL中，把 information_schema 看作是一个数据库，确切说是信息数据库。其中保存着关于MySQL服务器所维护的所有其他数据库的元数据信息。如数据库名，数据库的表，表栏的数据类型与访问权 限等。在INFORMATION_SCHEMA中，有数个只读表。它们实际上是视图，而不是基本表，因此，你将无法看到与之相关的任何文件。</p>
+<h3 id="information-schema数据库表说明"><a href="#information-schema数据库表说明" class="headerlink" title="information_schema数据库表说明"></a>information_schema数据库表说明</h3><p><img src="/images/MYSQL/info_table1.png" alt><br><img src="/images/MYSQL/info_table2.png" alt></p>
+<h4 id="查询所有数据库信息"><a href="#查询所有数据库信息" class="headerlink" title="查询所有数据库信息"></a>查询所有数据库信息</h4><p><code>mysql&gt; select * from information_schema.schemata;</code><br><img src="/images/MYSQL/info1.png" alt></p>
+<h4 id="查询表信息"><a href="#查询表信息" class="headerlink" title="查询表信息"></a>查询表信息</h4><p>查询tables表中字段信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;desc information_schema.tables;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/MYSQL/info2.png" alt></p>
+<p>查询所有数据库的表信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select table_catalog,table_schema,table_name  from information_schema.tables;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/MYSQL/info3.png" alt></p>
+<h4 id="查询表中的字段信息"><a href="#查询表中的字段信息" class="headerlink" title="查询表中的字段信息"></a>查询表中的字段信息</h4><p>查询columns表中字段信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;desc information_schema.columns;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/MYSQL/info4.png" alt></p>
+<p>查询表中的字段名</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select  table_name,table_schema,column_name   from information_schema.columns where table_name=&apos;load1&apos;;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/MYSQL/info5.png" alt></p>
+<h3 id="performance-schema"><a href="#performance-schema" class="headerlink" title="performance_schema"></a>performance_schema</h3><p>MySQL的performance schema 用于监控MySQL server在一个较低级别的运行过程中的资源消耗、资源等待等情况</p>
+<h4 id="检查MySQL版本是否支持"><a href="#检查MySQL版本是否支持" class="headerlink" title="检查MySQL版本是否支持"></a>检查MySQL版本是否支持</h4><p>通过查询INFORMATION_SCHEMA.ENGINES表中信息或使用SHOW ENGINES语句来查看它的SUPPORT值是否为YES</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show engines; </span><br><span class="line">mysql&gt; select *  from information_schema.engines;</span><br></pre></td></tr></table></figure>
+
+<p>performance_schema被视为存储引擎。如果该引擎可用，则应该在INFORMATION_SCHEMA.ENGINES表或SHOW ENGINES语句的输出中都可以看到它的SUPPORT值为YES，如下： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">+--------------------+---------+----------------------------------------------------------------+--------------+------+------------+</span><br><span class="line">| Engine             | Support | Comment                                                        | Transactions | XA   | Savepoints |</span><br><span class="line">+--------------------+---------+----------------------------------------------------------------+--------------+------+------------+</span><br><span class="line">| InnoDB             | DEFAULT | Supports transactions, row-level locking, and foreign keys     | YES          | YES  | YES        |</span><br><span class="line">| MRG_MYISAM         | YES     | Collection of identical MyISAM tables                          | NO           | NO   | NO         |</span><br><span class="line">| MEMORY             | YES     | Hash based, stored in memory, useful for temporary tables      | NO           | NO   | NO         |</span><br><span class="line">| BLACKHOLE          | YES     | /dev/null storage engine (anything you write to it disappears) | NO           | NO   | NO         |</span><br><span class="line">| MyISAM             | YES     | MyISAM storage engine                                          | NO           | NO   | NO         |</span><br><span class="line">| CSV                | YES     | CSV storage engine                                             | NO           | NO   | NO         |</span><br><span class="line">| ARCHIVE            | YES     | Archive storage engine                                         | NO           | NO   | NO         |</span><br><span class="line">| PERFORMANCE_SCHEMA | YES     | Performance Schema                                             | NO           | NO   | NO         |</span><br><span class="line">| FEDERATED          | NO      | Federated MySQL storage engine                                 | NULL         | NULL | NULL       |</span><br><span class="line">+--------------------+---------+----------------------------------------------------------------+--------------+------+------------+</span><br></pre></td></tr></table></figure>
+
+<h4 id="查询performance-schema是否启用"><a href="#查询performance-schema是否启用" class="headerlink" title="查询performance_schema是否启用"></a>查询performance_schema是否启用</h4><p>使用show variables语句来查看PERFORMANCE_SCHEMA是否已启用<br><code>mysql&gt; show variables  like &#39;performance_schema&#39;;</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables  like &apos;performance_schema&apos;;</span><br><span class="line">+--------------------+-------+</span><br><span class="line">| Variable_name      | Value |</span><br><span class="line">+--------------------+-------+</span><br><span class="line">| performance_schema | ON    |</span><br><span class="line">+--------------------+-------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<p>performance_schema在5.7.x及其以上版本中默认启用（5.6.x及其以下版本默认关闭），手动启用或关闭需配置my.conf文件，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">performance_schema = ON|OFF</span><br></pre></td></tr></table></figure>
+
+<h3 id="performance-schema数据库中的表分类"><a href="#performance-schema数据库中的表分类" class="headerlink" title="performance_schema数据库中的表分类"></a>performance_schema数据库中的表分类</h3><p>performance_schema库下的表可以按照监视不同的纬度进行了分组，例如：或按照不同数据库对象进行分组，或按照不同的事件类型进行分组，或在按照事件类型分组之后，再进一步根据帐号、主机、程序、线程、用户等细分，如下：</p>
+<h4 id="语句事件记录表"><a href="#语句事件记录表" class="headerlink" title="语句事件记录表"></a>语句事件记录表</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show tables like &apos;events_statement%&apos;;</span><br><span class="line">+----------------------------------------------------+</span><br><span class="line">| Tables_in_performance_schema (events_statement%)   |</span><br><span class="line">+----------------------------------------------------+</span><br><span class="line">| events_statements_current                          | //当前语句事件表</span><br><span class="line">| events_statements_history                          | //历史语句事件表</span><br><span class="line">| events_statements_history_long                     | //长语句历史事件表</span><br><span class="line">| events_statements_summary_by_account_by_event_name | //账号</span><br><span class="line">| events_statements_summary_by_digest                | //摘要</span><br><span class="line">| events_statements_summary_by_host_by_event_name    | //主机</span><br><span class="line">| events_statements_summary_by_program               | //程序</span><br><span class="line">| events_statements_summary_by_thread_by_event_name  | //线程</span><br><span class="line">| events_statements_summary_by_user_by_event_name    | //用户</span><br><span class="line">| events_statements_summary_global_by_event_name     | //全局</span><br><span class="line">+----------------------------------------------------+</span><br><span class="line">10 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<h4 id="等待事件记录表"><a href="#等待事件记录表" class="headerlink" title="等待事件记录表"></a>等待事件记录表</h4><p>等待事件记录表，记录语句执行的等待事件的表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show tables like &apos;events_wait%&apos;;</span><br><span class="line">+-----------------------------------------------+</span><br><span class="line">| Tables_in_performance_schema (events_wait%)   |</span><br><span class="line">+-----------------------------------------------+</span><br><span class="line">| events_waits_current                          |</span><br><span class="line">| events_waits_history                          |</span><br><span class="line">| events_waits_history_long                     |</span><br><span class="line">| events_waits_summary_by_account_by_event_name |</span><br><span class="line">| events_waits_summary_by_host_by_event_name    |</span><br><span class="line">| events_waits_summary_by_instance              |</span><br><span class="line">| events_waits_summary_by_thread_by_event_name  |</span><br><span class="line">| events_waits_summary_by_user_by_event_name    |</span><br><span class="line">| events_waits_summary_global_by_event_name     |</span><br><span class="line">+-----------------------------------------------+</span><br><span class="line">9 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<h4 id="阶段事件记录表"><a href="#阶段事件记录表" class="headerlink" title="阶段事件记录表"></a>阶段事件记录表</h4><p>阶段事件记录表，记录语句执行的阶段事件的表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show tables like &apos;events_stage%&apos;;</span><br><span class="line">+------------------------------------------------+</span><br><span class="line">| Tables_in_performance_schema (events_stage%)   |</span><br><span class="line">+------------------------------------------------+</span><br><span class="line">| events_stages_current                          |</span><br><span class="line">| events_stages_history                          |</span><br><span class="line">| events_stages_history_long                     |</span><br><span class="line">| events_stages_summary_by_account_by_event_name |</span><br><span class="line">| events_stages_summary_by_host_by_event_name    |</span><br><span class="line">| events_stages_summary_by_thread_by_event_name  |</span><br><span class="line">| events_stages_summary_by_user_by_event_name    |</span><br><span class="line">| events_stages_summary_global_by_event_name     |</span><br><span class="line">+------------------------------------------------+</span><br><span class="line">8 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<h4 id="事务事件记录表"><a href="#事务事件记录表" class="headerlink" title="事务事件记录表"></a>事务事件记录表</h4><p>事务事件记录表，记录事务相关的事件的表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show tables like &apos;events_transaction%&apos;;</span><br><span class="line">+------------------------------------------------------+</span><br><span class="line">| Tables_in_performance_schema (events_transaction%)   |</span><br><span class="line">+------------------------------------------------------+</span><br><span class="line">| events_transactions_current                          |</span><br><span class="line">| events_transactions_history                          |</span><br><span class="line">| events_transactions_history_long                     |</span><br><span class="line">| events_transactions_summary_by_account_by_event_name |</span><br><span class="line">| events_transactions_summary_by_host_by_event_name    |</span><br><span class="line">| events_transactions_summary_by_thread_by_event_name  |</span><br><span class="line">| events_transactions_summary_by_user_by_event_name    |</span><br><span class="line">| events_transactions_summary_global_by_event_name     |</span><br><span class="line">+------------------------------------------------------+</span><br><span class="line">8 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<h4 id="监视文件系统层调用表"><a href="#监视文件系统层调用表" class="headerlink" title="监视文件系统层调用表"></a>监视文件系统层调用表</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show tables like &apos;file%&apos;;</span><br><span class="line">+--------------------------------------+</span><br><span class="line">| Tables_in_performance_schema (file%) |</span><br><span class="line">+--------------------------------------+</span><br><span class="line">| file_instances                       |</span><br><span class="line">| file_summary_by_event_name           |</span><br><span class="line">| file_summary_by_instance             |</span><br><span class="line">+--------------------------------------+</span><br><span class="line">3 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<h4 id="监视内存表"><a href="#监视内存表" class="headerlink" title="监视内存表"></a>监视内存表</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; mhow tables like &apos;memory%&apos;;</span><br><span class="line">+-----------------------------------------+</span><br><span class="line">| Tables_in_performance_schema (memory%)  |</span><br><span class="line">+-----------------------------------------+</span><br><span class="line">| memory_summary_by_account_by_event_name |</span><br><span class="line">| memory_summary_by_host_by_event_name    |</span><br><span class="line">| memory_summary_by_thread_by_event_name  |</span><br><span class="line">| memory_summary_by_user_by_event_name    |</span><br><span class="line">| memory_summary_global_by_event_name     |</span><br><span class="line">+-----------------------------------------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<h4 id="动态配置表"><a href="#动态配置表" class="headerlink" title="动态配置表"></a>动态配置表</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show tables like &apos;setup%&apos;;</span><br><span class="line">+---------------------------------------+</span><br><span class="line">| Tables_in_performance_schema (setup%) |</span><br><span class="line">+---------------------------------------+</span><br><span class="line">| setup_actors                          |</span><br><span class="line">| setup_consumers                       |</span><br><span class="line">| setup_instruments                     |</span><br><span class="line">| setup_objects                         |</span><br><span class="line">| setup_timers                          |</span><br><span class="line">+---------------------------------------+</span><br><span class="line">5 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<h3 id="sys"><a href="#sys" class="headerlink" title="sys"></a>sys</h3><p>Sys库所有的数据源来自：performance_schema。目标是把performance_schema的把复杂度降低，让DBA能更好的阅读这个库里的内容。让DBA更快的了解DB的运行情况。</p>
+<p>视图：<br>host : 以IP分组相关的统计信息<br>innodb : innodb buffer 相关信息<br>io : 数据内不同维度展的IO相关的信息<br>memory : 以IP，连接，用户，分配的类型分组及总的占用显示内存的使用<br>metrics : DB的内部的统计值<br>processlist : 线程相关的信息(包含内部线程及用户连接）<br>ps_ : 没有工具统计的一些变量（没看出来存在的价值）<br>schema : 表结构相关的信息，例如： 自增，索引， 表里的每个字段类型，等待的锁等等<br>session : 用户连接相关的信息<br>statement : 基于语句的统计信息（重店）<br>statements_ : 出错的语句，进行全表扫描， 运行时间超长，排序相等（重点）<br>user_ : 和host_开头的相似，只是以用户分组统计<br>wait :  等待事件，比较专业，难看懂。<br>waits : 以IP，用户分组统计出来的一些延迟事件，有一定的参考价值。</p>
+<h4 id="host-summary"><a href="#host-summary" class="headerlink" title="host_summary"></a>host_summary</h4><p><img src="/images/MYSQL/sys1.png" alt></p>
+<h4 id="Io-global-by-file-by-bytes"><a href="#Io-global-by-file-by-bytes" class="headerlink" title="Io_global_by_file_by_bytes"></a>Io_global_by_file_by_bytes</h4><p><img src="/images/MYSQL/sys2.png" alt></p>
+<h4 id="User-summary"><a href="#User-summary" class="headerlink" title="User_summary"></a>User_summary</h4><p><img src="/images/MYSQL/sys3.png" alt></p>
+<h4 id="Memory-by-thread-by-current-bytes"><a href="#Memory-by-thread-by-current-bytes" class="headerlink" title="Memory_by_thread_by_current_bytes"></a>Memory_by_thread_by_current_bytes</h4><p><img src="/images/MYSQL/sys4.png" alt></p>
+<h4 id="Statement-analysis"><a href="#Statement-analysis" class="headerlink" title="Statement_analysis"></a>Statement_analysis</h4><p><img src="/images/MYSQL/sys5.png" alt></p>
+<h2 id="常用查询语句"><a href="#常用查询语句" class="headerlink" title="常用查询语句"></a>常用查询语句</h2><p>查询当前数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select database();</span><br><span class="line">+------------+</span><br><span class="line">| database() |</span><br><span class="line">+------------+</span><br><span class="line">| sys        |</span><br><span class="line">+------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<p>查询当前用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select user();</span><br><span class="line">+----------------+</span><br><span class="line">| user()         |</span><br><span class="line">+----------------+</span><br><span class="line">| root@localhost |</span><br><span class="line">+----------------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<p>查询当前DBMS版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select version();</span><br><span class="line">+-----------+</span><br><span class="line">| version() |</span><br><span class="line">+-----------+</span><br><span class="line">| 5.7.27    |</span><br><span class="line">+-----------+</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<p>全局函数：<br>@@datadir                    #数据库路径<br>@@hostname                    #主机名<br>@@VERSION                    #数据库版本<br>@@version_compile_os        #操作系统版本</p>
+
+      
+    </div>
+
+    
+
+    
+      
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/SQL注入/" rel="tag"># SQL注入</a>
+          
+            <a href="/tags/LANMP/" rel="tag"># LANMP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/10/MySQL数据库基础/" rel="next" title="MySQL数据库基础">
+                <i class="fa fa-chevron-left"></i> MySQL数据库基础
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/9102/01/01/top/" rel="prev" title="置顶">
+                置顶 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  
+    <img class="site-author-image" itemprop="image" src="/images/timg.jpg" alt="Shu Shen">
+  
+  <p class="site-author-name" itemprop="name">Shu Shen</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+
+
+  <nav class="site-state motion-element">
+    
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+          
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL读写文件"><span class="nav-number">1.</span> <span class="nav-text">MySQL读写文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#了解MySQL版本特性"><span class="nav-number">1.1.</span> <span class="nav-text">了解MySQL版本特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件读取示例"><span class="nav-number">1.2.</span> <span class="nav-text">文件读取示例:</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#load-file"><span class="nav-number">1.2.1.</span> <span class="nav-text">load_file()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#load-data-infile"><span class="nav-number">1.2.2.</span> <span class="nav-text">load data infile</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#system-cat"><span class="nav-number">1.2.3.</span> <span class="nav-text">system cat</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#文件写入示例"><span class="nav-number">1.3.</span> <span class="nav-text">文件写入示例:</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#into-oufile-与-into-dumpfile"><span class="nav-number">1.3.1.</span> <span class="nav-text">into oufile 与 into dumpfile</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自动查询结果写入文件"><span class="nav-number">1.3.2.</span> <span class="nav-text">自动查询结果写入文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL数据库系统表"><span class="nav-number">2.</span> <span class="nav-text">MySQL数据库系统表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql"><span class="nav-number">2.1.</span> <span class="nav-text">mysql</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#information-schema简介"><span class="nav-number">2.2.</span> <span class="nav-text">information_schema简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#information-schema数据库表说明"><span class="nav-number">2.3.</span> <span class="nav-text">information_schema数据库表说明</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查询所有数据库信息"><span class="nav-number">2.3.1.</span> <span class="nav-text">查询所有数据库信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询表信息"><span class="nav-number">2.3.2.</span> <span class="nav-text">查询表信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询表中的字段信息"><span class="nav-number">2.3.3.</span> <span class="nav-text">查询表中的字段信息</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#performance-schema"><span class="nav-number">2.4.</span> <span class="nav-text">performance_schema</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#检查MySQL版本是否支持"><span class="nav-number">2.4.1.</span> <span class="nav-text">检查MySQL版本是否支持</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询performance-schema是否启用"><span class="nav-number">2.4.2.</span> <span class="nav-text">查询performance_schema是否启用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#performance-schema数据库中的表分类"><span class="nav-number">2.5.</span> <span class="nav-text">performance_schema数据库中的表分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#语句事件记录表"><span class="nav-number">2.5.1.</span> <span class="nav-text">语句事件记录表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#等待事件记录表"><span class="nav-number">2.5.2.</span> <span class="nav-text">等待事件记录表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#阶段事件记录表"><span class="nav-number">2.5.3.</span> <span class="nav-text">阶段事件记录表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#事务事件记录表"><span class="nav-number">2.5.4.</span> <span class="nav-text">事务事件记录表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#监视文件系统层调用表"><span class="nav-number">2.5.5.</span> <span class="nav-text">监视文件系统层调用表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#监视内存表"><span class="nav-number">2.5.6.</span> <span class="nav-text">监视内存表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#动态配置表"><span class="nav-number">2.5.7.</span> <span class="nav-text">动态配置表</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sys"><span class="nav-number">2.6.</span> <span class="nav-text">sys</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#host-summary"><span class="nav-number">2.6.1.</span> <span class="nav-text">host_summary</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Io-global-by-file-by-bytes"><span class="nav-number">2.6.2.</span> <span class="nav-text">Io_global_by_file_by_bytes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#User-summary"><span class="nav-number">2.6.3.</span> <span class="nav-text">User_summary</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Memory-by-thread-by-current-bytes"><span class="nav-number">2.6.4.</span> <span class="nav-text">Memory_by_thread_by_current_bytes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Statement-analysis"><span class="nav-number">2.6.5.</span> <span class="nav-text">Statement_analysis</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用查询语句"><span class="nav-number">3.</span> <span class="nav-text">常用查询语句</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Shu Shen</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+    
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+  <script>
+    
+    
+      flOptions = {};
+      
+        flOptions.iconStyle = "box";
+      
+        flOptions.boxForm = "horizontal";
+      
+        flOptions.position = "middleRight";
+      
+        flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+
+    
+
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.2.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+  
+
+  
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.2.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// GET RESPONSIVE HEIGHT PASSED FROM IFRAME
+
+window.addEventListener("message", function(e) {
+  var data = e.data;
+  if ((typeof data === 'string') && (data.indexOf('ciu_embed') > -1)) {
+    var featureID = data.split(':')[1];
+    var height = data.split(':')[2];
+    $(`iframe[data-feature=${featureID}]`).height(parseInt(height) + 30);
+  }
+}, false);
+</script>
+
+
+
+
+
+
+
+
+  
+
+</body>
+</html>
